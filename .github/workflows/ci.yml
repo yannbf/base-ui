@@ -38,12 +38,8 @@ jobs:
           cache: 'pnpm' # https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#caching-packages-dependencies
       - run: pnpm install
       - run: pnpm release:build
-      - name: Publish packages
-        if: matrix.os == 'ubuntu-latest'
-        uses: mui/mui-public/.github/actions/ci-publish@76639fa2eabf73261070fa2a6a964209de10688d # master
-        with:
-          pr-comment: true
-          npm-dry-run: true
+      # Research fork: releases go through pkg.pr.new (see pkg-pr-new.yml),
+      # not the upstream ci-publish action / npm publish flow.
       - name: Extract Vale version
         if: ${{ matrix.os == 'ubuntu-latest' }}
         id: vale-version
