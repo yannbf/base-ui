@@ -12,6 +12,7 @@
   "dependencies": {
     "@base-ui/react": "workspace:*",
     "@base-ui/utils": "workspace:*",
+    "@droppy/theme": "workspace:*",
     "@date-fns/tz": "^1.2.0",
     "date-fns": "^4.1.0",
     "react": "19.2.5",

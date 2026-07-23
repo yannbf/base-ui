@@ -146,6 +146,9 @@ importers:
       '@date-fns/tz':
         specifier: ^1.2.0
         version: 1.4.1
+      '@droppy/theme':
+        specifier: workspace:*
+        version: link:../../packages/droppy/build
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -395,7 +398,7 @@ importers:
         specifier: 4.4.3
         version: 4.4.3
 
-  packages/droppy-theme:
+  packages/droppy:
     dependencies:
       '@babel/runtime':
         specifier: ^7.29.2

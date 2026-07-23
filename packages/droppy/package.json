@@ -7,7 +7,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mui/base-ui.git",
-    "directory": "packages/droppy-theme"
+    "directory": "packages/droppy"
   },
   "scripts": {
     "prebuild": "rimraf --glob build \"*.tsbuildinfo\"",
