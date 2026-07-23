@@ -2,7 +2,7 @@
   "name": "@base-ui/mealdrop",
   "version": "0.1.0",
   "author": "MUI Team",
-  "description": "Mealdrop-themed wrappers around @base-ui/react: import the components and one stylesheet, no other styling needed.",
+  "description": "Mealdrop theme for @base-ui/react: a stylesheet of design tokens and md-* classes to apply at your own call sites.",
   "license": "MIT",
   "repository": {
     "type": "git",
