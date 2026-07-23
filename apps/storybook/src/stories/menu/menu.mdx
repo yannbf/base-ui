@@ -9,7 +9,7 @@ import { ShadowPortalExample } from './recreations/ShadowPortalExample';
 import rowActionsSource from './recreations/RowActionsExample.tsx?raw';
 import settingsMenuSource from './recreations/SettingsMenuExample.tsx?raw';
 import shadowPortalSource from './recreations/ShadowPortalExample.tsx?raw';
-import menuCss from './menu.module.css?raw';
+import menuCss from './menu.demo.css?raw';
 import menuIconsSource from './icons.tsx?raw';
 import nextjsOrgShot from '../../../../../research/d-real-world-usage/_captures/nextjs-org.png';
 
@@ -325,7 +325,7 @@ To keep pointer `:hover` visually distinct from the keyboard highlight, disable 
 - Don't `render={<button disabled/>}` on items — it breaks highlighting; use `data-disabled` styling with the `disabled` prop instead ([#1733](https://github.com/mui/base-ui/issues/1733)).
 - Don't port Radix idioms: there is no `asChild` (use `render`), no `data-state` (use `data-open`/`data-popup-open`), and submenus need `SubmenuRoot`, not nested roots ([#3983](https://github.com/mui/base-ui/issues/3983), [#717](https://github.com/mui/base-ui/issues/717)).
 
-## Mealdrop dos & don'ts
+## Brand guidelines
 
 **Do**
 
@@ -334,9 +334,7 @@ To keep pointer `:hover` visually distinct from the keyboard highlight, disable 
 
 **Don't**
 
-- Don't give danger items a red fill — red stays ink-only; the missing error-surface token is a recorded clash (`research/f-brand-v2/CLASHES.md`). (BR-02)
-
-Use the semantic `--ds-*` tokens and existing components; never introduce new colors — see the [Brand guidelines](?path=/docs/overview-brand-guidelines--docs). (DS-01, DS-02, DS-03)
+- Don't give danger items a red fill — red stays ink-only; the missing error-surface token is a recorded clash. (BR-02)
 
 ## In the wild
 

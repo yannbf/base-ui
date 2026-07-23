@@ -9,13 +9,9 @@ import { FlatPropFieldExample } from './recreations/FlatPropFieldExample';
 import { GridLayoutFieldExample } from './recreations/GridLayoutFieldExample';
 import flatPropFieldSource from './recreations/FlatPropFieldExample.tsx?raw';
 import gridLayoutFieldSource from './recreations/GridLayoutFieldExample.tsx?raw';
-import fieldRealWorldCss from './field-real-world.module.css?raw';
-import fieldCss from './field.module.css?raw';
+import fieldCss from './field.demo.css?raw';
 
-export const fieldFiles = [
-  { path: '../field.module.css', code: fieldCss },
-  { path: '../field-real-world.module.css', code: fieldRealWorldCss },
-];
+export const fieldFiles = [{ path: '../field.demo.css', code: fieldCss }];
 
 <Meta of={FieldStories} />
 
@@ -217,7 +213,7 @@ Field itself adds only one keyboard binding — everything else belongs to whate
 - Don't wrap two independent controls (e.g. a Select and a Checkbox) in one `Field.Root` — one Field is one logical value ([#3928](https://github.com/mui/base-ui/issues/3928)).
 - Don't rely on `invalid={false}` to "reset" a field to resume computed validity — that's an open request, not current behavior ([#3777](https://github.com/mui/base-ui/issues/3777)).
 
-## Mealdrop dos & don'ts
+## Brand guidelines
 
 **Do**
 
@@ -226,9 +222,7 @@ Field itself adds only one keyboard binding — everything else belongs to whate
 
 **Don't**
 
-- Don't mark the valid state green — green is never ink; valid stays neutral (`research/f-brand-v2/CLASHES.md`). (BR-02)
-
-Use the semantic `--ds-*` tokens and existing components; never introduce new colors — see the [Brand guidelines](?path=/docs/overview-brand-guidelines--docs). (DS-01, DS-02, DS-03)
+- Don't mark the valid state green — green is never ink; valid stays neutral. (BR-02)
 
 ## In the wild
 
@@ -301,7 +295,7 @@ Two recreations live in this Storybook — a flat-prop wrapper (Kumo) and a grid
   }}
   code={flatPropFieldSource}
   css={fieldCss}
-  dependencies={[{ path: '../field.module.css', code: fieldCss }]}
+  dependencies={fieldFiles}
 >
   <FlatPropFieldExample />
 </MiniPlayground>
@@ -314,7 +308,7 @@ Two recreations live in this Storybook — a flat-prop wrapper (Kumo) and a grid
     license: 'MIT',
   }}
   code={gridLayoutFieldSource}
-  css={fieldRealWorldCss}
+  css={fieldCss}
   dependencies={fieldFiles}
 >
   <GridLayoutFieldExample />

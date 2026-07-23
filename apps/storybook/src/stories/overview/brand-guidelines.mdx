@@ -1,18 +1,17 @@
-{/* Overview page. MDX-only — no stories.tsx, no portable-stories imports (keeping composeStories out of the docs bundle; see the react-singleton note in .storybook/main.ts). Content mirrors the approved "Brand guidelines" Notion page; the Rules index at the bottom assigns the stable IDs (BR-nn / DS-nn) that per-component "Mealdrop dos & don'ts" sections cite. */}
+{/* Overview page. MDX-only — no stories.tsx, no portable-stories imports (keeping composeStories out of the docs bundle; see the react-singleton note in .storybook/main.ts). The Rules index at the bottom assigns the stable IDs (BR-nn / DS-nn) referenced throughout this Storybook — DS-01..DS-04 in particular are the general usage rules that apply to every component page. */}
 
 import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Overview/Brand guidelines" />
 
-# Brand guidelines
+# Droppy brand guidelines
 
-Purpose: How Mealdrop looks, sounds, and behaves — so anyone designing a new screen, writing
-a new string, or building the Base UI-based design system expresses the same brand. Grounded
-in the Mealdrop codebase (`yannbf/mealdrop`, `main`).
+Purpose: How Droppy looks, sounds, and behaves — so anyone designing a new screen, writing
+a new string, or building the Base UI-based design system expresses the same brand.
 
-## What Mealdrop is
+## What Droppy is
 
-Mealdrop is a food-delivery app — browse restaurants near you, pick a meal, check out, done.
+Droppy is a food-delivery app — browse restaurants near you, pick a meal, check out, done.
 It's warm and unfussy: the kind of app that gets out of your way when you're hungry and makes
 you smile on the way through. The brand is carried by a friendly creature mascot, a calm
 mostly-grey interface, and a voice that's casual and a little playful. Nothing shouts — not
@@ -42,7 +41,7 @@ the MealDrop wordmark. The mascot is where the brand's true identity color (teal
   normal tracking (the wordmark deliberately drops the tight heading tracking).
 - **The teal ramp is the mascot's, not the UI's.** The creature is filled with the brand teal
   (`#22ACA7` core, through `#36C1BF`, `#4CC8C0`, `#61D8DE`, with a pale-blue nose `#B1DCE3`).
-  In dark mode the mascot shifts to a lime/green ramp. This color signals Mealdrop talking
+  In dark mode the mascot shifts to a lime/green ramp. This color signals Droppy talking
   about itself — keep it on the mascot and brand surfaces, not in general interface chrome.
 - **The shine.** The logo can play a staggered "shine" — each shape briefly brightens toward
   `#9FF4F1` (lime `#EFFFBB` in dark), 400ms ease-in, rippling ear-to-ear. It's opt-in and
@@ -55,7 +54,7 @@ all-caps; add the shine to non-brand components; crowd the mark — give it clea
 
 ## Color
 
-Mealdrop's palette is a large neutral system with a few small, deliberate splashes of color.
+Droppy's palette is a large neutral system with a few small, deliberate splashes of color.
 The governing idea: grey does the work; color marks moments.
 
 ### The roles
@@ -113,7 +112,7 @@ Rules:
 
 ## Voice & tone
 
-Mealdrop talks like a friendly, slightly cheeky human — never like a corporation.
+Droppy talks like a friendly, slightly cheeky human — never like a corporation.
 
 - **Sentence case everywhere.** Capitalize the first word and proper nouns only. Never Title
   Case, never ALL CAPS.
@@ -152,7 +151,7 @@ Motion is brief, functional, and calm — with character reserved for the brand.
 - **Interactions run short and ease-in** (roughly 150–300ms). Buttons, hovers, transitions.
 - **Theme switch cross-fades over 250ms** — a small, deliberate delight; keep it.
 - **Character animation belongs to the brand mark.** The staggered logo shine and the
-  chomping spinner are Mealdrop being playful about itself — don't replicate that energy on
+  chomping spinner are Droppy being playful about itself — don't replicate that energy on
   ordinary controls.
 - **Ambient motion is a marketing indulgence.** The 60-second food-wall pan is fine on a
   marketing surface; it doesn't belong inside the app's working screens.
@@ -176,9 +175,11 @@ Accessibility is part of the brand's calm, not an afterthought.
 
 ## Rules index
 
-Stable IDs for automated and manual review. `BR` rules are the twelve brand principles
-(`research/f-brand-v2/principles.md`, same numbering); `DS` rules are design-system hygiene.
-Per-component pages cite these IDs in their "Mealdrop dos & don'ts" sections.
+Stable IDs for automated and manual review. `BR` rules are the twelve brand principles above;
+`DS` rules are design-system hygiene. `DS-01`–`DS-04` are the general usage rules that apply
+to every component in this Storybook — use semantic `--ds-*` tokens, reach for an existing
+component before building new, never introduce colors outside the palette, and pick the
+semantically right component for the job.
 
 | ID    | Rule                                                                                                       |
 | ----- | ---------------------------------------------------------------------------------------------------------- |
