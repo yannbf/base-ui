@@ -2,7 +2,8 @@ import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import { Avatar } from '@base-ui/react/avatar';
-import styles from './avatar.module.css';
+import theme from '@droppy/theme';
+import './avatar.demo.css';
 
 /**
  * Stories follow research/c-components/avatar (Tier 3): the kept hero demo
@@ -24,20 +25,20 @@ type Story = StoryObj<typeof meta>;
 /** The docs hero demo: an image avatar with a delayed initials fallback, next to a second avatar with plain text children and no `Image`/`Fallback` parts at all — the docs-sanctioned "no photo available" pattern. */
 export const Hero: Story = {
   render: () => (
-    <div className={styles.Row}>
-      <Avatar.Root className={styles.Root}>
+    <div className="Row">
+      <Avatar.Root className={theme.AvatarRoot}>
         <Avatar.Image
           src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80"
           width="48"
           height="48"
           alt="Jane Doe"
-          className={styles.Image}
+          className={theme.AvatarImage}
         />
-        <Avatar.Fallback delay={600} className={styles.Fallback}>
+        <Avatar.Fallback delay={600} className={theme.AvatarFallback}>
           LT
         </Avatar.Fallback>
       </Avatar.Root>
-      <Avatar.Root className={styles.Root}>LT</Avatar.Root>
+      <Avatar.Root className={theme.AvatarRoot}>LT</Avatar.Root>
     </div>
   ),
 };
@@ -45,13 +46,13 @@ export const Hero: Story = {
 /** A broken/unreachable `src` makes the off-DOM loading probe resolve to `error`, so `Avatar.Fallback` renders in its place — the mandatory image-load-fallback contract (brief §6/§10, story-plan #1). Status resolves asynchronously in a real browser (no mocking, unlike the unit tests), so the play function awaits the fallback text rather than asserting synchronously, then confirms the `<img>` never mounted. */
 export const BrokenImageFallback: Story = {
   render: () => (
-    <Avatar.Root className={styles.Root}>
+    <Avatar.Root className={theme.AvatarRoot}>
       <Avatar.Image
         src="/does-not-exist-broken-avatar.jpg"
         alt="Jane Doe"
-        className={styles.Image}
+        className={theme.AvatarImage}
       />
-      <Avatar.Fallback className={styles.Fallback}>JD</Avatar.Fallback>
+      <Avatar.Fallback className={theme.AvatarFallback}>JD</Avatar.Fallback>
     </Avatar.Root>
   ),
   play: async ({ canvas }) => {
@@ -73,22 +74,22 @@ export const BrokenImageFallback: Story = {
  */
 export const DefaultDelay: Story = {
   render: () => (
-    <div className={styles.Row}>
-      <Avatar.Root className={styles.Root}>
+    <div className="Row">
+      <Avatar.Root className={theme.AvatarRoot}>
         <Avatar.Image
           src="/does-not-exist-broken-avatar.jpg"
           alt="No delay"
-          className={styles.Image}
+          className={theme.AvatarImage}
         />
-        <Avatar.Fallback className={styles.Fallback}>0ms</Avatar.Fallback>
+        <Avatar.Fallback className={theme.AvatarFallback}>0ms</Avatar.Fallback>
       </Avatar.Root>
-      <Avatar.Root className={styles.Root}>
+      <Avatar.Root className={theme.AvatarRoot}>
         <Avatar.Image
           src="/does-not-exist-broken-avatar.jpg"
           alt="600ms delay"
-          className={styles.Image}
+          className={theme.AvatarImage}
         />
-        <Avatar.Fallback delay={600} className={styles.Fallback}>
+        <Avatar.Fallback delay={600} className={theme.AvatarFallback}>
           600
         </Avatar.Fallback>
       </Avatar.Root>
@@ -105,28 +106,28 @@ export const DefaultDelay: Story = {
  */
 export const AltTextVariations: Story = {
   render: () => (
-    <div className={styles.Row}>
+    <div className="Row">
       <div>
-        <Avatar.Root className={styles.Root}>
+        <Avatar.Root className={theme.AvatarRoot}>
           <Avatar.Image
             src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80"
             alt="Jane Doe"
-            className={styles.Image}
+            className={theme.AvatarImage}
           />
-          <Avatar.Fallback className={styles.Fallback}>JD</Avatar.Fallback>
+          <Avatar.Fallback className={theme.AvatarFallback}>JD</Avatar.Fallback>
         </Avatar.Root>
-        <p className={styles.Output}>Informative: avatar is the sole identifier.</p>
+        <p className="Output">Informative: avatar is the sole identifier.</p>
       </div>
-      <div className={styles.Row}>
-        <Avatar.Root className={styles.Root}>
+      <div className="Row">
+        <Avatar.Root className={theme.AvatarRoot}>
           <Avatar.Image
             src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80"
             alt=""
-            className={styles.Image}
+            className={theme.AvatarImage}
           />
-          <Avatar.Fallback className={styles.Fallback}>JD</Avatar.Fallback>
+          <Avatar.Fallback className={theme.AvatarFallback}>JD</Avatar.Fallback>
         </Avatar.Root>
-        <span className={styles.Output}>Jane Doe</span>
+        <span className="Output">Jane Doe</span>
       </div>
     </div>
   ),
@@ -135,17 +136,17 @@ export const AltTextVariations: Story = {
 function LoadingStatusExample() {
   const [statuses, setStatuses] = React.useState<string[]>([]);
   return (
-    <div className={styles.Row}>
-      <Avatar.Root className={styles.Root}>
+    <div className="Row">
+      <Avatar.Root className={theme.AvatarRoot}>
         <Avatar.Image
           src="/does-not-exist-broken-avatar.jpg"
           alt="Jane Doe"
-          className={styles.Image}
+          className={theme.AvatarImage}
           onLoadingStatusChange={(status) => setStatuses((current) => [...current, status])}
         />
-        <Avatar.Fallback className={styles.Fallback}>JD</Avatar.Fallback>
+        <Avatar.Fallback className={theme.AvatarFallback}>JD</Avatar.Fallback>
       </Avatar.Root>
-      <span className={styles.Output}>Statuses: {statuses.join(', ') || 'none yet'}</span>
+      <span className="Output">Statuses: {statuses.join(', ') || 'none yet'}</span>
     </div>
   );
 }

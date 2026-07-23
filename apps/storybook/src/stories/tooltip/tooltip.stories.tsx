@@ -2,7 +2,8 @@ import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, waitFor, within } from 'storybook/test';
 import { Tooltip } from '@base-ui/react/tooltip';
-import styles from './tooltip.module.css';
+import theme from '@droppy/theme';
+import './tooltip.demo.css';
 
 /**
  * Stories follow research/c-components/tooltip (Tier 2, floor coverage): the
@@ -32,15 +33,15 @@ type Story = StoryObj<typeof meta>;
 export const Hero: Story = {
   render: () => (
     <Tooltip.Provider>
-      <div className={styles.Panel}>
+      <div className="TooltipPanel">
         <Tooltip.Root>
-          <Tooltip.Trigger className={styles.Button} aria-label="Bold">
+          <Tooltip.Trigger className="TooltipIconButton" aria-label="Bold">
             B
           </Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Positioner sideOffset={11}>
-              <Tooltip.Popup className={styles.Popup}>
-                <Tooltip.Arrow className={styles.Arrow} />
+              <Tooltip.Popup className={theme.TooltipPopup}>
+                <Tooltip.Arrow className={theme.TooltipArrow} />
                 Bold
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -48,13 +49,13 @@ export const Hero: Story = {
         </Tooltip.Root>
 
         <Tooltip.Root>
-          <Tooltip.Trigger className={styles.Button} aria-label="Italic">
+          <Tooltip.Trigger className="TooltipIconButton" aria-label="Italic">
             I
           </Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Positioner sideOffset={11}>
-              <Tooltip.Popup className={styles.Popup}>
-                <Tooltip.Arrow className={styles.Arrow} />
+              <Tooltip.Popup className={theme.TooltipPopup}>
+                <Tooltip.Arrow className={theme.TooltipArrow} />
                 Italic
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -62,13 +63,13 @@ export const Hero: Story = {
         </Tooltip.Root>
 
         <Tooltip.Root>
-          <Tooltip.Trigger className={styles.Button} aria-label="Underline">
+          <Tooltip.Trigger className="TooltipIconButton" aria-label="Underline">
             U
           </Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Positioner sideOffset={11}>
-              <Tooltip.Popup className={styles.Popup}>
-                <Tooltip.Arrow className={styles.Arrow} />
+              <Tooltip.Popup className={theme.TooltipPopup}>
+                <Tooltip.Arrow className={theme.TooltipArrow} />
                 Underline
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -82,24 +83,24 @@ export const Hero: Story = {
 /** Focus is the primary, reliable interaction path — it has no delay to race against (`useFocus` is independent of the hover rest-timer, brief.md §6). Tab to the trigger and the tooltip appears immediately; tab away and it closes. */
 export const KeyboardFocusOpen: Story = {
   render: () => (
-    <div className={styles.Row}>
-      <button type="button" className={styles.TextButton}>
+    <div className="TooltipRow">
+      <button type="button" className={theme.Button}>
         Before
       </button>
       <Tooltip.Root>
-        <Tooltip.Trigger className={styles.TextButton} aria-label="Save">
+        <Tooltip.Trigger className={theme.Button} aria-label="Save">
           Save
         </Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Positioner sideOffset={8}>
-            <Tooltip.Popup className={styles.Popup}>
-              <Tooltip.Arrow className={styles.Arrow} />
+            <Tooltip.Popup className={theme.TooltipPopup}>
+              <Tooltip.Arrow className={theme.TooltipArrow} />
               Save your changes
             </Tooltip.Popup>
           </Tooltip.Positioner>
         </Tooltip.Portal>
       </Tooltip.Root>
-      <button type="button" className={styles.TextButton}>
+      <button type="button" className={theme.Button}>
         After
       </button>
     </div>
@@ -128,15 +129,15 @@ export const KeyboardFocusOpen: Story = {
 export const ProviderDelayGrouping: Story = {
   render: () => (
     <Tooltip.Provider timeout={400}>
-      <div className={styles.Panel}>
+      <div className="TooltipPanel">
         <Tooltip.Root>
-          <Tooltip.Trigger className={styles.Button} aria-label="Bold">
+          <Tooltip.Trigger className="TooltipIconButton" aria-label="Bold">
             B
           </Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Positioner sideOffset={11}>
-              <Tooltip.Popup className={styles.Popup}>
-                <Tooltip.Arrow className={styles.Arrow} />
+              <Tooltip.Popup className={theme.TooltipPopup}>
+                <Tooltip.Arrow className={theme.TooltipArrow} />
                 Bold
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -144,13 +145,13 @@ export const ProviderDelayGrouping: Story = {
         </Tooltip.Root>
 
         <Tooltip.Root>
-          <Tooltip.Trigger className={styles.Button} aria-label="Italic">
+          <Tooltip.Trigger className="TooltipIconButton" aria-label="Italic">
             I
           </Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Positioner sideOffset={11}>
-              <Tooltip.Popup className={styles.Popup}>
-                <Tooltip.Arrow className={styles.Arrow} />
+              <Tooltip.Popup className={theme.TooltipPopup}>
+                <Tooltip.Arrow className={theme.TooltipArrow} />
                 Italic
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -182,14 +183,14 @@ const arrowSides = ['top', 'right', 'bottom', 'left'] as const;
 /** All positioning lives on the Positioner: `side`, `align`, `sideOffset`. `Tooltip.Arrow`'s `data-side` attribute drives the rotation so one CSS-only arrow serves all four placements. */
 export const PositioningAndArrow: Story = {
   render: () => (
-    <div className={styles.Row}>
+    <div className="TooltipRow">
       {arrowSides.map((side) => (
         <Tooltip.Root key={side} defaultOpen>
-          <Tooltip.Trigger className={styles.TextButton}>{side}</Tooltip.Trigger>
+          <Tooltip.Trigger className={theme.Button}>{side}</Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Positioner side={side} sideOffset={8}>
-              <Tooltip.Popup className={styles.Popup}>
-                <Tooltip.Arrow className={styles.Arrow} />
+              <Tooltip.Popup className={theme.TooltipPopup}>
+                <Tooltip.Arrow className={theme.TooltipArrow} />
                 {`side="${side}"`}
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -205,17 +206,15 @@ const alignments = ['start', 'center', 'end'] as const;
 /** A fuller positioning matrix: every `side` × `align` combination, each rendered open so `data-side`/`data-align`/`data-uncentered` can be spot-checked visually against `Tooltip.Arrow`'s rotation and offset. */
 export const PositioningMatrix: Story = {
   render: () => (
-    <div className={styles.Grid}>
+    <div className="TooltipGrid">
       {arrowSides.map((side) =>
         alignments.map((align) => (
           <Tooltip.Root key={`${side}-${align}`} defaultOpen>
-            <Tooltip.Trigger className={styles.TextButton}>
-              {`${side}/${align}`}
-            </Tooltip.Trigger>
+            <Tooltip.Trigger className={theme.Button}>{`${side}/${align}`}</Tooltip.Trigger>
             <Tooltip.Portal>
               <Tooltip.Positioner side={side} align={align} sideOffset={8}>
-                <Tooltip.Popup className={styles.Popup}>
-                  <Tooltip.Arrow className={styles.Arrow} />
+                <Tooltip.Popup className={theme.TooltipPopup}>
+                  <Tooltip.Arrow className={theme.TooltipArrow} />
                   {`${side} / ${align}`}
                 </Tooltip.Popup>
               </Tooltip.Positioner>
@@ -232,7 +231,7 @@ function ControlledOpenExample() {
   const [reason, setReason] = React.useState<string | null>(null);
 
   return (
-    <div className={styles.Row}>
+    <div className="TooltipRow">
       <Tooltip.Root
         open={open}
         onOpenChange={(nextOpen, eventDetails) => {
@@ -240,17 +239,17 @@ function ControlledOpenExample() {
           setReason(eventDetails.reason ?? null);
         }}
       >
-        <Tooltip.Trigger className={styles.TextButton}>Focus me</Tooltip.Trigger>
+        <Tooltip.Trigger className={theme.Button}>Focus me</Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Positioner sideOffset={8}>
-            <Tooltip.Popup className={styles.Popup}>
-              <Tooltip.Arrow className={styles.Arrow} />
+            <Tooltip.Popup className={theme.TooltipPopup}>
+              <Tooltip.Arrow className={theme.TooltipArrow} />
               Controlled tooltip
             </Tooltip.Popup>
           </Tooltip.Positioner>
         </Tooltip.Portal>
       </Tooltip.Root>
-      <output className={styles.Output}>
+      <output className="TooltipOutput">
         open={String(open)} reason={String(reason)}
       </output>
     </div>
@@ -286,28 +285,28 @@ export const ControlledOpen: Story = {
  */
 export const DelayCustomization: Story = {
   render: () => (
-    <div className={styles.Row}>
+    <div className="TooltipRow">
       <Tooltip.Root>
-        <Tooltip.Trigger className={styles.TextButton} delay={0}>
+        <Tooltip.Trigger className={theme.Button} delay={0}>
           delay=0
         </Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Positioner sideOffset={8}>
-            <Tooltip.Popup className={styles.Popup}>
-              <Tooltip.Arrow className={styles.Arrow} />
+            <Tooltip.Popup className={theme.TooltipPopup}>
+              <Tooltip.Arrow className={theme.TooltipArrow} />
               Opens instantly
             </Tooltip.Popup>
           </Tooltip.Positioner>
         </Tooltip.Portal>
       </Tooltip.Root>
       <Tooltip.Root>
-        <Tooltip.Trigger className={styles.TextButton} closeDelay={500}>
+        <Tooltip.Trigger className={theme.Button} closeDelay={500}>
           closeDelay=500
         </Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Positioner sideOffset={8}>
-            <Tooltip.Popup className={styles.Popup}>
-              <Tooltip.Arrow className={styles.Arrow} />
+            <Tooltip.Popup className={theme.TooltipPopup}>
+              <Tooltip.Arrow className={theme.TooltipArrow} />
               Lingers on close
             </Tooltip.Popup>
           </Tooltip.Positioner>
@@ -320,24 +319,24 @@ export const DelayCustomization: Story = {
 /** `Tooltip.Root disabled` suppresses opening entirely, on every interaction path — unlike `Tooltip.Trigger disabled`, which only stops that one trigger from opening its tooltip while leaving the DOM element itself interactive. */
 export const DisabledTrigger: Story = {
   render: () => (
-    <div className={styles.Row}>
+    <div className="TooltipRow">
       <Tooltip.Root>
-        <Tooltip.Trigger className={styles.TextButton}>Enabled</Tooltip.Trigger>
+        <Tooltip.Trigger className={theme.Button}>Enabled</Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Positioner sideOffset={8}>
-            <Tooltip.Popup className={styles.Popup}>
-              <Tooltip.Arrow className={styles.Arrow} />
+            <Tooltip.Popup className={theme.TooltipPopup}>
+              <Tooltip.Arrow className={theme.TooltipArrow} />
               Enabled tooltip
             </Tooltip.Popup>
           </Tooltip.Positioner>
         </Tooltip.Portal>
       </Tooltip.Root>
       <Tooltip.Root disabled>
-        <Tooltip.Trigger className={styles.TextButton}>Disabled</Tooltip.Trigger>
+        <Tooltip.Trigger className={theme.Button}>Disabled</Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Positioner sideOffset={8}>
-            <Tooltip.Popup className={styles.Popup}>
-              <Tooltip.Arrow className={styles.Arrow} />
+            <Tooltip.Popup className={theme.TooltipPopup}>
+              <Tooltip.Arrow className={theme.TooltipArrow} />
               Disabled tooltip
             </Tooltip.Popup>
           </Tooltip.Positioner>
@@ -363,15 +362,19 @@ const detachedHandle = Tooltip.createHandle();
 /** `Tooltip.createHandle()` connects a `Trigger` rendered anywhere in the tree to a `Root`/`Popup` declared elsewhere — no parent/child DOM relationship is required. Here, external buttons call `handle.open(id)`/`handle.close()` imperatively, and the physically-separate trigger's own focus/hover still works too. */
 export const DetachedTriggerHandle: Story = {
   render: () => (
-    <div className={styles.Form}>
-      <div className={styles.Row}>
-        <Tooltip.Trigger handle={detachedHandle} id="detached-trigger" className={styles.TextButton}>
+    <div>
+      <div className="TooltipRow">
+        <Tooltip.Trigger handle={detachedHandle} id="detached-trigger" className={theme.Button}>
           Detached trigger
         </Tooltip.Trigger>
-        <button type="button" className={styles.TextButton} onClick={() => detachedHandle.open('detached-trigger')}>
+        <button
+          type="button"
+          className={theme.Button}
+          onClick={() => detachedHandle.open('detached-trigger')}
+        >
           Open programmatically
         </button>
-        <button type="button" className={styles.TextButton} onClick={() => detachedHandle.close()}>
+        <button type="button" className={theme.Button} onClick={() => detachedHandle.close()}>
           Close
         </button>
       </div>
@@ -379,8 +382,8 @@ export const DetachedTriggerHandle: Story = {
       <Tooltip.Root handle={detachedHandle}>
         <Tooltip.Portal>
           <Tooltip.Positioner sideOffset={8}>
-            <Tooltip.Popup className={styles.Popup}>
-              <Tooltip.Arrow className={styles.Arrow} />
+            <Tooltip.Popup className={theme.TooltipPopup}>
+              <Tooltip.Arrow className={theme.TooltipArrow} />
               Declared elsewhere in the tree
             </Tooltip.Popup>
           </Tooltip.Positioner>

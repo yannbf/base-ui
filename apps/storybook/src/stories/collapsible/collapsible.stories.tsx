@@ -2,7 +2,8 @@ import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, waitFor } from 'storybook/test';
 import { Collapsible } from '@base-ui/react/collapsible';
-import styles from './collapsible.module.css';
+import theme from '@droppy/theme';
+import './collapsible.demo.css';
 
 /**
  * Stories follow research/c-components/collapsible (Tier 3, lean brief): the
@@ -45,13 +46,13 @@ function CaretRightIcon(props: React.ComponentProps<'svg'>) {
 /** The docs hero demo: a single Trigger+Panel pair, closed by default. */
 export const Hero: Story = {
   render: () => (
-    <Collapsible.Root className={styles.Collapsible}>
-      <Collapsible.Trigger className={styles.Trigger}>
+    <Collapsible.Root className={theme.CollapsibleRoot}>
+      <Collapsible.Trigger className={theme.CollapsibleTrigger}>
         Recovery keys
-        <CaretRightIcon className={styles.Icon} />
+        <CaretRightIcon className={theme.CollapsibleIcon} />
       </Collapsible.Trigger>
-      <Collapsible.Panel className={styles.Panel}>
-        <div className={styles.Content}>
+      <Collapsible.Panel className={theme.CollapsiblePanel}>
+        <div className={theme.CollapsibleContent}>
           <div>alien-bean-pasta</div>
           <div>wild-irish-burrito</div>
           <div>horse-battery-staple</div>
@@ -84,13 +85,13 @@ export const Hero: Story = {
  */
 export const KeepMounted: Story = {
   render: () => (
-    <Collapsible.Root className={styles.Collapsible} defaultOpen={false}>
-      <Collapsible.Trigger className={styles.Trigger}>
+    <Collapsible.Root className={theme.CollapsibleRoot} defaultOpen={false}>
+      <Collapsible.Trigger className={theme.CollapsibleTrigger}>
         Recovery keys
-        <CaretRightIcon className={styles.Icon} />
+        <CaretRightIcon className={theme.CollapsibleIcon} />
       </Collapsible.Trigger>
-      <Collapsible.Panel className={styles.Panel} keepMounted>
-        <div className={styles.Content}>
+      <Collapsible.Panel className={theme.CollapsiblePanel} keepMounted>
+        <div className={theme.CollapsibleContent}>
           <div>alien-bean-pasta</div>
         </div>
       </Collapsible.Panel>
@@ -113,13 +114,13 @@ export const KeepMounted: Story = {
  */
 export const HiddenUntilFound: Story = {
   render: () => (
-    <Collapsible.Root className={styles.Collapsible} defaultOpen={false}>
-      <Collapsible.Trigger className={styles.Trigger}>
+    <Collapsible.Root className={theme.CollapsibleRoot} defaultOpen={false}>
+      <Collapsible.Trigger className={theme.CollapsibleTrigger}>
         Recovery keys
-        <CaretRightIcon className={styles.Icon} />
+        <CaretRightIcon className={theme.CollapsibleIcon} />
       </Collapsible.Trigger>
-      <Collapsible.Panel className={styles.Panel} hiddenUntilFound>
-        <div className={styles.Content}>
+      <Collapsible.Panel className={theme.CollapsiblePanel} hiddenUntilFound>
+        <div className={theme.CollapsibleContent}>
           <div>alien-bean-pasta</div>
         </div>
       </Collapsible.Panel>
@@ -149,30 +150,30 @@ function ControlledCollapsibleDemo() {
 
   return (
     <div>
-      <div className={styles.ExternalControls}>
-        <button type="button" className={styles.ExternalButton} onClick={() => setOpen((v) => !v)}>
+      <div className="ExternalControls">
+        <button type="button" className="ExternalButton" onClick={() => setOpen((v) => !v)}>
           Toggle externally
         </button>
       </div>
       <Collapsible.Root
-        className={styles.Collapsible}
+        className={theme.CollapsibleRoot}
         open={open}
         onOpenChange={(nextOpen, eventDetails) => {
           setOpen(nextOpen);
           setLastReason(eventDetails.reason ?? null);
         }}
       >
-        <Collapsible.Trigger className={styles.Trigger}>
+        <Collapsible.Trigger className={theme.CollapsibleTrigger}>
           Recovery keys
-          <CaretRightIcon className={styles.Icon} />
+          <CaretRightIcon className={theme.CollapsibleIcon} />
         </Collapsible.Trigger>
-        <Collapsible.Panel className={styles.Panel}>
-          <div className={styles.Content}>
+        <Collapsible.Panel className={theme.CollapsiblePanel}>
+          <div className={theme.CollapsibleContent}>
             <div>alien-bean-pasta</div>
           </div>
         </Collapsible.Panel>
       </Collapsible.Root>
-      <div className={styles.Log} data-testid="reason-log">
+      <div className="Log" data-testid="reason-log">
         last onOpenChange reason: {lastReason ?? 'none yet'}
       </div>
     </div>
@@ -220,13 +221,17 @@ export const Controlled: Story = {
  */
 export const AnimatedHeight: Story = {
   render: () => (
-    <Collapsible.Root className={styles.Collapsible}>
-      <Collapsible.Trigger className={styles.Trigger}>
+    <Collapsible.Root className={theme.CollapsibleRoot}>
+      <Collapsible.Trigger className={theme.CollapsibleTrigger}>
         Recovery keys
-        <CaretRightIcon className={styles.Icon} />
+        <CaretRightIcon className={theme.CollapsibleIcon} />
       </Collapsible.Trigger>
-      <Collapsible.Panel className={styles.Panel} data-testid="animated-panel" keepMounted>
-        <div className={styles.Content}>
+      <Collapsible.Panel
+        className={theme.CollapsiblePanel}
+        data-testid="animated-panel"
+        keepMounted
+      >
+        <div className={theme.CollapsibleContent}>
           <div>alien-bean-pasta</div>
           <div>wild-irish-burrito</div>
           <div>horse-battery-staple</div>
@@ -267,13 +272,13 @@ export const Disabled: Story = {
         throw new Error('onOpenChange must not be called while disabled');
       };
       return (
-        <Collapsible.Root className={styles.Collapsible} disabled onOpenChange={onOpenChange}>
-          <Collapsible.Trigger className={styles.Trigger}>
+        <Collapsible.Root className={theme.CollapsibleRoot} disabled onOpenChange={onOpenChange}>
+          <Collapsible.Trigger className={theme.CollapsibleTrigger}>
             Recovery keys
-            <CaretRightIcon className={styles.Icon} />
+            <CaretRightIcon className={theme.CollapsibleIcon} />
           </Collapsible.Trigger>
-          <Collapsible.Panel className={styles.Panel}>
-            <div className={styles.Content}>
+          <Collapsible.Panel className={theme.CollapsiblePanel}>
+            <div className={theme.CollapsibleContent}>
               <div>alien-bean-pasta</div>
             </div>
           </Collapsible.Panel>
@@ -306,21 +311,21 @@ export const Disabled: Story = {
  */
 export const Nested: Story = {
   render: () => (
-    <Collapsible.Root className={styles.Collapsible}>
-      <Collapsible.Trigger className={styles.Trigger}>
+    <Collapsible.Root className={theme.CollapsibleRoot}>
+      <Collapsible.Trigger className={theme.CollapsibleTrigger}>
         Recovery keys
-        <CaretRightIcon className={styles.Icon} />
+        <CaretRightIcon className={theme.CollapsibleIcon} />
       </Collapsible.Trigger>
-      <Collapsible.Panel className={styles.Panel}>
-        <div className={styles.Content}>
+      <Collapsible.Panel className={theme.CollapsiblePanel}>
+        <div className={theme.CollapsibleContent}>
           <div>alien-bean-pasta</div>
-          <Collapsible.Root className={`${styles.Collapsible} ${styles.NestedCollapsible}`}>
-            <Collapsible.Trigger className={styles.Trigger}>
+          <Collapsible.Root className={`${theme.CollapsibleRoot} NestedCollapsible`}>
+            <Collapsible.Trigger className={theme.CollapsibleTrigger}>
               Backup phrase
-              <CaretRightIcon className={styles.Icon} />
+              <CaretRightIcon className={theme.CollapsibleIcon} />
             </Collapsible.Trigger>
-            <Collapsible.Panel className={styles.Panel}>
-              <div className={styles.Content}>
+            <Collapsible.Panel className={theme.CollapsiblePanel}>
+              <div className={theme.CollapsibleContent}>
                 <div>horse-battery-staple</div>
               </div>
             </Collapsible.Panel>
@@ -349,16 +354,16 @@ export const Nested: Story = {
 /** A single Collapsible composed inside a settings-card layout, showing it works normally embedded in ordinary surrounding markup rather than as a standalone widget. */
 export const WithinCard: Story = {
   render: () => (
-    <div className={styles.Card}>
-      <div className={styles.CardHeader}>Security</div>
-      <div className={styles.CardBody}>
-        <Collapsible.Root className={styles.Collapsible}>
-          <Collapsible.Trigger className={styles.Trigger}>
+    <div className="Card">
+      <div className="CardHeader">Security</div>
+      <div className="CardBody">
+        <Collapsible.Root className={theme.CollapsibleRoot}>
+          <Collapsible.Trigger className={theme.CollapsibleTrigger}>
             Recovery keys
-            <CaretRightIcon className={styles.Icon} />
+            <CaretRightIcon className={theme.CollapsibleIcon} />
           </Collapsible.Trigger>
-          <Collapsible.Panel className={styles.Panel}>
-            <div className={styles.Content}>
+          <Collapsible.Panel className={theme.CollapsiblePanel}>
+            <div className={theme.CollapsibleContent}>
               <div>alien-bean-pasta</div>
             </div>
           </Collapsible.Panel>

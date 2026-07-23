@@ -9,7 +9,8 @@ import { Checkbox } from '@base-ui/react/checkbox';
 import { Radio } from '@base-ui/react/radio';
 import { RadioGroup } from '@base-ui/react/radio-group';
 import { Select } from '@base-ui/react/select';
-import styles from './field.module.css';
+import theme from '@droppy/theme';
+import './field.demo.css';
 import { FlatPropFieldExample } from './recreations/FlatPropFieldExample';
 import { GridLayoutFieldExample } from './recreations/GridLayoutFieldExample';
 
@@ -44,15 +45,17 @@ type Story = StoryObj<typeof meta>;
 /** The docs hero demo: label, control, error, and description — all id/aria wiring is automatic. */
 export const Hero: Story = {
   render: () => (
-    <Field.Root className={styles.Field}>
-      <Field.Label className={styles.Label}>Name</Field.Label>
-      <Field.Control required placeholder="Required" className={styles.Input} />
+    <Field.Root className={theme.FieldRoot}>
+      <Field.Label className={theme.FieldLabel}>Name</Field.Label>
+      <Field.Control required placeholder="Required" className={theme.Input} />
 
-      <Field.Error className={styles.Error} match="valueMissing">
+      <Field.Error className={theme.FieldError} match="valueMissing">
         Please enter your name
       </Field.Error>
 
-      <Field.Description className={styles.Description}>Visible on your profile</Field.Description>
+      <Field.Description className={theme.FieldDescription}>
+        Visible on your profile
+      </Field.Description>
     </Field.Root>
   ),
 };
@@ -60,18 +63,18 @@ export const Hero: Story = {
 /** All render-bearing parts in one field, plus the `Field.Validity` render prop. The play function asserts the a11y wiring: label association, `aria-describedby` joining Description (always) and Error (only while rendered), and the tri-state `aria-invalid`. */
 export const AnatomyAllParts: Story = {
   render: () => (
-    <Field.Root name="username" validationMode="onChange" className={styles.Field}>
-      <Field.Label className={styles.Label}>Username</Field.Label>
-      <Field.Control required placeholder="e.g. ada" className={styles.Input} />
-      <Field.Description className={styles.Description}>
+    <Field.Root name="username" validationMode="onChange" className={theme.FieldRoot}>
+      <Field.Label className={theme.FieldLabel}>Username</Field.Label>
+      <Field.Control required placeholder="e.g. ada" className={theme.Input} />
+      <Field.Description className={theme.FieldDescription}>
         Visible on your profile.
       </Field.Description>
-      <Field.Error className={styles.Error} match="valueMissing">
+      <Field.Error className={theme.FieldError} match="valueMissing">
         Please enter a username.
       </Field.Error>
       <Field.Validity>
         {(state) => (
-          <output className={styles.Output}>
+          <output className="FieldDemoOutput">
             validity.valid: {String(state.validity.valid)}
           </output>
         )}
@@ -83,9 +86,7 @@ export const AnatomyAllParts: Story = {
     const input = canvas.getByLabelText('Username');
     const description = canvas.getByText('Visible on your profile.');
 
-    await waitFor(() =>
-      expect(input.getAttribute('aria-describedby')).toContain(description.id),
-    );
+    await waitFor(() => expect(input.getAttribute('aria-describedby')).toContain(description.id));
     // Pristine field: `valid` is null (tri-state), so no aria-invalid yet.
     await expect(input).not.toHaveAttribute('aria-invalid');
 
@@ -102,16 +103,16 @@ export const AnatomyAllParts: Story = {
 /** The forms-handbook labeling strategies side by side: an explicit `Field.Label`, an implicit label enclosing a Checkbox, and the `aria-label` fallback when no visible label exists. */
 export const HandbookLabeling: Story = {
   render: () => (
-    <div className={styles.Row}>
-      <Field.Root className={styles.Field}>
-        <Field.Label className={styles.Label}>Full name</Field.Label>
-        <Field.Control placeholder="Ada Lovelace" className={styles.Input} />
+    <div className="FieldDemoRow">
+      <Field.Root className={theme.FieldRoot}>
+        <Field.Label className={theme.FieldLabel}>Full name</Field.Label>
+        <Field.Control placeholder="Ada Lovelace" className={theme.Input} />
       </Field.Root>
 
-      <Field.Root className={styles.Field}>
-        <Field.Label className={styles.CheckboxLabel}>
-          <Checkbox.Root className={styles.Checkbox}>
-            <Checkbox.Indicator className={styles.CheckboxIndicator}>
+      <Field.Root className={theme.FieldRoot}>
+        <Field.Label className={theme.CheckboxLabel}>
+          <Checkbox.Root className={theme.CheckboxRoot}>
+            <Checkbox.Indicator className={theme.CheckboxIndicator}>
               <CheckIcon />
             </Checkbox.Indicator>
           </Checkbox.Root>
@@ -119,8 +120,13 @@ export const HandbookLabeling: Story = {
         </Field.Label>
       </Field.Root>
 
-      <Field.Root className={styles.Field}>
-        <Field.Control aria-label="Search" type="search" placeholder="Search…" className={styles.Input} />
+      <Field.Root className={theme.FieldRoot}>
+        <Field.Control
+          aria-label="Search"
+          type="search"
+          placeholder="Search…"
+          className={theme.Input}
+        />
       </Field.Root>
     </div>
   ),
@@ -130,9 +136,7 @@ export const HandbookLabeling: Story = {
     await expect(canvas.getByText('Full name')).toHaveAttribute('for', nameInput.id);
 
     // Implicit label: enclosing the checkbox names it without htmlFor plumbing.
-    await expect(
-      canvas.getByRole('checkbox', { name: 'Enable notifications' }),
-    ).toBeVisible();
+    await expect(canvas.getByRole('checkbox', { name: 'Enable notifications' })).toBeVisible();
 
     // Fallback: aria-label directly on the control.
     await expect(canvas.getByRole('searchbox', { name: 'Search' })).toBeVisible();
@@ -142,33 +146,33 @@ export const HandbookLabeling: Story = {
 /** Group anatomy from the forms handbook (#2810): `Fieldset.Legend` labels the group, and each option gets its own `Field.Item` with a per-option label and description. */
 export const GroupWithFieldItem: Story = {
   render: () => (
-    <Field.Root name="storage" className={styles.Field}>
-      <Fieldset.Root className={styles.Fieldset} render={<RadioGroup defaultValue="ssd" />}>
-        <Fieldset.Legend className={styles.Legend}>Storage type</Fieldset.Legend>
-        <Field.Item className={styles.FieldItem}>
-          <Radio.Root value="ssd" className={styles.Radio}>
-            <Radio.Indicator className={styles.RadioIndicator} />
+    <Field.Root name="storage" className={theme.FieldRoot}>
+      <Fieldset.Root className={theme.FieldsetRoot} render={<RadioGroup defaultValue="ssd" />}>
+        <Fieldset.Legend className={theme.FieldsetLegend}>Storage type</Fieldset.Legend>
+        <Field.Item className={theme.FieldItem}>
+          <Radio.Root value="ssd" className={theme.RadioRoot}>
+            <Radio.Indicator className={theme.RadioIndicator} />
           </Radio.Root>
-          <Field.Label className={styles.ItemLabel}>SSD</Field.Label>
-          <Field.Description className={styles.ItemDescription}>
+          <Field.Label className={theme.FieldItemLabel}>SSD</Field.Label>
+          <Field.Description className={theme.FieldItemDescription}>
             Faster reads and writes.
           </Field.Description>
         </Field.Item>
-        <Field.Item className={styles.FieldItem}>
-          <Radio.Root value="hdd" className={styles.Radio}>
-            <Radio.Indicator className={styles.RadioIndicator} />
+        <Field.Item className={theme.FieldItem}>
+          <Radio.Root value="hdd" className={theme.RadioRoot}>
+            <Radio.Indicator className={theme.RadioIndicator} />
           </Radio.Root>
-          <Field.Label className={styles.ItemLabel}>HDD</Field.Label>
-          <Field.Description className={styles.ItemDescription}>
+          <Field.Label className={theme.FieldItemLabel}>HDD</Field.Label>
+          <Field.Description className={theme.FieldItemDescription}>
             Higher capacity at lower cost.
           </Field.Description>
         </Field.Item>
-        <Field.Item className={styles.FieldItem}>
-          <Radio.Root value="network" className={styles.Radio}>
-            <Radio.Indicator className={styles.RadioIndicator} />
+        <Field.Item className={theme.FieldItem}>
+          <Radio.Root value="network" className={theme.RadioRoot}>
+            <Radio.Indicator className={theme.RadioIndicator} />
           </Radio.Root>
-          <Field.Label className={styles.ItemLabel}>Network volume</Field.Label>
-          <Field.Description className={styles.ItemDescription}>
+          <Field.Label className={theme.FieldItemLabel}>Network volume</Field.Label>
+          <Field.Description className={theme.FieldItemDescription}>
             Attached over the internal network.
           </Field.Description>
         </Field.Item>
@@ -181,9 +185,7 @@ export const GroupWithFieldItem: Story = {
 
     const hdd = canvas.getByRole('radio', { name: 'HDD' });
     const hddDescription = canvas.getByText('Higher capacity at lower cost.');
-    await waitFor(() =>
-      expect(hdd.getAttribute('aria-describedby')).toContain(hddDescription.id),
-    );
+    await waitFor(() => expect(hdd.getAttribute('aria-describedby')).toContain(hddDescription.id));
 
     await userEvent.click(hdd);
     await expect(hdd).toHaveAttribute('aria-checked', 'true');
@@ -198,23 +200,23 @@ function OnSubmitModeExample() {
   const [status, setStatus] = React.useState<string | null>(null);
   return (
     <Form
-      className={styles.Form}
+      className={theme.FormRoot}
       onSubmit={(event) => {
         event.preventDefault();
         setStatus('Saved');
       }}
     >
-      <Field.Root name="fullName" className={styles.Field}>
-        <Field.Label className={styles.Label}>Full name</Field.Label>
-        <Field.Control required placeholder="Required" className={styles.Input} />
-        <Field.Error className={styles.Error} match="valueMissing">
+      <Field.Root name="fullName" className={theme.FieldRoot}>
+        <Field.Label className={theme.FieldLabel}>Full name</Field.Label>
+        <Field.Control required placeholder="Required" className={theme.Input} />
+        <Field.Error className={theme.FieldError} match="valueMissing">
           Please enter your full name.
         </Field.Error>
       </Field.Root>
-      <button type="submit" className={styles.Button}>
+      <button type="submit" className={theme.Button}>
         Submit
       </button>
-      {status ? <output className={styles.Output}>{status}</output> : null}
+      {status ? <output className="FieldDemoOutput">{status}</output> : null}
     </Form>
   );
 }
@@ -250,10 +252,10 @@ export const ValidationModeOnSubmit: Story = {
 /** `validationMode="onBlur"`: typing an invalid value shows nothing until focus leaves the control — the middle ground between submit-gated and live validation. Works standalone, without a `Form`. */
 export const ValidationModeOnBlur: Story = {
   render: () => (
-    <Field.Root validationMode="onBlur" className={styles.Field}>
-      <Field.Label className={styles.Label}>Work email</Field.Label>
-      <Field.Control type="email" placeholder="you@company.com" className={styles.Input} />
-      <Field.Error className={styles.Error} match="typeMismatch">
+    <Field.Root validationMode="onBlur" className={theme.FieldRoot}>
+      <Field.Label className={theme.FieldLabel}>Work email</Field.Label>
+      <Field.Control type="email" placeholder="you@company.com" className={theme.Input} />
+      <Field.Error className={theme.FieldError} match="typeMismatch">
         Enter a valid email address.
       </Field.Error>
     </Field.Root>
@@ -289,17 +291,17 @@ export const ValidationModeOnChange: Story = {
           ? 'Use at least 6 characters.'
           : null
       }
-      className={styles.Field}
+      className={theme.FieldRoot}
     >
-      <Field.Label className={styles.Label}>Passphrase</Field.Label>
+      <Field.Label className={theme.FieldLabel}>Passphrase</Field.Label>
       <Field.Control
         type="password"
         required
         minLength={6}
         placeholder="At least 6 characters"
-        className={styles.Input}
+        className={theme.Input}
       />
-      <Field.Error className={styles.Error} />
+      <Field.Error className={theme.FieldError} />
     </Field.Root>
   ),
   play: async ({ canvas, userEvent }) => {
@@ -326,11 +328,11 @@ export const CustomValidateFunction: Story = {
     <Field.Root
       validationMode="onChange"
       validate={(value) => (value === 'base-ui' ? null : 'Type "base-ui" to continue.')}
-      className={styles.Field}
+      className={theme.FieldRoot}
     >
-      <Field.Label className={styles.Label}>Magic word</Field.Label>
-      <Field.Control placeholder="base-ui" className={styles.Input} />
-      <Field.Error className={styles.Error} />
+      <Field.Label className={theme.FieldLabel}>Magic word</Field.Label>
+      <Field.Control placeholder="base-ui" className={theme.Input} />
+      <Field.Error className={theme.FieldError} />
     </Field.Root>
   ),
   play: async ({ canvas, userEvent }) => {
@@ -351,31 +353,31 @@ function CrossFieldValidationExample() {
   const [status, setStatus] = React.useState<string | null>(null);
   return (
     <Form
-      className={styles.Form}
+      className={theme.FormRoot}
       onSubmit={(event) => {
         event.preventDefault();
         setStatus('Account created');
       }}
     >
-      <Field.Root name="password" className={styles.Field}>
-        <Field.Label className={styles.Label}>Password</Field.Label>
-        <Field.Control type="password" required className={styles.Input} />
+      <Field.Root name="password" className={theme.FieldRoot}>
+        <Field.Label className={theme.FieldLabel}>Password</Field.Label>
+        <Field.Control type="password" required className={theme.Input} />
       </Field.Root>
       <Field.Root
         name="confirmPassword"
         validate={(value, formValues) =>
           value !== formValues.password ? 'Passwords do not match.' : null
         }
-        className={styles.Field}
+        className={theme.FieldRoot}
       >
-        <Field.Label className={styles.Label}>Confirm password</Field.Label>
-        <Field.Control type="password" required className={styles.Input} />
-        <Field.Error className={styles.Error} />
+        <Field.Label className={theme.FieldLabel}>Confirm password</Field.Label>
+        <Field.Control type="password" required className={theme.Input} />
+        <Field.Error className={theme.FieldError} />
       </Field.Root>
-      <button type="submit" className={styles.Button}>
+      <button type="submit" className={theme.Button}>
         Create account
       </button>
-      {status ? <output className={styles.Output}>{status}</output> : null}
+      {status ? <output className="FieldDemoOutput">{status}</output> : null}
     </Form>
   );
 }
@@ -416,15 +418,15 @@ function AsyncValidationExample() {
         });
         return takenUsernames.includes(String(value)) ? 'That username is taken.' : null;
       }}
-      className={styles.Field}
+      className={theme.FieldRoot}
     >
-      <Field.Label className={styles.Label}>Username</Field.Label>
-      <Field.Control placeholder="Try “admin”" className={styles.Input} />
-      <Field.Error className={styles.Error} />
-      <Field.Description className={styles.Description}>
+      <Field.Label className={theme.FieldLabel}>Username</Field.Label>
+      <Field.Control placeholder="Try “admin”" className={theme.Input} />
+      <Field.Error className={theme.FieldError} />
+      <Field.Description className={theme.FieldDescription}>
         Availability is checked 300ms after you stop typing.
       </Field.Description>
-      <output className={styles.Output}>validate calls: {checks}</output>
+      <output className="FieldDemoOutput">validate calls: {checks}</output>
     </Field.Root>
   );
 }
@@ -457,10 +459,10 @@ export const AsyncValidationDebounced: Story = {
 /** `Input` extends `Field.Control`, so it participates in labeling and validation with zero wiring — clicking the label focuses it, and the description joins its `aria-describedby`. */
 export const WrapsInput: Story = {
   render: () => (
-    <Field.Root className={styles.Field}>
-      <Field.Label className={styles.Label}>API key</Field.Label>
-      <Input placeholder="sk-…" className={styles.Input} />
-      <Field.Description className={styles.Description}>
+    <Field.Root className={theme.FieldRoot}>
+      <Field.Label className={theme.FieldLabel}>API key</Field.Label>
+      <Input placeholder="sk-…" className={theme.Input} />
+      <Field.Description className={theme.FieldDescription}>
         Find it in the dashboard.
       </Field.Description>
     </Field.Root>
@@ -471,9 +473,7 @@ export const WrapsInput: Story = {
 
     await userEvent.click(canvas.getByText('API key'));
     await expect(input).toHaveFocus();
-    await waitFor(() =>
-      expect(input.getAttribute('aria-describedby')).toContain(description.id),
-    );
+    await waitFor(() => expect(input.getAttribute('aria-describedby')).toContain(description.id));
   },
 };
 
@@ -487,33 +487,33 @@ function WrapsSelectExample() {
   const [status, setStatus] = React.useState<string | null>(null);
   return (
     <Form
-      className={styles.Form}
+      className={theme.FormRoot}
       onSubmit={(event) => {
         event.preventDefault();
         setStatus('Saved');
       }}
     >
-      <Field.Root name="tier" className={styles.Field}>
-        <Field.Label className={styles.Label} nativeLabel={false} render={<div />}>
+      <Field.Root name="tier" className={theme.FieldRoot}>
+        <Field.Label className={theme.FieldLabel} nativeLabel={false} render={<div />}>
           Plan tier
         </Field.Label>
         <Select.Root items={tierItems} required>
-          <Select.Trigger className={styles.Select}>
-            <Select.Value className={styles.SelectValue} placeholder="Select tier" />
-            <Select.Icon className={styles.SelectIcon}>
+          <Select.Trigger className={theme.SelectTrigger}>
+            <Select.Value className={theme.SelectValue} placeholder="Select tier" />
+            <Select.Icon className={theme.SelectIcon}>
               <CaretUpDownIcon />
             </Select.Icon>
           </Select.Trigger>
           <Select.Portal>
-            <Select.Positioner className={styles.Positioner} sideOffset={4}>
-              <Select.Popup className={styles.Popup}>
-                <Select.List className={styles.List}>
+            <Select.Positioner className={theme.SelectPositioner} sideOffset={4}>
+              <Select.Popup className={theme.SelectPopup}>
+                <Select.List className={theme.SelectList}>
                   {tierItems.map(({ value, label }) => (
-                    <Select.Item key={value} value={value} className={styles.SelectItem}>
-                      <Select.ItemIndicator className={styles.SelectItemIndicator}>
+                    <Select.Item key={value} value={value} className={theme.SelectItem}>
+                      <Select.ItemIndicator className={theme.SelectItemIndicator}>
                         <CheckIcon />
                       </Select.ItemIndicator>
-                      <Select.ItemText className={styles.SelectItemText}>{label}</Select.ItemText>
+                      <Select.ItemText className={theme.SelectItemText}>{label}</Select.ItemText>
                     </Select.Item>
                   ))}
                 </Select.List>
@@ -521,14 +521,14 @@ function WrapsSelectExample() {
             </Select.Positioner>
           </Select.Portal>
         </Select.Root>
-        <Field.Error className={styles.Error} match="valueMissing">
+        <Field.Error className={theme.FieldError} match="valueMissing">
           Please choose a tier.
         </Field.Error>
       </Field.Root>
-      <button type="submit" className={styles.Button}>
+      <button type="submit" className={theme.Button}>
         Save plan
       </button>
-      {status ? <output className={styles.Output}>{status}</output> : null}
+      {status ? <output className="FieldDemoOutput">{status}</output> : null}
     </Form>
   );
 }
@@ -559,29 +559,29 @@ function WrapsCheckboxExample() {
   const [status, setStatus] = React.useState<string | null>(null);
   return (
     <Form
-      className={styles.Form}
+      className={theme.FormRoot}
       onSubmit={(event) => {
         event.preventDefault();
         setStatus('Saved');
       }}
     >
-      <Field.Root name="terms" className={styles.Field}>
-        <Field.Label className={styles.CheckboxLabel}>
-          <Checkbox.Root required className={styles.Checkbox}>
-            <Checkbox.Indicator className={styles.CheckboxIndicator}>
+      <Field.Root name="terms" className={theme.FieldRoot}>
+        <Field.Label className={theme.CheckboxLabel}>
+          <Checkbox.Root required className={theme.CheckboxRoot}>
+            <Checkbox.Indicator className={theme.CheckboxIndicator}>
               <CheckIcon />
             </Checkbox.Indicator>
           </Checkbox.Root>
           Accept the terms
         </Field.Label>
-        <Field.Error className={styles.Error} match="valueMissing">
+        <Field.Error className={theme.FieldError} match="valueMissing">
           You must accept the terms to continue.
         </Field.Error>
       </Field.Root>
-      <button type="submit" className={styles.Button}>
+      <button type="submit" className={theme.Button}>
         Sign up
       </button>
-      {status ? <output className={styles.Output}>{status}</output> : null}
+      {status ? <output className="FieldDemoOutput">{status}</output> : null}
     </Form>
   );
 }
@@ -593,9 +593,7 @@ export const WrapsCheckbox: Story = {
     const checkbox = canvas.getByRole('checkbox', { name: 'Accept the terms' });
 
     await userEvent.click(canvas.getByRole('button', { name: 'Sign up' }));
-    await expect(
-      await canvas.findByText('You must accept the terms to continue.'),
-    ).toBeVisible();
+    await expect(await canvas.findByText('You must accept the terms to continue.')).toBeVisible();
 
     await userEvent.click(checkbox);
     await userEvent.click(canvas.getByRole('button', { name: 'Sign up' }));
@@ -609,15 +607,15 @@ export const WrapsCheckbox: Story = {
 /** The sanctioned custom-control path (#1996): `Field.Control render={<textarea />}`. The state machine still runs — typing sets `data-dirty`/`data-filled`, blurring sets `data-touched`. With the default `onSubmit` mode and no surrounding `Form`, validity stays pristine: neither `data-valid` nor `data-invalid` is present. */
 export const WrapsCustomTextarea: Story = {
   render: () => (
-    <Field.Root className={styles.Field}>
-      <Field.Label className={styles.Label}>Feedback</Field.Label>
+    <Field.Root className={theme.FieldRoot}>
+      <Field.Label className={theme.FieldLabel}>Feedback</Field.Label>
       <Field.Control
         required
         render={<textarea rows={3} />}
         placeholder="What should we improve?"
-        className={styles.Textarea}
+        className={theme.FieldTextarea}
       />
-      <Field.Description className={styles.Description}>
+      <Field.Description className={theme.FieldDescription}>
         Plain text, at most 500 characters.
       </Field.Description>
     </Field.Root>
@@ -646,18 +644,26 @@ export const WrapsCustomTextarea: Story = {
 /** Every interaction state is a data-attribute on every part — the badges below light up purely via CSS on `Field.Root`'s attributes. The play function drives the whole machine: pristine (neither `data-valid` nor `data-invalid`), focused, dirty + filled, invalid after clearing, valid after retyping, touched after blur. */
 export const StateAttributesStyling: Story = {
   render: () => (
-    <Field.Root name="displayName" validationMode="onChange" className={styles.StateField}>
-      <Field.Label className={styles.Label}>Display name</Field.Label>
-      <Field.Control required placeholder="Type, clear, and blur…" className={styles.StateInput} />
-      <div className={styles.BadgeRow} aria-hidden="true">
-        <span className={`${styles.Badge} ${styles.BadgeFocused}`}>data-focused</span>
-        <span className={`${styles.Badge} ${styles.BadgeDirty}`}>data-dirty</span>
-        <span className={`${styles.Badge} ${styles.BadgeFilled}`}>data-filled</span>
-        <span className={`${styles.Badge} ${styles.BadgeTouched}`}>data-touched</span>
-        <span className={`${styles.Badge} ${styles.BadgeValid}`}>data-valid</span>
-        <span className={`${styles.Badge} ${styles.BadgeInvalid}`}>data-invalid</span>
+    <Field.Root
+      name="displayName"
+      validationMode="onChange"
+      className={`${theme.FieldRoot} FieldDemoStateField`}
+    >
+      <Field.Label className={theme.FieldLabel}>Display name</Field.Label>
+      <Field.Control
+        required
+        placeholder="Type, clear, and blur…"
+        className={`${theme.Input} FieldDemoStateInput`}
+      />
+      <div className="FieldDemoBadgeRow" aria-hidden="true">
+        <span className="FieldDemoBadge FieldDemoBadgeFocused">data-focused</span>
+        <span className="FieldDemoBadge FieldDemoBadgeDirty">data-dirty</span>
+        <span className="FieldDemoBadge FieldDemoBadgeFilled">data-filled</span>
+        <span className="FieldDemoBadge FieldDemoBadgeTouched">data-touched</span>
+        <span className="FieldDemoBadge FieldDemoBadgeValid">data-valid</span>
+        <span className="FieldDemoBadge FieldDemoBadgeInvalid">data-invalid</span>
       </div>
-      <Field.Description className={styles.Description}>
+      <Field.Description className={theme.FieldDescription}>
         The badges reflect the data-attributes on the field root.
       </Field.Description>
     </Field.Root>
@@ -694,7 +700,7 @@ function ServerErrorExample() {
   const [errors, setErrors] = React.useState<Form.Props['errors']>({});
   return (
     <Form
-      className={styles.Form}
+      className={theme.FormRoot}
       errors={errors}
       onSubmit={(event) => {
         event.preventDefault();
@@ -702,20 +708,20 @@ function ServerErrorExample() {
         setErrors({ email: 'This email is already registered.' });
       }}
     >
-      <Field.Root name="email" className={styles.Field}>
-        <Field.Label className={styles.Label}>Email</Field.Label>
+      <Field.Root name="email" className={theme.FieldRoot}>
+        <Field.Label className={theme.FieldLabel}>Email</Field.Label>
         <Field.Control
           type="email"
           required
           defaultValue="taken@example.com"
-          className={styles.Input}
+          className={theme.Input}
         />
-        <Field.Error className={styles.Error} />
-        <Field.Description className={styles.Description}>
+        <Field.Error className={theme.FieldError} />
+        <Field.Description className={theme.FieldDescription}>
           Submitting simulates a server rejection keyed by the field's `name`.
         </Field.Description>
       </Field.Root>
-      <button type="submit" className={styles.Button}>
+      <button type="submit" className={theme.Button}>
         Sign up
       </button>
     </Form>
@@ -745,26 +751,26 @@ function ControlledFieldExample() {
   const [invalid, setInvalid] = React.useState(false);
   const [disabled, setDisabled] = React.useState(false);
   return (
-    <div className={styles.Stack}>
+    <div className="FieldDemoStack">
       <Field.Root
         name="handle"
         invalid={invalid}
         touched
         dirty
         disabled={disabled}
-        className={styles.Field}
+        className={theme.FieldRoot}
       >
-        <Field.Label className={styles.Label}>Handle</Field.Label>
-        <Field.Control defaultValue="@ada" className={styles.Input} />
-        <Field.Error className={styles.Error} match={invalid}>
+        <Field.Label className={theme.FieldLabel}>Handle</Field.Label>
+        <Field.Control defaultValue="@ada" className={theme.Input} />
+        <Field.Error className={theme.FieldError} match={invalid}>
           That handle is unavailable.
         </Field.Error>
       </Field.Root>
-      <div className={styles.Row}>
-        <button type="button" className={styles.Button} onClick={() => setInvalid((v) => !v)}>
+      <div className="FieldDemoRow">
+        <button type="button" className={theme.Button} onClick={() => setInvalid((v) => !v)}>
           Toggle invalid
         </button>
-        <button type="button" className={styles.Button} onClick={() => setDisabled((v) => !v)}>
+        <button type="button" className={theme.Button} onClick={() => setDisabled((v) => !v)}>
           Toggle disabled
         </button>
       </div>
@@ -799,10 +805,10 @@ export const ExternalLibraryControlled: Story = {
 /** `Field.Error` supports the standard transition-status attributes (`data-starting-style`/`data-ending-style`, #3939) and keeps the last rendered message during the exit transition, so text doesn't vanish mid-fade. */
 export const ErrorTransitionAnimation: Story = {
   render: () => (
-    <Field.Root validationMode="onChange" className={styles.Field}>
-      <Field.Label className={styles.Label}>Project name</Field.Label>
-      <Field.Control required placeholder="Required" className={styles.Input} />
-      <Field.Error className={styles.ErrorAnimated} match="valueMissing">
+    <Field.Root validationMode="onChange" className={theme.FieldRoot}>
+      <Field.Label className={theme.FieldLabel}>Project name</Field.Label>
+      <Field.Control required placeholder="Required" className={theme.Input} />
+      <Field.Error className={theme.FieldErrorAnimated} match="valueMissing">
         This field is required.
       </Field.Error>
     </Field.Root>

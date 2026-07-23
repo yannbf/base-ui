@@ -5,7 +5,8 @@ import { Autocomplete } from '@base-ui/react/autocomplete';
 import { Dialog } from '@base-ui/react/dialog';
 import { Field } from '@base-ui/react/field';
 import { Form } from '@base-ui/react/form';
-import styles from './autocomplete.module.css';
+import theme from '@droppy/theme';
+import './autocomplete.demo.css';
 import { FieldIntegratedAutocompleteExample } from './recreations/FieldIntegratedAutocompleteExample';
 import { MultiSkinAutocompleteExample } from './recreations/MultiSkinAutocompleteExample';
 
@@ -79,19 +80,19 @@ function DemoAutocomplete({
 }) {
   return (
     <Autocomplete.Root items={items} {...root}>
-      <label className={styles.Label}>
+      <label className={theme.FieldLabel}>
         {label}
-        <Autocomplete.Input placeholder={placeholder} className={styles.Input} />
+        <Autocomplete.Input placeholder={placeholder} className={theme.AutocompleteInput} />
       </label>
       <Autocomplete.Portal>
-        <Autocomplete.Positioner className={styles.Positioner} sideOffset={4}>
-          <Autocomplete.Popup className={popupClassName ?? styles.Popup}>
+        <Autocomplete.Positioner className={theme.AutocompletePositioner} sideOffset={4}>
+          <Autocomplete.Popup className={popupClassName ?? theme.AutocompletePopup}>
             <Autocomplete.Empty>
-              <div className={styles.Empty}>No matching tags.</div>
+              <div className={theme.AutocompleteEmpty}>No matching tags.</div>
             </Autocomplete.Empty>
-            <Autocomplete.List className={styles.List}>
+            <Autocomplete.List className={theme.AutocompleteList}>
               {(tag: string) => (
-                <Autocomplete.Item key={tag} className={styles.Item} value={tag}>
+                <Autocomplete.Item key={tag} className={theme.AutocompleteItem} value={tag}>
                   {tag}
                 </Autocomplete.Item>
               )}
@@ -111,16 +112,22 @@ function DemoAutocomplete({
 export const Hero: Story = {
   render: () => (
     <Autocomplete.Root items={tags}>
-      <label className={styles.Label}>
+      <label className={theme.FieldLabel}>
         Search tags
-        <Autocomplete.InputGroup className={styles.InputGroup}>
-          <Autocomplete.Input placeholder="e.g. feature" className={styles.GroupedInput} />
-          <div className={styles.ActionButtons}>
-            <Autocomplete.Clear className={styles.ActionButton} aria-label="Clear input">
+        <Autocomplete.InputGroup className={theme.AutocompleteInputGroup}>
+          <Autocomplete.Input
+            placeholder="e.g. feature"
+            className={theme.AutocompleteGroupedInput}
+          />
+          <div className={theme.AutocompleteActionButtons}>
+            <Autocomplete.Clear className={theme.AutocompleteActionButton} aria-label="Clear input">
               <XIcon />
             </Autocomplete.Clear>
-            <Autocomplete.Trigger className={styles.ActionButton} aria-label="Open popup">
-              <Autocomplete.Icon className={styles.Icon}>
+            <Autocomplete.Trigger
+              className={theme.AutocompleteActionButton}
+              aria-label="Open popup"
+            >
+              <Autocomplete.Icon className="AutocompleteDemoIcon">
                 <CaretDownIcon />
               </Autocomplete.Icon>
             </Autocomplete.Trigger>
@@ -128,14 +135,14 @@ export const Hero: Story = {
         </Autocomplete.InputGroup>
       </label>
       <Autocomplete.Portal>
-        <Autocomplete.Positioner className={styles.Positioner} sideOffset={4}>
-          <Autocomplete.Popup className={styles.Popup}>
+        <Autocomplete.Positioner className={theme.AutocompletePositioner} sideOffset={4}>
+          <Autocomplete.Popup className={theme.AutocompletePopup}>
             <Autocomplete.Empty>
-              <div className={styles.Empty}>No matching tags.</div>
+              <div className={theme.AutocompleteEmpty}>No matching tags.</div>
             </Autocomplete.Empty>
-            <Autocomplete.List className={styles.List}>
+            <Autocomplete.List className={theme.AutocompleteList}>
               {(tag: string) => (
-                <Autocomplete.Item key={tag} className={styles.Item} value={tag}>
+                <Autocomplete.Item key={tag} className={theme.AutocompleteItem} value={tag}>
                   {tag}
                 </Autocomplete.Item>
               )}
@@ -150,7 +157,7 @@ export const Hero: Story = {
 function TypeSuggestSelectExample() {
   const [lastChange, setLastChange] = React.useState('none yet');
   return (
-    <div className={styles.Stack}>
+    <div className="AutocompleteDemoStack">
       <DemoAutocomplete
         label="Search tags"
         placeholder="e.g. feature"
@@ -159,7 +166,7 @@ function TypeSuggestSelectExample() {
             setLastChange(`${value} (reason: ${eventDetails.reason})`),
         }}
       />
-      <output className={styles.Output}>onValueChange: {lastChange}</output>
+      <output className="AutocompleteDemoOutput">onValueChange: {lastChange}</output>
     </div>
   );
 }
@@ -200,7 +207,7 @@ export const TypeSuggestSelect: Story = {
 /** `mode="list"` (default) filters items without touching the input; `mode="none"` shows a static list — the "recent searches" pattern. The prop value is passed straight through as `aria-autocomplete`. */
 export const FilteringModePerVariant: Story = {
   render: () => (
-    <div className={styles.Row}>
+    <div className="AutocompleteDemoRow">
       <DemoAutocomplete label='mode="list" (filters)' placeholder="Type to filter" />
       <DemoAutocomplete
         label='mode="none" (static)'
@@ -277,15 +284,18 @@ export const EmptyNoResultsState: Story = {
 /** `autoHighlight` compared: `true` highlights the first match only while typing; `"always"` keeps the first item highlighted whenever the list renders — the command-palette setting, so Enter always has a target. */
 export const AutoHighlight: Story = {
   render: () => (
-    <div className={styles.Row}>
+    <div className="AutocompleteDemoRow">
       <Autocomplete.Root items={tags} autoHighlight>
-        <label className={styles.Label}>
+        <label className={theme.FieldLabel}>
           While typing
-          <Autocomplete.InputGroup className={styles.InputGroup}>
-            <Autocomplete.Input placeholder="autoHighlight" className={styles.GroupedInput} />
-            <div className={styles.ActionButtons}>
+          <Autocomplete.InputGroup className={theme.AutocompleteInputGroup}>
+            <Autocomplete.Input
+              placeholder="autoHighlight"
+              className={theme.AutocompleteGroupedInput}
+            />
+            <div className={theme.AutocompleteActionButtons}>
               <Autocomplete.Trigger
-                className={styles.ActionButton}
+                className={theme.AutocompleteActionButton}
                 aria-label="Open while-typing list"
               >
                 <CaretDownIcon />
@@ -294,11 +304,11 @@ export const AutoHighlight: Story = {
           </Autocomplete.InputGroup>
         </label>
         <Autocomplete.Portal>
-          <Autocomplete.Positioner className={styles.Positioner} sideOffset={4}>
-            <Autocomplete.Popup className={styles.Popup}>
-              <Autocomplete.List className={styles.List}>
+          <Autocomplete.Positioner className={theme.AutocompletePositioner} sideOffset={4}>
+            <Autocomplete.Popup className={theme.AutocompletePopup}>
+              <Autocomplete.List className={theme.AutocompleteList}>
                 {(tag: string) => (
-                  <Autocomplete.Item key={tag} className={styles.Item} value={tag}>
+                  <Autocomplete.Item key={tag} className={theme.AutocompleteItem} value={tag}>
                     {tag}
                   </Autocomplete.Item>
                 )}
@@ -308,26 +318,29 @@ export const AutoHighlight: Story = {
         </Autocomplete.Portal>
       </Autocomplete.Root>
       <Autocomplete.Root items={tags} autoHighlight="always">
-        <label className={styles.Label}>
+        <label className={theme.FieldLabel}>
           Always
-          <Autocomplete.InputGroup className={styles.InputGroup}>
+          <Autocomplete.InputGroup className={theme.AutocompleteInputGroup}>
             <Autocomplete.Input
               placeholder='autoHighlight="always"'
-              className={styles.GroupedInput}
+              className={theme.AutocompleteGroupedInput}
             />
-            <div className={styles.ActionButtons}>
-              <Autocomplete.Trigger className={styles.ActionButton} aria-label="Open always list">
+            <div className={theme.AutocompleteActionButtons}>
+              <Autocomplete.Trigger
+                className={theme.AutocompleteActionButton}
+                aria-label="Open always list"
+              >
                 <CaretDownIcon />
               </Autocomplete.Trigger>
             </div>
           </Autocomplete.InputGroup>
         </label>
         <Autocomplete.Portal>
-          <Autocomplete.Positioner className={styles.Positioner} sideOffset={4}>
-            <Autocomplete.Popup className={styles.Popup}>
-              <Autocomplete.List className={styles.List}>
+          <Autocomplete.Positioner className={theme.AutocompletePositioner} sideOffset={4}>
+            <Autocomplete.Popup className={theme.AutocompletePopup}>
+              <Autocomplete.List className={theme.AutocompleteList}>
                 {(tag: string) => (
-                  <Autocomplete.Item key={tag} className={styles.Item} value={tag}>
+                  <Autocomplete.Item key={tag} className={theme.AutocompleteItem} value={tag}>
                     {tag}
                   </Autocomplete.Item>
                 )}
@@ -367,7 +380,7 @@ export const AutoHighlight: Story = {
 /** `openOnInputClick` defaults to `false` for Autocomplete (the popup stays out of the way until the user types) — set it to `true` for browse-friendly fields that should open on focus-click, like the Combobox default. */
 export const OpenOnInputClick: Story = {
   render: () => (
-    <div className={styles.Row}>
+    <div className="AutocompleteDemoRow">
       <DemoAutocomplete label="Default (opens on typing)" placeholder="Click me first" />
       <DemoAutocomplete
         label="openOnInputClick"
@@ -398,7 +411,7 @@ export const OpenOnInputClick: Story = {
 function EscapeClearsExample() {
   const [lastChange, setLastChange] = React.useState('none yet');
   return (
-    <div className={styles.Stack}>
+    <div className="AutocompleteDemoStack">
       <DemoAutocomplete
         label="Search tags"
         placeholder="e.g. feature"
@@ -407,7 +420,7 @@ function EscapeClearsExample() {
             setLastChange(`"${value}" (reason: ${eventDetails.reason})`),
         }}
       />
-      <output className={styles.Output}>onValueChange: {lastChange}</output>
+      <output className="AutocompleteDemoOutput">onValueChange: {lastChange}</output>
     </div>
   );
 }
@@ -438,7 +451,7 @@ function CancelEscapeClearExample() {
   const [value, setValue] = React.useState('');
   const [log, setLog] = React.useState('none yet');
   return (
-    <div className={styles.Stack}>
+    <div className="AutocompleteDemoStack">
       <DemoAutocomplete
         label="Search tags"
         placeholder="e.g. feature"
@@ -455,7 +468,7 @@ function CancelEscapeClearExample() {
           },
         }}
       />
-      <output className={styles.Output}>last veto: {log}</output>
+      <output className="AutocompleteDemoOutput">last veto: {log}</output>
     </div>
   );
 }
@@ -487,7 +500,7 @@ function FreeTextSubmitExample() {
   const [payload, setPayload] = React.useState<string | null>(null);
   return (
     <form
-      className={styles.Form}
+      className={theme.FormRoot}
       onSubmit={(event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -495,10 +508,10 @@ function FreeTextSubmitExample() {
       }}
     >
       <DemoAutocomplete label="Search" placeholder="Type anything" root={{ name: 'q' }} />
-      <button type="submit" className={styles.Button}>
+      <button type="submit" className={theme.Button}>
         Search
       </button>
-      {payload ? <output className={styles.Output}>submitted: {payload}</output> : null}
+      {payload ? <output className="AutocompleteDemoOutput">submitted: {payload}</output> : null}
     </form>
   );
 }
@@ -526,7 +539,7 @@ function SubmitOnItemClickExample() {
   const [payload, setPayload] = React.useState<string | null>(null);
   return (
     <form
-      className={styles.Form}
+      className={theme.FormRoot}
       onSubmit={(event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -539,10 +552,10 @@ function SubmitOnItemClickExample() {
         root={{ name: 'search', submitOnItemClick: true }}
       />
       {/* A submit button must be present inside the form (#3018). */}
-      <button type="submit" className={styles.Button}>
+      <button type="submit" className={theme.Button}>
         Search
       </button>
-      {payload ? <output className={styles.Output}>submitted: {payload}</output> : null}
+      {payload ? <output className="AutocompleteDemoOutput">submitted: {payload}</output> : null}
     </form>
   );
 }
@@ -578,7 +591,7 @@ function ObjectItemsExample() {
   const [payload, setPayload] = React.useState<string | null>(null);
   return (
     <form
-      className={styles.Form}
+      className={theme.FormRoot}
       onSubmit={(event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -590,16 +603,20 @@ function ObjectItemsExample() {
         itemToStringValue={(country) => country.name}
         name="country"
       >
-        <label className={styles.Label}>
+        <label className={theme.FieldLabel}>
           Country
-          <Autocomplete.Input placeholder="e.g. Japan" className={styles.Input} />
+          <Autocomplete.Input placeholder="e.g. Japan" className={theme.AutocompleteInput} />
         </label>
         <Autocomplete.Portal>
-          <Autocomplete.Positioner className={styles.Positioner} sideOffset={4}>
-            <Autocomplete.Popup className={styles.Popup}>
-              <Autocomplete.List className={styles.List}>
+          <Autocomplete.Positioner className={theme.AutocompletePositioner} sideOffset={4}>
+            <Autocomplete.Popup className={theme.AutocompletePopup}>
+              <Autocomplete.List className={theme.AutocompleteList}>
                 {(country: Country) => (
-                  <Autocomplete.Item key={country.code} className={styles.Item} value={country}>
+                  <Autocomplete.Item
+                    key={country.code}
+                    className={theme.AutocompleteItem}
+                    value={country}
+                  >
                     {country.name}
                   </Autocomplete.Item>
                 )}
@@ -608,10 +625,10 @@ function ObjectItemsExample() {
           </Autocomplete.Positioner>
         </Autocomplete.Portal>
       </Autocomplete.Root>
-      <button type="submit" className={styles.Button}>
+      <button type="submit" className={theme.Button}>
         Save
       </button>
-      {payload ? <output className={styles.Output}>submitted: {payload}</output> : null}
+      {payload ? <output className="AutocompleteDemoOutput">submitted: {payload}</output> : null}
     </form>
   );
 }
@@ -636,30 +653,30 @@ function FieldValidationExample() {
   const [status, setStatus] = React.useState<string | null>(null);
   return (
     <Form
-      className={styles.Form}
+      className={theme.FormRoot}
       onSubmit={(event) => {
         event.preventDefault();
         setStatus('Submitted');
       }}
     >
-      <Field.Root name="city" className={styles.Form}>
+      <Field.Root name="city" className={theme.FormRoot}>
         <Autocomplete.Root items={['Amsterdam', 'Berlin', 'Lisbon', 'Prague']} required>
-          <Field.Label className={styles.Label}>
+          <Field.Label className={theme.FieldLabel}>
             Destination city
-            <Autocomplete.Input placeholder="e.g. Lisbon" className={styles.Input} />
+            <Autocomplete.Input placeholder="e.g. Lisbon" className={theme.AutocompleteInput} />
           </Field.Label>
         </Autocomplete.Root>
-        <Field.Description className={styles.Description}>
+        <Field.Description className={theme.FieldDescription}>
           Suggestions help, but any city is accepted.
         </Field.Description>
-        <Field.Error className={styles.Error} match="valueMissing">
+        <Field.Error className={theme.FieldError} match="valueMissing">
           Please enter a destination.
         </Field.Error>
       </Field.Root>
-      <button type="submit" className={styles.Button}>
+      <button type="submit" className={theme.Button}>
         Book trip
       </button>
-      {status ? <output className={styles.Output}>{status}</output> : null}
+      {status ? <output className="AutocompleteDemoOutput">{status}</output> : null}
     </Form>
   );
 }
@@ -691,7 +708,7 @@ export const InFieldWithValidation: Story = {
 function HighlightTrackingExample() {
   const [log, setLog] = React.useState<string[]>([]);
   return (
-    <div className={styles.Stack}>
+    <div className="AutocompleteDemoStack">
       <DemoAutocomplete
         label="Search tags"
         placeholder="e.g. feature"
@@ -703,7 +720,7 @@ function HighlightTrackingExample() {
           },
         }}
       />
-      <output className={styles.Output}>
+      <output className="AutocompleteDemoOutput">
         highlights: {log.length > 0 ? log.join(', ') : 'none'}
       </output>
     </div>
@@ -743,25 +760,29 @@ const groupedTags = [
 export const GroupedSuggestions: Story = {
   render: () => (
     <Autocomplete.Root items={groupedTags}>
-      <label className={styles.Label}>
+      <label className={theme.FieldLabel}>
         Search tags
-        <Autocomplete.Input placeholder="e.g. combobox" className={styles.Input} />
+        <Autocomplete.Input placeholder="e.g. combobox" className={theme.AutocompleteInput} />
       </label>
       <Autocomplete.Portal>
-        <Autocomplete.Positioner className={styles.Positioner} sideOffset={4}>
-          <Autocomplete.Popup className={styles.Popup}>
+        <Autocomplete.Positioner className={theme.AutocompletePositioner} sideOffset={4}>
+          <Autocomplete.Popup className={theme.AutocompletePopup}>
             <Autocomplete.Empty>
-              <div className={styles.Empty}>No matching tags.</div>
+              <div className={theme.AutocompleteEmpty}>No matching tags.</div>
             </Autocomplete.Empty>
-            <Autocomplete.List className={styles.List}>
+            <Autocomplete.List className={theme.AutocompleteList}>
               {(group: { value: string; items: string[] }) => (
-                <Autocomplete.Group key={group.value} items={group.items} className={styles.Group}>
-                  <Autocomplete.GroupLabel className={styles.GroupLabel}>
+                <Autocomplete.Group
+                  key={group.value}
+                  items={group.items}
+                  className={theme.AutocompleteGroup}
+                >
+                  <Autocomplete.GroupLabel className={theme.AutocompleteGroupLabel}>
                     {group.value}
                   </Autocomplete.GroupLabel>
                   <Autocomplete.Collection>
                     {(tag: string) => (
-                      <Autocomplete.Item key={tag} className={styles.Item} value={tag}>
+                      <Autocomplete.Item key={tag} className={theme.AutocompleteItem} value={tag}>
                         {tag}
                       </Autocomplete.Item>
                     )}
@@ -814,26 +835,26 @@ export const FuzzyMatching: Story = {
       filter={(item, query) => fuzzyMatch(item.title, query) || fuzzyMatch(item.description, query)}
       itemToStringValue={(item) => item.title}
     >
-      <label className={styles.Label}>
+      <label className={theme.FieldLabel}>
         Fuzzy search documentation
-        <Autocomplete.Input placeholder='e.g. "rhg"' className={styles.Input} />
+        <Autocomplete.Input placeholder='e.g. "rhg"' className={theme.AutocompleteInput} />
       </label>
       <Autocomplete.Portal>
-        <Autocomplete.Positioner className={styles.Positioner} sideOffset={4}>
-          <Autocomplete.Popup className={styles.Popup}>
+        <Autocomplete.Positioner className={theme.AutocompletePositioner} sideOffset={4}>
+          <Autocomplete.Popup className={theme.AutocompletePopup}>
             <Autocomplete.Empty>
-              <div className={styles.Empty}>
+              <div className={theme.AutocompleteEmpty}>
                 No results found for &quot;
                 <Autocomplete.Value />
                 &quot;
               </div>
             </Autocomplete.Empty>
-            <Autocomplete.List className={styles.List}>
+            <Autocomplete.List className={theme.AutocompleteList}>
               {(item: DocEntry) => (
-                <Autocomplete.Item key={item.title} className={styles.Item} value={item}>
-                  <span className={styles.ItemContent}>
-                    <span className={styles.ItemTitle}>{item.title}</span>
-                    <span className={styles.ItemDescription}>{item.description}</span>
+                <Autocomplete.Item key={item.title} className={theme.AutocompleteItem} value={item}>
+                  <span className={theme.AutocompleteItemContent}>
+                    <span className={theme.AutocompleteItemTitle}>{item.title}</span>
+                    <span className={theme.AutocompleteItemDescription}>{item.description}</span>
                   </span>
                 </Autocomplete.Item>
               )}
@@ -870,26 +891,28 @@ function LimitResultsExample() {
 
   return (
     <Autocomplete.Root items={manyTags} value={value} onValueChange={setValue} limit={limit}>
-      <label className={styles.Label}>
+      <label className={theme.FieldLabel}>
         Limit results to 6
-        <Autocomplete.Input placeholder="e.g. e" className={styles.Input} />
+        <Autocomplete.Input placeholder="e.g. e" className={theme.AutocompleteInput} />
       </label>
       <Autocomplete.Portal>
-        <Autocomplete.Positioner className={styles.Positioner} sideOffset={4}>
-          <Autocomplete.Popup className={styles.Popup}>
+        <Autocomplete.Positioner className={theme.AutocompletePositioner} sideOffset={4}>
+          <Autocomplete.Popup className={theme.AutocompletePopup}>
             <Autocomplete.Empty>
-              <div className={styles.Empty}>No results found for &quot;{value}&quot;</div>
+              <div className={theme.AutocompleteEmpty}>
+                No results found for &quot;{value}&quot;
+              </div>
             </Autocomplete.Empty>
-            <Autocomplete.List className={styles.List}>
+            <Autocomplete.List className={theme.AutocompleteList}>
               {(tag: string) => (
-                <Autocomplete.Item key={tag} className={styles.Item} value={tag}>
+                <Autocomplete.Item key={tag} className={theme.AutocompleteItem} value={tag}>
                   {tag}
                 </Autocomplete.Item>
               )}
             </Autocomplete.List>
             <Autocomplete.Status>
               {moreCount > 0 ? (
-                <div className={styles.Status}>
+                <div className={theme.AutocompleteStatus}>
                   {`Hiding ${moreCount} results (type a more specific query)`}
                 </div>
               ) : null}
@@ -988,22 +1011,28 @@ function AsyncSuggestionsExample() {
       itemToStringValue={(movie) => movie.title}
       filter={null}
     >
-      <label className={styles.Label}>
+      <label className={theme.FieldLabel}>
         Search movies by name or year
-        <Autocomplete.Input placeholder="e.g. Pulp Fiction or 1994" className={styles.Input} />
+        <Autocomplete.Input
+          placeholder="e.g. Pulp Fiction or 1994"
+          className={theme.AutocompleteInput}
+        />
       </label>
       <Autocomplete.Portal hidden={!status}>
-        <Autocomplete.Positioner className={styles.Positioner} sideOffset={4}>
-          <Autocomplete.Popup className={styles.Popup} aria-busy={isPending || undefined}>
+        <Autocomplete.Positioner className={theme.AutocompletePositioner} sideOffset={4}>
+          <Autocomplete.Popup
+            className={theme.AutocompletePopup}
+            aria-busy={isPending || undefined}
+          >
             <Autocomplete.Status>
-              {status ? <div className={styles.Status}>{status}</div> : null}
+              {status ? <div className={theme.AutocompleteStatus}>{status}</div> : null}
             </Autocomplete.Status>
-            <Autocomplete.List className={styles.List}>
+            <Autocomplete.List className={theme.AutocompleteList}>
               {(movie: Movie) => (
-                <Autocomplete.Item key={movie.id} className={styles.Item} value={movie}>
-                  <span className={styles.ItemRow}>
+                <Autocomplete.Item key={movie.id} className={theme.AutocompleteItem} value={movie}>
+                  <span className={theme.AutocompleteItemRow}>
                     <span>{movie.title}</span>
-                    <span className={styles.ItemMeta}>{movie.year}</span>
+                    <span className={theme.AutocompleteItemMeta}>{movie.year}</span>
                   </span>
                 </Autocomplete.Item>
               )}
@@ -1058,12 +1087,15 @@ function CommandPaletteExample() {
   }
 
   return (
-    <div className={styles.Stack}>
+    <div className="AutocompleteDemoStack">
       <Dialog.Root open={open} onOpenChange={setOpen}>
-        <Dialog.Trigger className={styles.Button}>Open command palette</Dialog.Trigger>
+        <Dialog.Trigger className={theme.Button}>Open command palette</Dialog.Trigger>
         <Dialog.Portal>
-          <Dialog.Backdrop className={styles.Backdrop} />
-          <Dialog.Popup className={styles.PalettePopup} aria-label="Command palette">
+          <Dialog.Backdrop className={theme.DialogBackdrop} />
+          <Dialog.Popup
+            className={`${theme.DialogPopup} AutocompleteDemoPalettePopup`}
+            aria-label="Command palette"
+          >
             <Autocomplete.Root
               items={commandGroups}
               open
@@ -1072,21 +1104,21 @@ function CommandPaletteExample() {
               keepHighlight
             >
               <Autocomplete.Input
-                className={styles.PaletteInput}
+                className="AutocompleteDemoPaletteInput"
                 aria-label="Search commands"
                 placeholder="Search commands…"
               />
               <Autocomplete.Empty>
-                <div className={styles.Empty}>No commands found.</div>
+                <div className={theme.AutocompleteEmpty}>No commands found.</div>
               </Autocomplete.Empty>
-              <Autocomplete.List className={styles.PaletteList}>
+              <Autocomplete.List className="AutocompleteDemoPaletteList">
                 {(group: { value: string; items: Command[] }) => (
                   <Autocomplete.Group
                     key={group.value}
                     items={group.items}
-                    className={styles.Group}
+                    className={theme.AutocompleteGroup}
                   >
-                    <Autocomplete.GroupLabel className={styles.GroupLabel}>
+                    <Autocomplete.GroupLabel className={theme.AutocompleteGroupLabel}>
                       {group.value}
                     </Autocomplete.GroupLabel>
                     <Autocomplete.Collection>
@@ -1094,11 +1126,11 @@ function CommandPaletteExample() {
                         <Autocomplete.Item
                           key={command.value}
                           value={command}
-                          className={styles.PaletteItem}
+                          className="AutocompleteDemoPaletteItem"
                           onClick={() => runCommand(command)}
                         >
                           <span>{command.label}</span>
-                          <span className={styles.ItemMeta}>Command</span>
+                          <span className={theme.AutocompleteItemMeta}>Command</span>
                         </Autocomplete.Item>
                       )}
                     </Autocomplete.Collection>
@@ -1109,7 +1141,7 @@ function CommandPaletteExample() {
           </Dialog.Popup>
         </Dialog.Portal>
       </Dialog.Root>
-      <output className={styles.Output}>last command: {lastCommand}</output>
+      <output className="AutocompleteDemoOutput">last command: {lastCommand}</output>
     </div>
   );
 }
@@ -1171,13 +1203,13 @@ function EmojiGridRows({ onPick }: { onPick: (item: EmojiItem) => void }) {
   return (
     <React.Fragment>
       {chunkArray(filteredItems, EMOJI_COLUMNS).map((row, rowIndex) => (
-        <Autocomplete.Row key={rowIndex} className={styles.GridRow}>
+        <Autocomplete.Row key={rowIndex} className="AutocompleteDemoGridRow">
           {row.map((item) => (
             <Autocomplete.Item
               key={item.value}
               value={item}
               aria-label={item.value}
-              className={styles.GridItem}
+              className="AutocompleteDemoGridItem"
               onClick={() => onPick(item)}
             >
               {item.emoji}
@@ -1199,20 +1231,30 @@ function GridLayoutExample() {
   }
 
   return (
-    <div className={styles.Stack}>
+    <div className="AutocompleteDemoStack">
       <Autocomplete.Root items={emojiItems} grid open={pickerOpen} onOpenChange={setPickerOpen}>
-        <Autocomplete.Trigger className={styles.Button} aria-label="Choose emoji">
+        <Autocomplete.Trigger className={theme.Button} aria-label="Choose emoji">
           😀 Choose emoji
         </Autocomplete.Trigger>
         <Autocomplete.Portal>
-          <Autocomplete.Positioner className={styles.Positioner} sideOffset={4} align="start">
-            <Autocomplete.Popup className={styles.GridPopup} aria-label="Select emoji">
-              <Autocomplete.Input placeholder="Search emojis…" className={styles.InsetInput} />
+          <Autocomplete.Positioner
+            className={theme.AutocompletePositioner}
+            sideOffset={4}
+            align="start"
+          >
+            <Autocomplete.Popup
+              className={`${theme.AutocompletePopup} AutocompleteDemoGridPopup`}
+              aria-label="Select emoji"
+            >
+              <Autocomplete.Input
+                placeholder="Search emojis…"
+                className="AutocompleteDemoInsetInput"
+              />
               <Autocomplete.Empty>
-                <div className={styles.Empty}>No emojis found.</div>
+                <div className={theme.AutocompleteEmpty}>No emojis found.</div>
               </Autocomplete.Empty>
               <Autocomplete.List
-                className={styles.GridList}
+                className="AutocompleteDemoGridList"
                 style={{ '--cols': EMOJI_COLUMNS } as React.CSSProperties}
               >
                 <EmojiGridRows onPick={handlePick} />
@@ -1221,7 +1263,7 @@ function GridLayoutExample() {
           </Autocomplete.Positioner>
         </Autocomplete.Portal>
       </Autocomplete.Root>
-      <output className={styles.Output}>picked: {picked}</output>
+      <output className="AutocompleteDemoOutput">picked: {picked}</output>
     </div>
   );
 }
@@ -1294,7 +1336,7 @@ function WindowedList({
   return (
     <div
       role="presentation"
-      className={styles.VirtualSpacer}
+      className="AutocompleteDemoVirtualSpacer"
       style={{ height: filteredItems.length * VIRTUAL_ITEM_HEIGHT }}
     >
       {filteredItems.slice(start, end).map((item, sliceIndex) => {
@@ -1304,7 +1346,7 @@ function WindowedList({
             key={item}
             index={index}
             value={item}
-            className={styles.Item}
+            className={theme.AutocompleteItem}
             aria-setsize={filteredItems.length}
             aria-posinset={index + 1}
             style={{
@@ -1347,21 +1389,24 @@ function VirtualizedExample() {
         }
       }}
     >
-      <label className={styles.Label}>
+      <label className={theme.FieldLabel}>
         Search 1,000 items
-        <Autocomplete.Input placeholder="Click or type to browse" className={styles.Input} />
+        <Autocomplete.Input
+          placeholder="Click or type to browse"
+          className={theme.AutocompleteInput}
+        />
       </label>
       <Autocomplete.Portal>
-        <Autocomplete.Positioner className={styles.Positioner} sideOffset={4}>
-          <Autocomplete.Popup className={styles.Popup}>
+        <Autocomplete.Positioner className={theme.AutocompletePositioner} sideOffset={4}>
+          <Autocomplete.Popup className={theme.AutocompletePopup}>
             <Autocomplete.Empty>
-              <div className={styles.Empty}>No items found.</div>
+              <div className={theme.AutocompleteEmpty}>No items found.</div>
             </Autocomplete.Empty>
-            <Autocomplete.List className={styles.List}>
+            <Autocomplete.List className={theme.AutocompleteList}>
               <div
                 role="presentation"
                 ref={scrollerRef}
-                className={styles.VirtualScroller}
+                className="AutocompleteDemoVirtualScroller"
                 onScroll={(event) => setScrollTop(event.currentTarget.scrollTop)}
               >
                 <WindowedList scrollerRef={scrollerRef} scrollTop={scrollTop} />
@@ -1398,14 +1443,14 @@ export const Virtualized: Story = {
 function AnimatedPopupExample() {
   const [phase, setPhase] = React.useState('idle');
   return (
-    <div className={styles.Stack}>
+    <div className="AutocompleteDemoStack">
       <DemoAutocomplete
         label="Search tags"
         placeholder="e.g. feature"
-        popupClassName={styles.PopupAnimated}
+        popupClassName={`${theme.AutocompletePopup} AutocompleteDemoPopupAnimated`}
         root={{ onOpenChangeComplete: (open) => setPhase(open ? 'open' : 'closed') }}
       />
-      <output className={styles.Output}>animation settled: {phase}</output>
+      <output className="AutocompleteDemoOutput">animation settled: {phase}</output>
     </div>
   );
 }

@@ -4,7 +4,8 @@ import { expect, waitFor, within } from 'storybook/test';
 import { Menu } from '@base-ui/react/menu';
 import { Dialog } from '@base-ui/react/dialog';
 import { DirectionProvider } from '@base-ui/react/direction-provider';
-import styles from './menu.module.css';
+import theme from '@droppy/theme';
+import './menu.demo.css';
 import {
   CaretDownIcon,
   CaretRightIcon,
@@ -56,20 +57,20 @@ type Story = StoryObj<typeof meta>;
 export const Hero: Story = {
   render: () => (
     <Menu.Root>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         Song <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.Popup}>
-            <Menu.Item className={styles.Item}>Add to Library</Menu.Item>
-            <Menu.Item className={styles.Item}>Add to Playlist</Menu.Item>
-            <Menu.Separator className={styles.Separator} />
-            <Menu.Item className={styles.Item}>Play Next</Menu.Item>
-            <Menu.Item className={styles.Item}>Play Last</Menu.Item>
-            <Menu.Separator className={styles.Separator} />
-            <Menu.Item className={styles.Item}>Favorite</Menu.Item>
-            <Menu.Item className={styles.Item}>Share</Menu.Item>
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={theme.MenuPopup}>
+            <Menu.Item className={theme.MenuItem}>Add to Library</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Add to Playlist</Menu.Item>
+            <Menu.Separator className={theme.MenuSeparator} />
+            <Menu.Item className={theme.MenuItem}>Play Next</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Play Last</Menu.Item>
+            <Menu.Separator className={theme.MenuSeparator} />
+            <Menu.Item className={theme.MenuItem}>Favorite</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Share</Menu.Item>
           </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>
@@ -81,17 +82,17 @@ export const Hero: Story = {
 export const OpenOnHover: Story = {
   render: () => (
     <Menu.Root>
-      <Menu.Trigger openOnHover delay={100} className={styles.Button}>
+      <Menu.Trigger openOnHover delay={100} className={theme.Button}>
         Add to playlist <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.Popup}>
-            <Menu.Item className={styles.Item}>Get Up!</Menu.Item>
-            <Menu.Item className={styles.Item}>Inside Out</Menu.Item>
-            <Menu.Item className={styles.Item}>Night Beats</Menu.Item>
-            <Menu.Separator className={styles.Separator} />
-            <Menu.Item className={styles.Item}>New playlist…</Menu.Item>
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={theme.MenuPopup}>
+            <Menu.Item className={theme.MenuItem}>Get Up!</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Inside Out</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Night Beats</Menu.Item>
+            <Menu.Separator className={theme.MenuSeparator} />
+            <Menu.Item className={theme.MenuItem}>New playlist…</Menu.Item>
           </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>
@@ -124,41 +125,41 @@ function CheckboxItemsExample() {
   const [showSidebar, setShowSidebar] = React.useState(false);
   return (
     <Menu.Root>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         Workspace <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.Popup}>
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={theme.MenuPopup}>
             <Menu.CheckboxItem
               checked={showMinimap}
               onCheckedChange={setShowMinimap}
-              className={styles.CheckboxItem}
+              className={theme.MenuCheckboxItem}
             >
-              <Menu.CheckboxItemIndicator className={styles.CheckboxItemIndicator}>
+              <Menu.CheckboxItemIndicator className={theme.MenuCheckboxItemIndicator}>
                 <CheckIcon />
               </Menu.CheckboxItemIndicator>
-              <span className={styles.CheckboxItemText}>Minimap</span>
+              <span className={theme.MenuCheckboxItemText}>Minimap</span>
             </Menu.CheckboxItem>
             <Menu.CheckboxItem
               checked={showSearch}
               onCheckedChange={setShowSearch}
-              className={styles.CheckboxItem}
+              className={theme.MenuCheckboxItem}
             >
-              <Menu.CheckboxItemIndicator className={styles.CheckboxItemIndicator}>
+              <Menu.CheckboxItemIndicator className={theme.MenuCheckboxItemIndicator}>
                 <CheckIcon />
               </Menu.CheckboxItemIndicator>
-              <span className={styles.CheckboxItemText}>Search</span>
+              <span className={theme.MenuCheckboxItemText}>Search</span>
             </Menu.CheckboxItem>
             <Menu.CheckboxItem
               checked={showSidebar}
               onCheckedChange={setShowSidebar}
-              className={styles.CheckboxItem}
+              className={theme.MenuCheckboxItem}
             >
-              <Menu.CheckboxItemIndicator className={styles.CheckboxItemIndicator}>
+              <Menu.CheckboxItemIndicator className={theme.MenuCheckboxItemIndicator}>
                 <CheckIcon />
               </Menu.CheckboxItemIndicator>
-              <span className={styles.CheckboxItemText}>Sidebar</span>
+              <span className={theme.MenuCheckboxItemText}>Sidebar</span>
             </Menu.CheckboxItem>
           </Menu.Popup>
         </Menu.Positioner>
@@ -193,19 +194,19 @@ function RadioItemsExample() {
   const [value, setValue] = React.useState('date');
   return (
     <Menu.Root>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         Sort <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.Popup}>
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={theme.MenuPopup}>
             <Menu.RadioGroup value={value} onValueChange={setValue}>
               {['date', 'name', 'type'].map((option) => (
-                <Menu.RadioItem key={option} className={styles.RadioItem} value={option}>
-                  <Menu.RadioItemIndicator className={styles.RadioItemIndicator}>
+                <Menu.RadioItem key={option} className={theme.MenuRadioItem} value={option}>
+                  <Menu.RadioItemIndicator className={theme.MenuRadioItemIndicator}>
                     <CheckIcon />
                   </Menu.RadioItemIndicator>
-                  <span className={styles.RadioItemText}>
+                  <span className={theme.MenuRadioItemText}>
                     {option[0].toUpperCase() + option.slice(1)}
                   </span>
                 </Menu.RadioItem>
@@ -253,47 +254,47 @@ function GroupLabelsExample() {
   const [showSearch, setShowSearch] = React.useState(true);
   return (
     <Menu.Root>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         View <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.Popup}>
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={theme.MenuPopup}>
             <Menu.RadioGroup value={sort} onValueChange={setSort}>
-              <Menu.GroupLabel className={styles.GroupLabel}>Sort</Menu.GroupLabel>
+              <Menu.GroupLabel className={theme.MenuGroupLabel}>Sort</Menu.GroupLabel>
               {['date', 'name'].map((option) => (
-                <Menu.RadioItem key={option} className={styles.RadioItem} value={option}>
-                  <Menu.RadioItemIndicator className={styles.RadioItemIndicator}>
+                <Menu.RadioItem key={option} className={theme.MenuRadioItem} value={option}>
+                  <Menu.RadioItemIndicator className={theme.MenuRadioItemIndicator}>
                     <CheckIcon />
                   </Menu.RadioItemIndicator>
-                  <span className={styles.RadioItemText}>
+                  <span className={theme.MenuRadioItemText}>
                     {option[0].toUpperCase() + option.slice(1)}
                   </span>
                 </Menu.RadioItem>
               ))}
             </Menu.RadioGroup>
-            <Menu.Separator className={styles.Separator} />
+            <Menu.Separator className={theme.MenuSeparator} />
             <Menu.Group>
-              <Menu.GroupLabel className={styles.GroupLabel}>Workspace</Menu.GroupLabel>
+              <Menu.GroupLabel className={theme.MenuGroupLabel}>Workspace</Menu.GroupLabel>
               <Menu.CheckboxItem
                 checked={showMinimap}
                 onCheckedChange={setShowMinimap}
-                className={styles.CheckboxItem}
+                className={theme.MenuCheckboxItem}
               >
-                <Menu.CheckboxItemIndicator className={styles.CheckboxItemIndicator}>
+                <Menu.CheckboxItemIndicator className={theme.MenuCheckboxItemIndicator}>
                   <CheckIcon />
                 </Menu.CheckboxItemIndicator>
-                <span className={styles.CheckboxItemText}>Minimap</span>
+                <span className={theme.MenuCheckboxItemText}>Minimap</span>
               </Menu.CheckboxItem>
               <Menu.CheckboxItem
                 checked={showSearch}
                 onCheckedChange={setShowSearch}
-                className={styles.CheckboxItem}
+                className={theme.MenuCheckboxItem}
               >
-                <Menu.CheckboxItemIndicator className={styles.CheckboxItemIndicator}>
+                <Menu.CheckboxItemIndicator className={theme.MenuCheckboxItemIndicator}>
                   <CheckIcon />
                 </Menu.CheckboxItemIndicator>
-                <span className={styles.CheckboxItemText}>Search</span>
+                <span className={theme.MenuCheckboxItemText}>Search</span>
               </Menu.CheckboxItem>
             </Menu.Group>
           </Menu.Popup>
@@ -321,37 +322,37 @@ export const GroupLabels: Story = {
 function SubmenuExample() {
   return (
     <Menu.Root>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         Song <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.Popup}>
-            <Menu.Item className={styles.Item}>Add to Library</Menu.Item>
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={theme.MenuPopup}>
+            <Menu.Item className={theme.MenuItem}>Add to Library</Menu.Item>
             <Menu.SubmenuRoot>
-              <Menu.SubmenuTrigger className={styles.SubmenuTrigger}>
+              <Menu.SubmenuTrigger className={theme.MenuSubmenuTrigger}>
                 Add to Playlist
                 <CaretRightIcon />
               </Menu.SubmenuTrigger>
               <Menu.Portal>
                 <Menu.Positioner
-                  className={styles.Positioner}
+                  className={theme.MenuPositioner}
                   sideOffset={getSubmenuOffset}
                   alignOffset={getSubmenuOffset}
                 >
-                  <Menu.Popup className={styles.Popup}>
-                    <Menu.Item className={styles.Item}>Get Up!</Menu.Item>
-                    <Menu.Item className={styles.Item}>Inside Out</Menu.Item>
-                    <Menu.Item className={styles.Item}>Night Beats</Menu.Item>
-                    <Menu.Separator className={styles.Separator} />
-                    <Menu.Item className={styles.Item}>New playlist…</Menu.Item>
+                  <Menu.Popup className={theme.MenuPopup}>
+                    <Menu.Item className={theme.MenuItem}>Get Up!</Menu.Item>
+                    <Menu.Item className={theme.MenuItem}>Inside Out</Menu.Item>
+                    <Menu.Item className={theme.MenuItem}>Night Beats</Menu.Item>
+                    <Menu.Separator className={theme.MenuSeparator} />
+                    <Menu.Item className={theme.MenuItem}>New playlist…</Menu.Item>
                   </Menu.Popup>
                 </Menu.Positioner>
               </Menu.Portal>
             </Menu.SubmenuRoot>
-            <Menu.Separator className={styles.Separator} />
-            <Menu.Item className={styles.Item}>Play Next</Menu.Item>
-            <Menu.Item className={styles.Item}>Play Last</Menu.Item>
+            <Menu.Separator className={theme.MenuSeparator} />
+            <Menu.Item className={theme.MenuItem}>Play Next</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Play Last</Menu.Item>
           </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>
@@ -421,21 +422,21 @@ export const SubmenuKeyboard: Story = {
 export const Arrow: Story = {
   render: () => (
     <Menu.Root>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         Song <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Positioner
-          className={styles.Positioner}
+          className={theme.MenuPositioner}
           sideOffset={({ side }) => (side === 'top' ? 12 : 8)}
         >
-          <Menu.Popup className={styles.Popup}>
-            <Menu.Arrow className={styles.Arrow} />
-            <Menu.Item className={styles.Item}>Add to Library</Menu.Item>
-            <Menu.Item className={styles.Item}>Add to Playlist</Menu.Item>
-            <Menu.Separator className={styles.Separator} />
-            <Menu.Item className={styles.Item}>Favorite</Menu.Item>
-            <Menu.Item className={styles.Item}>Share</Menu.Item>
+          <Menu.Popup className={theme.MenuPopup}>
+            <Menu.Arrow className={theme.MenuArrow} />
+            <Menu.Item className={theme.MenuItem}>Add to Library</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Add to Playlist</Menu.Item>
+            <Menu.Separator className={theme.MenuSeparator} />
+            <Menu.Item className={theme.MenuItem}>Favorite</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Share</Menu.Item>
           </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>
@@ -447,23 +448,23 @@ export const Arrow: Story = {
 export const LinkItems: Story = {
   render: () => (
     <Menu.Root>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         Help <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.Popup}>
-            <Menu.LinkItem className={styles.LinkItem} href="#documentation">
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={theme.MenuPopup}>
+            <Menu.LinkItem className={theme.MenuLinkItem} href="#documentation">
               Documentation <ExternalLinkIcon />
             </Menu.LinkItem>
-            <Menu.LinkItem className={styles.LinkItem} href="#shortcuts">
+            <Menu.LinkItem className={theme.MenuLinkItem} href="#shortcuts">
               Keyboard shortcuts
             </Menu.LinkItem>
-            <Menu.LinkItem className={styles.LinkItem} href="#release-notes">
+            <Menu.LinkItem className={theme.MenuLinkItem} href="#release-notes">
               Release notes
             </Menu.LinkItem>
-            <Menu.Separator className={styles.Separator} />
-            <Menu.Item className={styles.Item}>Contact support…</Menu.Item>
+            <Menu.Separator className={theme.MenuSeparator} />
+            <Menu.Item className={theme.MenuItem}>Contact support…</Menu.Item>
           </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>
@@ -488,7 +489,7 @@ export const DetachedTriggersSimple: Story = {
   render: () => (
     <React.Fragment>
       <Menu.Trigger
-        className={styles.IconButton}
+        className={theme.MenuTriggerIcon}
         handle={detachedMenuHandle}
         aria-label="Project actions"
       >
@@ -496,14 +497,14 @@ export const DetachedTriggersSimple: Story = {
       </Menu.Trigger>
       <Menu.Root handle={detachedMenuHandle}>
         <Menu.Portal>
-          <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-            <Menu.Popup className={styles.Popup}>
-              <Menu.Item className={styles.Item}>Rename</Menu.Item>
-              <Menu.Item className={styles.Item}>Duplicate</Menu.Item>
-              <Menu.Item className={styles.Item}>Move to folder</Menu.Item>
-              <Menu.Separator className={styles.Separator} />
-              <Menu.Item className={styles.Item}>Archive</Menu.Item>
-              <Menu.Item className={styles.Item}>Delete</Menu.Item>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+            <Menu.Popup className={theme.MenuPopup}>
+              <Menu.Item className={theme.MenuItem}>Rename</Menu.Item>
+              <Menu.Item className={theme.MenuItem}>Duplicate</Menu.Item>
+              <Menu.Item className={theme.MenuItem}>Move to folder</Menu.Item>
+              <Menu.Separator className={theme.MenuSeparator} />
+              <Menu.Item className={theme.MenuItem}>Archive</Menu.Item>
+              <Menu.Item className={theme.MenuItem}>Delete</Menu.Item>
             </Menu.Popup>
           </Menu.Positioner>
         </Menu.Portal>
@@ -524,16 +525,16 @@ const documentMenuHandle = Menu.createHandle<{ name: string }>();
 /** Give each detached trigger a `payload`; the Root's function child renders content for whichever trigger opened the menu — one menu instance serving many launch points. */
 export const DetachedTriggersPayload: Story = {
   render: () => (
-    <div className={styles.Row}>
+    <div className="MenuDemoRow">
       <Menu.Trigger
-        className={styles.Button}
+        className={theme.Button}
         handle={documentMenuHandle}
         payload={{ name: 'Q1 report' }}
       >
         Q1 report
       </Menu.Trigger>
       <Menu.Trigger
-        className={styles.Button}
+        className={theme.Button}
         handle={documentMenuHandle}
         payload={{ name: 'Q2 forecast' }}
       >
@@ -542,15 +543,15 @@ export const DetachedTriggersPayload: Story = {
       <Menu.Root handle={documentMenuHandle}>
         {({ payload }) => (
           <Menu.Portal>
-            <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-              <Menu.Popup className={styles.Popup}>
+            <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+              <Menu.Popup className={theme.MenuPopup}>
                 <Menu.Group>
-                  <Menu.GroupLabel className={styles.PlainGroupLabel}>
+                  <Menu.GroupLabel className={theme.MenuPlainGroupLabel}>
                     {payload?.name}
                   </Menu.GroupLabel>
-                  <Menu.Item className={styles.Item}>Rename</Menu.Item>
-                  <Menu.Item className={styles.Item}>Share</Menu.Item>
-                  <Menu.Item className={styles.Item}>Delete</Menu.Item>
+                  <Menu.Item className={theme.MenuItem}>Rename</Menu.Item>
+                  <Menu.Item className={theme.MenuItem}>Share</Menu.Item>
+                  <Menu.Item className={theme.MenuItem}>Delete</Menu.Item>
                 </Menu.Group>
               </Menu.Popup>
             </Menu.Positioner>
@@ -595,10 +596,10 @@ function ControlledMultiTriggerExample() {
   };
 
   return (
-    <div className={styles.Stack}>
-      <div className={styles.Row}>
+    <div className="MenuDemoStack">
+      <div className="MenuDemoRow">
         <Menu.Trigger
-          className={styles.Button}
+          className={theme.Button}
           handle={controlledMenuHandle}
           id="library-trigger"
           payload="library"
@@ -606,7 +607,7 @@ function ControlledMultiTriggerExample() {
           Library
         </Menu.Trigger>
         <Menu.Trigger
-          className={styles.Button}
+          className={theme.Button}
           handle={controlledMenuHandle}
           id="share-trigger"
           payload="share"
@@ -615,7 +616,7 @@ function ControlledMultiTriggerExample() {
         </Menu.Trigger>
         <button
           type="button"
-          className={styles.PlainButton}
+          className="MenuDemoPlainButton"
           onClick={() => {
             setActiveTrigger('share-trigger');
             setOpen(true);
@@ -632,11 +633,11 @@ function ControlledMultiTriggerExample() {
       >
         {({ payload }) => (
           <Menu.Portal>
-            <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-              <Menu.Popup className={styles.Popup}>
+            <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+              <Menu.Popup className={theme.MenuPopup}>
                 {payload
                   ? controlledItemGroups[payload].map((label) => (
-                      <Menu.Item key={label} className={styles.Item}>
+                      <Menu.Item key={label} className={theme.MenuItem}>
                         {label}
                       </Menu.Item>
                     ))
@@ -646,7 +647,7 @@ function ControlledMultiTriggerExample() {
           </Menu.Portal>
         )}
       </Menu.Root>
-      <output className={styles.Output}>active trigger: {activeTrigger ?? 'none'}</output>
+      <output className="MenuDemoOutput">active trigger: {activeTrigger ?? 'none'}</output>
     </div>
   );
 }
@@ -704,9 +705,9 @@ const viewportMenuHandle = Menu.createHandle<ViewportMenuKey>();
 /** The docs detached-triggers demo with `Menu.Viewport`: switching triggers morphs the popup — the Positioner freezes to `var(--positioner-*)`, the Popup transitions `width`/`height`, and the Viewport cross-fades old/new content via `data-previous`/`data-current`. */
 export const ViewportContentTransition: Story = {
   render: () => (
-    <div className={styles.Row}>
+    <div className="MenuDemoRow">
       {(Object.keys(viewportMenus) as ViewportMenuKey[]).map((key) => (
-        <Menu.Trigger key={key} className={styles.Button} handle={viewportMenuHandle} payload={key}>
+        <Menu.Trigger key={key} className={theme.Button} handle={viewportMenuHandle} payload={key}>
           {viewportMenus[key].heading}
         </Menu.Trigger>
       ))}
@@ -715,27 +716,27 @@ export const ViewportContentTransition: Story = {
           <Menu.Portal>
             <Menu.Positioner
               sideOffset={8}
-              className={`${styles.Positioner} ${styles.TransitionPositioner}`}
+              className={`${theme.MenuPositioner} ${theme.MenuTransitionPositioner}`}
             >
-              <Menu.Popup className={`${styles.Popup} ${styles.TransitionPopup}`}>
-                <Menu.Viewport className={styles.Viewport}>
+              <Menu.Popup className={`${theme.MenuPopup} ${theme.MenuTransitionPopup}`}>
+                <Menu.Viewport className={theme.MenuViewport}>
                   {payload
                     ? viewportMenus[payload].groups.map((group, groupIndex) => (
                         <React.Fragment key={groupIndex}>
                           <Menu.Group>
                             {groupIndex === 0 && (
-                              <Menu.GroupLabel className={styles.PlainGroupLabel}>
+                              <Menu.GroupLabel className={theme.MenuPlainGroupLabel}>
                                 {viewportMenus[payload].heading}
                               </Menu.GroupLabel>
                             )}
                             {group.map((item) => (
-                              <Menu.Item key={item} className={styles.Item}>
+                              <Menu.Item key={item} className={theme.MenuItem}>
                                 {item}
                               </Menu.Item>
                             ))}
                           </Menu.Group>
                           {groupIndex < viewportMenus[payload].groups.length - 1 && (
-                            <Menu.Separator className={styles.Separator} />
+                            <Menu.Separator className={theme.MenuSeparator} />
                           )}
                         </React.Fragment>
                       ))
@@ -757,22 +758,22 @@ export const ViewportContentTransition: Story = {
 /** The full open/close contract: click toggles the menu, the trigger reflects state via `aria-expanded` + `data-popup-open`, Escape closes and refocuses the trigger, and pressing outside dismisses. */
 export const OpenClose: Story = {
   render: () => (
-    <div className={styles.Stack}>
+    <div className="MenuDemoStack">
       <Menu.Root>
-        <Menu.Trigger className={styles.Button}>
+        <Menu.Trigger className={theme.Button}>
           Song <CaretDownIcon />
         </Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-            <Menu.Popup className={styles.Popup}>
-              <Menu.Item className={styles.Item}>Add to Library</Menu.Item>
-              <Menu.Item className={styles.Item}>Play Next</Menu.Item>
-              <Menu.Item className={styles.Item}>Share</Menu.Item>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+            <Menu.Popup className={theme.MenuPopup}>
+              <Menu.Item className={theme.MenuItem}>Add to Library</Menu.Item>
+              <Menu.Item className={theme.MenuItem}>Play Next</Menu.Item>
+              <Menu.Item className={theme.MenuItem}>Share</Menu.Item>
             </Menu.Popup>
           </Menu.Positioner>
         </Menu.Portal>
       </Menu.Root>
-      <p className={styles.Output}>Outside content</p>
+      <p className="MenuDemoOutput">Outside content</p>
     </div>
   ),
   play: async ({ canvas, canvasElement, userEvent }) => {
@@ -804,19 +805,19 @@ export const OpenClose: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <Menu.Root>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         File <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.Popup}>
-            <Menu.Item className={styles.Item}>New file</Menu.Item>
-            <Menu.Item className={styles.Item}>New window</Menu.Item>
-            <Menu.Item className={styles.Item} disabled>
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={theme.MenuPopup}>
+            <Menu.Item className={theme.MenuItem}>New file</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>New window</Menu.Item>
+            <Menu.Item className={theme.MenuItem} disabled>
               Open recent
             </Menu.Item>
-            <Menu.Item className={styles.Item}>Save</Menu.Item>
-            <Menu.Item className={styles.Item}>Exit</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Save</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Exit</Menu.Item>
           </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>
@@ -850,19 +851,19 @@ export const KeyboardNavigation: Story = {
 export const Typeahead: Story = {
   render: () => (
     <Menu.Root>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         Commands <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.Popup}>
-            <Menu.Item className={styles.Item}>Aa</Menu.Item>
-            <Menu.Item className={styles.Item}>Ba</Menu.Item>
-            <Menu.Item className={styles.Item}>Bb</Menu.Item>
-            <Menu.Item className={styles.Item}>Ca</Menu.Item>
-            <Menu.Item className={styles.Item}>Cd</Menu.Item>
-            <Menu.Separator className={styles.Separator} />
-            <Menu.Item className={styles.Item} label="Quick actions" aria-label="Quick actions">
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={theme.MenuPopup}>
+            <Menu.Item className={theme.MenuItem}>Aa</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Ba</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Bb</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Ca</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Cd</Menu.Item>
+            <Menu.Separator className={theme.MenuSeparator} />
+            <Menu.Item className={theme.MenuItem} label="Quick actions" aria-label="Quick actions">
               <BoltIcon />
             </Menu.Item>
           </Menu.Popup>
@@ -905,22 +906,22 @@ export const Typeahead: Story = {
 export const CloseOnClickConfig: Story = {
   render: () => (
     <Menu.Root>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         Feed <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.Popup}>
-            <Menu.Item className={styles.Item} closeOnClick={false}>
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={theme.MenuPopup}>
+            <Menu.Item className={theme.MenuItem} closeOnClick={false}>
               Refresh now (stays open)
             </Menu.Item>
-            <Menu.Item className={styles.Item}>Mark all as read (closes)</Menu.Item>
-            <Menu.Separator className={styles.Separator} />
-            <Menu.CheckboxItem className={styles.CheckboxItem} defaultChecked closeOnClick>
-              <Menu.CheckboxItemIndicator className={styles.CheckboxItemIndicator}>
+            <Menu.Item className={theme.MenuItem}>Mark all as read (closes)</Menu.Item>
+            <Menu.Separator className={theme.MenuSeparator} />
+            <Menu.CheckboxItem className={theme.MenuCheckboxItem} defaultChecked closeOnClick>
+              <Menu.CheckboxItemIndicator className={theme.MenuCheckboxItemIndicator}>
                 <CheckIcon />
               </Menu.CheckboxItemIndicator>
-              <span className={styles.CheckboxItemText}>Auto-refresh (closes)</span>
+              <span className={theme.MenuCheckboxItemText}>Auto-refresh (closes)</span>
             </Menu.CheckboxItem>
           </Menu.Popup>
         </Menu.Positioner>
@@ -946,36 +947,36 @@ export const CloseOnClickConfig: Story = {
 function DisabledItemsExample() {
   const [lastAction, setLastAction] = React.useState('none');
   return (
-    <div className={styles.Stack}>
+    <div className="MenuDemoStack">
       <Menu.Root>
-        <Menu.Trigger className={styles.Button}>
+        <Menu.Trigger className={theme.Button}>
           Edit <CaretDownIcon />
         </Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-            <Menu.Popup className={styles.Popup}>
-              <Menu.Item className={styles.Item} onClick={() => setLastAction('Undo')}>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+            <Menu.Popup className={theme.MenuPopup}>
+              <Menu.Item className={theme.MenuItem} onClick={() => setLastAction('Undo')}>
                 Undo
               </Menu.Item>
-              <Menu.Item className={styles.Item} disabled onClick={() => setLastAction('Redo')}>
+              <Menu.Item className={theme.MenuItem} disabled onClick={() => setLastAction('Redo')}>
                 Redo
               </Menu.Item>
-              <Menu.Separator className={styles.Separator} />
-              <Menu.CheckboxItem className={styles.CheckboxItem} disabled>
-                <Menu.CheckboxItemIndicator className={styles.CheckboxItemIndicator}>
+              <Menu.Separator className={theme.MenuSeparator} />
+              <Menu.CheckboxItem className={theme.MenuCheckboxItem} disabled>
+                <Menu.CheckboxItemIndicator className={theme.MenuCheckboxItemIndicator}>
                   <CheckIcon />
                 </Menu.CheckboxItemIndicator>
-                <span className={styles.CheckboxItemText}>Track changes</span>
+                <span className={theme.MenuCheckboxItemText}>Track changes</span>
               </Menu.CheckboxItem>
               <Menu.SubmenuRoot>
-                <Menu.SubmenuTrigger className={styles.SubmenuTrigger} disabled>
+                <Menu.SubmenuTrigger className={theme.MenuSubmenuTrigger} disabled>
                   Export as
                   <CaretRightIcon />
                 </Menu.SubmenuTrigger>
                 <Menu.Portal>
-                  <Menu.Positioner className={styles.Positioner}>
-                    <Menu.Popup className={styles.Popup}>
-                      <Menu.Item className={styles.Item}>PDF</Menu.Item>
+                  <Menu.Positioner className={theme.MenuPositioner}>
+                    <Menu.Popup className={theme.MenuPopup}>
+                      <Menu.Item className={theme.MenuItem}>PDF</Menu.Item>
                     </Menu.Popup>
                   </Menu.Positioner>
                 </Menu.Portal>
@@ -984,7 +985,7 @@ function DisabledItemsExample() {
           </Menu.Positioner>
         </Menu.Portal>
       </Menu.Root>
-      <output className={styles.Output}>last action: {lastAction}</output>
+      <output className="MenuDemoOutput">last action: {lastAction}</output>
     </div>
   );
 }
@@ -1019,22 +1020,22 @@ export const DisabledItems: Story = {
 function NonModalExample() {
   const [count, setCount] = React.useState(0);
   return (
-    <div className={styles.Row}>
+    <div className="MenuDemoRow">
       <Menu.Root modal={false}>
-        <Menu.Trigger className={styles.Button}>
+        <Menu.Trigger className={theme.Button}>
           Filters <CaretDownIcon />
         </Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-            <Menu.Popup className={styles.Popup}>
-              <Menu.Item className={styles.Item}>Only unread</Menu.Item>
-              <Menu.Item className={styles.Item}>Only mentions</Menu.Item>
-              <Menu.Item className={styles.Item}>Clear filters</Menu.Item>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+            <Menu.Popup className={theme.MenuPopup}>
+              <Menu.Item className={theme.MenuItem}>Only unread</Menu.Item>
+              <Menu.Item className={theme.MenuItem}>Only mentions</Menu.Item>
+              <Menu.Item className={theme.MenuItem}>Clear filters</Menu.Item>
             </Menu.Popup>
           </Menu.Positioner>
         </Menu.Portal>
       </Menu.Root>
-      <button type="button" className={styles.PlainButton} onClick={() => setCount(count + 1)}>
+      <button type="button" className="MenuDemoPlainButton" onClick={() => setCount(count + 1)}>
         Clicks: {count}
       </button>
     </div>
@@ -1075,26 +1076,28 @@ function EventDetailsExample() {
   };
 
   return (
-    <div className={styles.Stack}>
-      <div className={styles.Row}>
+    <div className="MenuDemoStack">
+      <div className="MenuDemoRow">
         <Menu.Root open={open} onOpenChange={handleOpenChange} modal={false}>
-          <Menu.Trigger className={styles.Button}>
+          <Menu.Trigger className={theme.Button}>
             Notifications <CaretDownIcon />
           </Menu.Trigger>
           <Menu.Portal>
-            <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-              <Menu.Popup className={styles.Popup}>
-                <Menu.Item className={styles.Item}>Mark all as read</Menu.Item>
-                <Menu.Item className={styles.Item}>Mute for 1 hour</Menu.Item>
+            <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+              <Menu.Popup className={theme.MenuPopup}>
+                <Menu.Item className={theme.MenuItem}>Mark all as read</Menu.Item>
+                <Menu.Item className={theme.MenuItem}>Mute for 1 hour</Menu.Item>
               </Menu.Popup>
             </Menu.Positioner>
           </Menu.Portal>
         </Menu.Root>
-        <button type="button" className={styles.PlainButton}>
+        <button type="button" className="MenuDemoPlainButton">
           Outside area
         </button>
       </div>
-      <output className={styles.Output}>reasons: {log.length > 0 ? log.join(', ') : 'none'}</output>
+      <output className="MenuDemoOutput">
+        reasons: {log.length > 0 ? log.join(', ') : 'none'}
+      </output>
     </div>
   );
 }
@@ -1127,17 +1130,17 @@ function OpenDialogExample() {
   return (
     <React.Fragment>
       <Menu.Root>
-        <Menu.Trigger className={styles.Button}>
+        <Menu.Trigger className={theme.Button}>
           Project <CaretDownIcon />
         </Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-            <Menu.Popup className={styles.Popup}>
-              <Menu.Item className={styles.Item}>Rename</Menu.Item>
-              <Menu.Item className={styles.Item}>Duplicate</Menu.Item>
-              <Menu.Separator className={styles.Separator} />
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+            <Menu.Popup className={theme.MenuPopup}>
+              <Menu.Item className={theme.MenuItem}>Rename</Menu.Item>
+              <Menu.Item className={theme.MenuItem}>Duplicate</Menu.Item>
+              <Menu.Separator className={theme.MenuSeparator} />
               <Menu.Item
-                className={`${styles.Item} ${styles.DangerItem}`}
+                className={`${theme.MenuItem} ${theme.MenuDangerItem}`}
                 onClick={() => setDialogOpen(true)}
               >
                 Delete…
@@ -1148,14 +1151,14 @@ function OpenDialogExample() {
       </Menu.Root>
       <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
         <Dialog.Portal>
-          <Dialog.Backdrop className={styles.Backdrop} />
-          <Dialog.Popup className={styles.DialogPopup}>
-            <Dialog.Title className={styles.DialogTitle}>Delete project</Dialog.Title>
-            <Dialog.Description className={styles.DialogDescription}>
+          <Dialog.Backdrop className={theme.DialogBackdrop} />
+          <Dialog.Popup className={theme.DialogPopup}>
+            <Dialog.Title className={theme.DialogTitle}>Delete project</Dialog.Title>
+            <Dialog.Description className={theme.DialogDescription}>
               This action cannot be undone.
             </Dialog.Description>
-            <div className={styles.DialogActions}>
-              <Dialog.Close className={styles.PlainButton}>Cancel</Dialog.Close>
+            <div className={theme.DialogActions}>
+              <Dialog.Close className="MenuDemoPlainButton">Cancel</Dialog.Close>
             </div>
           </Dialog.Popup>
         </Dialog.Portal>
@@ -1182,16 +1185,16 @@ export const OpenDialogFromMenu: Story = {
 export const TransitionAnimation: Story = {
   render: () => (
     <Menu.Root>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         Song <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.AnimatedPopup}>
-            <Menu.Item className={styles.Item}>Add to Library</Menu.Item>
-            <Menu.Item className={styles.Item}>Play Next</Menu.Item>
-            <Menu.Item className={styles.Item}>Favorite</Menu.Item>
-            <Menu.Item className={styles.Item}>Share</Menu.Item>
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={`${theme.MenuPopup} MenuDemoAnimatedPopup`}>
+            <Menu.Item className={theme.MenuItem}>Add to Library</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Play Next</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Favorite</Menu.Item>
+            <Menu.Item className={theme.MenuItem}>Share</Menu.Item>
           </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>
@@ -1205,28 +1208,28 @@ export const RTLSubmenu: Story = {
     <div dir="rtl">
       <DirectionProvider direction="rtl">
         <Menu.Root>
-          <Menu.Trigger className={styles.Button}>
+          <Menu.Trigger className={theme.Button}>
             Song <CaretDownIcon />
           </Menu.Trigger>
           <Menu.Portal>
-            <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-              <Menu.Popup className={styles.Popup}>
-                <Menu.Item className={styles.Item}>Add to Library</Menu.Item>
+            <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+              <Menu.Popup className={theme.MenuPopup}>
+                <Menu.Item className={theme.MenuItem}>Add to Library</Menu.Item>
                 <Menu.SubmenuRoot>
-                  <Menu.SubmenuTrigger className={styles.SubmenuTrigger}>
+                  <Menu.SubmenuTrigger className={theme.MenuSubmenuTrigger}>
                     Add to Playlist
                     <CaretRightIcon style={{ transform: 'scaleX(-1)' }} />
                   </Menu.SubmenuTrigger>
                   <Menu.Portal>
-                    <Menu.Positioner className={styles.Positioner}>
-                      <Menu.Popup className={styles.Popup}>
-                        <Menu.Item className={styles.Item}>Get Up!</Menu.Item>
-                        <Menu.Item className={styles.Item}>Inside Out</Menu.Item>
+                    <Menu.Positioner className={theme.MenuPositioner}>
+                      <Menu.Popup className={theme.MenuPopup}>
+                        <Menu.Item className={theme.MenuItem}>Get Up!</Menu.Item>
+                        <Menu.Item className={theme.MenuItem}>Inside Out</Menu.Item>
                       </Menu.Popup>
                     </Menu.Positioner>
                   </Menu.Portal>
                 </Menu.SubmenuRoot>
-                <Menu.Item className={styles.Item}>Share</Menu.Item>
+                <Menu.Item className={theme.MenuItem}>Share</Menu.Item>
               </Menu.Popup>
             </Menu.Positioner>
           </Menu.Portal>
@@ -1271,16 +1274,16 @@ export const RTLSubmenu: Story = {
 export const HighlightItemOnHoverDisabled: Story = {
   render: () => (
     <Menu.Root highlightItemOnHover={false}>
-      <Menu.Trigger className={styles.Button}>
+      <Menu.Trigger className={theme.Button}>
         Song <CaretDownIcon />
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-          <Menu.Popup className={styles.Popup}>
-            <Menu.Item className={styles.ItemHoverDemo}>Add to Library</Menu.Item>
-            <Menu.Item className={styles.ItemHoverDemo}>Play Next</Menu.Item>
-            <Menu.Item className={styles.ItemHoverDemo}>Favorite</Menu.Item>
-            <Menu.Item className={styles.ItemHoverDemo}>Share</Menu.Item>
+        <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+          <Menu.Popup className={theme.MenuPopup}>
+            <Menu.Item className={`${theme.MenuItem} MenuDemoHoverItem`}>Add to Library</Menu.Item>
+            <Menu.Item className={`${theme.MenuItem} MenuDemoHoverItem`}>Play Next</Menu.Item>
+            <Menu.Item className={`${theme.MenuItem} MenuDemoHoverItem`}>Favorite</Menu.Item>
+            <Menu.Item className={`${theme.MenuItem} MenuDemoHoverItem`}>Share</Menu.Item>
           </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>
@@ -1293,18 +1296,18 @@ const imperativeMenuHandle = Menu.createHandle();
 function ImperativeHandleExample() {
   const [state, setState] = React.useState('closed');
   return (
-    <div className={styles.Stack}>
-      <div className={styles.Row}>
+    <div className="MenuDemoStack">
+      <div className="MenuDemoRow">
         <button
           type="button"
-          className={styles.PlainButton}
+          className="MenuDemoPlainButton"
           onClick={() => imperativeMenuHandle.open('imperative-menu-trigger')}
         >
           handle.open()
         </button>
         <button
           type="button"
-          className={styles.PlainButton}
+          className="MenuDemoPlainButton"
           onClick={() => imperativeMenuHandle.close()}
         >
           handle.close()
@@ -1312,7 +1315,7 @@ function ImperativeHandleExample() {
         <Menu.Trigger
           handle={imperativeMenuHandle}
           id="imperative-menu-trigger"
-          className={styles.Button}
+          className={theme.Button}
         >
           Alerts <CaretDownIcon />
         </Menu.Trigger>
@@ -1323,15 +1326,15 @@ function ImperativeHandleExample() {
         onOpenChange={(nextOpen) => setState(nextOpen ? 'open' : 'closed')}
       >
         <Menu.Portal>
-          <Menu.Positioner className={styles.Positioner} sideOffset={8}>
-            <Menu.Popup className={styles.Popup}>
-              <Menu.Item className={styles.Item}>Mark all read</Menu.Item>
-              <Menu.Item className={styles.Item}>Mute for 1 hour</Menu.Item>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={8}>
+            <Menu.Popup className={theme.MenuPopup}>
+              <Menu.Item className={theme.MenuItem}>Mark all read</Menu.Item>
+              <Menu.Item className={theme.MenuItem}>Mute for 1 hour</Menu.Item>
             </Menu.Popup>
           </Menu.Positioner>
         </Menu.Portal>
       </Menu.Root>
-      <output className={styles.Output}>menu is {state}</output>
+      <output className="MenuDemoOutput">menu is {state}</output>
     </div>
   );
 }

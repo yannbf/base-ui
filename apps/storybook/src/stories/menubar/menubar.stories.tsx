@@ -5,7 +5,8 @@ import { Menubar } from '@base-ui/react/menubar';
 import { Menu } from '@base-ui/react/menu';
 import { Toolbar } from '@base-ui/react/toolbar';
 import { DirectionProvider } from '@base-ui/react/direction-provider';
-import styles from './menubar.module.css';
+import theme from '@droppy/theme';
+import './menubar.demo.css';
 
 /**
  * Not covered below: a dedicated "detached trigger inside a menubar" story.
@@ -46,51 +47,51 @@ type Story = StoryObj<typeof meta>;
 
 function HeroExample() {
   return (
-    <Menubar className={styles.Menubar}>
+    <Menubar className={theme.MenubarRoot}>
       <Menu.Root>
-        <Menu.Trigger className={styles.MenuTrigger}>File</Menu.Trigger>
+        <Menu.Trigger className={theme.MenubarMenuTrigger}>File</Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-            <Menu.Popup className={styles.MenuPopup}>
-              <Menu.Item className={styles.MenuItem}>New</Menu.Item>
-              <Menu.Item className={styles.MenuItem}>Open</Menu.Item>
-              <Menu.Item className={styles.MenuItem}>Save</Menu.Item>
-              <Menu.Separator className={styles.MenuSeparator} />
-              <Menu.Item className={styles.MenuItem}>Print</Menu.Item>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+            <Menu.Popup className={theme.MenubarMenuPopup}>
+              <Menu.Item className={theme.MenubarMenuItem}>New</Menu.Item>
+              <Menu.Item className={theme.MenubarMenuItem}>Open</Menu.Item>
+              <Menu.Item className={theme.MenubarMenuItem}>Save</Menu.Item>
+              <Menu.Separator className={theme.MenuSeparator} />
+              <Menu.Item className={theme.MenubarMenuItem}>Print</Menu.Item>
             </Menu.Popup>
           </Menu.Positioner>
         </Menu.Portal>
       </Menu.Root>
 
       <Menu.Root>
-        <Menu.Trigger className={styles.MenuTrigger}>Edit</Menu.Trigger>
+        <Menu.Trigger className={theme.MenubarMenuTrigger}>Edit</Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-            <Menu.Popup className={styles.MenuPopup}>
-              <Menu.Item className={styles.MenuItem}>Cut</Menu.Item>
-              <Menu.Item className={styles.MenuItem}>Copy</Menu.Item>
-              <Menu.Item className={styles.MenuItem}>Paste</Menu.Item>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+            <Menu.Popup className={theme.MenubarMenuPopup}>
+              <Menu.Item className={theme.MenubarMenuItem}>Cut</Menu.Item>
+              <Menu.Item className={theme.MenubarMenuItem}>Copy</Menu.Item>
+              <Menu.Item className={theme.MenubarMenuItem}>Paste</Menu.Item>
             </Menu.Popup>
           </Menu.Positioner>
         </Menu.Portal>
       </Menu.Root>
 
       <Menu.Root>
-        <Menu.Trigger className={styles.MenuTrigger}>View</Menu.Trigger>
+        <Menu.Trigger className={theme.MenubarMenuTrigger}>View</Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-            <Menu.Popup className={styles.MenuPopup}>
-              <Menu.Item className={styles.MenuItem}>Zoom In</Menu.Item>
-              <Menu.Item className={styles.MenuItem}>Zoom Out</Menu.Item>
-              <Menu.Separator className={styles.MenuSeparator} />
-              <Menu.Item className={styles.MenuItem}>Full Screen</Menu.Item>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+            <Menu.Popup className={theme.MenubarMenuPopup}>
+              <Menu.Item className={theme.MenubarMenuItem}>Zoom In</Menu.Item>
+              <Menu.Item className={theme.MenubarMenuItem}>Zoom Out</Menu.Item>
+              <Menu.Separator className={theme.MenuSeparator} />
+              <Menu.Item className={theme.MenubarMenuItem}>Full Screen</Menu.Item>
             </Menu.Popup>
           </Menu.Positioner>
         </Menu.Portal>
       </Menu.Root>
 
       <Menu.Root disabled>
-        <Menu.Trigger className={styles.MenuTrigger}>Help</Menu.Trigger>
+        <Menu.Trigger className={theme.MenubarMenuTrigger}>Help</Menu.Trigger>
       </Menu.Root>
     </Menubar>
   );
@@ -135,26 +136,26 @@ export const Hero: Story = {
 
 function DisabledCascadeExample() {
   return (
-    <div className={styles.Row}>
-      <div className={styles.Stack}>
-        <span className={styles.Output}>Whole bar disabled</span>
-        <Menubar className={styles.Menubar} disabled>
+    <div className="MenubarDemoRow">
+      <div className="MenubarDemoStack">
+        <span className="MenubarDemoOutput">Whole bar disabled</span>
+        <Menubar className={theme.MenubarRoot} disabled>
           <Menu.Root>
-            <Menu.Trigger className={styles.MenuTrigger}>File</Menu.Trigger>
+            <Menu.Trigger className={theme.MenubarMenuTrigger}>File</Menu.Trigger>
             <Menu.Portal>
-              <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-                <Menu.Popup className={styles.MenuPopup}>
-                  <Menu.Item className={styles.MenuItem}>New</Menu.Item>
+              <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+                <Menu.Popup className={theme.MenubarMenuPopup}>
+                  <Menu.Item className={theme.MenubarMenuItem}>New</Menu.Item>
                 </Menu.Popup>
               </Menu.Positioner>
             </Menu.Portal>
           </Menu.Root>
           <Menu.Root>
-            <Menu.Trigger className={styles.MenuTrigger}>Edit</Menu.Trigger>
+            <Menu.Trigger className={theme.MenubarMenuTrigger}>Edit</Menu.Trigger>
             <Menu.Portal>
-              <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-                <Menu.Popup className={styles.MenuPopup}>
-                  <Menu.Item className={styles.MenuItem}>Cut</Menu.Item>
+              <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+                <Menu.Popup className={theme.MenubarMenuPopup}>
+                  <Menu.Item className={theme.MenubarMenuItem}>Cut</Menu.Item>
                 </Menu.Popup>
               </Menu.Positioner>
             </Menu.Portal>
@@ -162,21 +163,21 @@ function DisabledCascadeExample() {
         </Menubar>
       </div>
 
-      <div className={styles.Stack}>
-        <span className={styles.Output}>Single menu disabled (&quot;Help&quot;)</span>
-        <Menubar className={styles.Menubar}>
+      <div className="MenubarDemoStack">
+        <span className="MenubarDemoOutput">Single menu disabled (&quot;Help&quot;)</span>
+        <Menubar className={theme.MenubarRoot}>
           <Menu.Root>
-            <Menu.Trigger className={styles.MenuTrigger}>File</Menu.Trigger>
+            <Menu.Trigger className={theme.MenubarMenuTrigger}>File</Menu.Trigger>
             <Menu.Portal>
-              <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-                <Menu.Popup className={styles.MenuPopup}>
-                  <Menu.Item className={styles.MenuItem}>New</Menu.Item>
+              <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+                <Menu.Popup className={theme.MenubarMenuPopup}>
+                  <Menu.Item className={theme.MenubarMenuItem}>New</Menu.Item>
                 </Menu.Popup>
               </Menu.Positioner>
             </Menu.Portal>
           </Menu.Root>
           <Menu.Root disabled>
-            <Menu.Trigger className={styles.MenuTrigger}>Help</Menu.Trigger>
+            <Menu.Trigger className={theme.MenubarMenuTrigger}>Help</Menu.Trigger>
           </Menu.Root>
         </Menubar>
       </div>
@@ -217,25 +218,25 @@ export const DisabledCascade: Story = {
 
 function VerticalOrientationExample() {
   return (
-    <Menubar className={styles.Menubar} orientation="vertical">
+    <Menubar className={theme.MenubarRoot} orientation="vertical">
       <Menu.Root>
-        <Menu.Trigger className={styles.MenuTrigger}>File</Menu.Trigger>
+        <Menu.Trigger className={theme.MenubarMenuTrigger}>File</Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-            <Menu.Popup className={styles.MenuPopup} data-testid="file-popup">
-              <Menu.Item className={styles.MenuItem}>New</Menu.Item>
-              <Menu.Item className={styles.MenuItem}>Open</Menu.Item>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+            <Menu.Popup className={theme.MenubarMenuPopup} data-testid="file-popup">
+              <Menu.Item className={theme.MenubarMenuItem}>New</Menu.Item>
+              <Menu.Item className={theme.MenubarMenuItem}>Open</Menu.Item>
             </Menu.Popup>
           </Menu.Positioner>
         </Menu.Portal>
       </Menu.Root>
       <Menu.Root>
-        <Menu.Trigger className={styles.MenuTrigger}>Edit</Menu.Trigger>
+        <Menu.Trigger className={theme.MenubarMenuTrigger}>Edit</Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-            <Menu.Popup className={styles.MenuPopup}>
-              <Menu.Item className={styles.MenuItem}>Cut</Menu.Item>
-              <Menu.Item className={styles.MenuItem}>Copy</Menu.Item>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+            <Menu.Popup className={theme.MenubarMenuPopup}>
+              <Menu.Item className={theme.MenubarMenuItem}>Cut</Menu.Item>
+              <Menu.Item className={theme.MenubarMenuItem}>Copy</Menu.Item>
             </Menu.Popup>
           </Menu.Positioner>
         </Menu.Portal>
@@ -270,26 +271,26 @@ export const VerticalOrientation: Story = {
 
 function LoopFocusToggleExample() {
   return (
-    <div className={styles.Row}>
-      <div className={styles.Stack}>
-        <span className={styles.Output}>loopFocus (default true)</span>
-        <Menubar className={styles.Menubar} data-testid="loop-bar">
+    <div className="MenubarDemoRow">
+      <div className="MenubarDemoStack">
+        <span className="MenubarDemoOutput">loopFocus (default true)</span>
+        <Menubar className={theme.MenubarRoot} data-testid="loop-bar">
           <Menu.Root>
-            <Menu.Trigger className={styles.MenuTrigger}>File</Menu.Trigger>
+            <Menu.Trigger className={theme.MenubarMenuTrigger}>File</Menu.Trigger>
           </Menu.Root>
           <Menu.Root>
-            <Menu.Trigger className={styles.MenuTrigger}>Edit</Menu.Trigger>
+            <Menu.Trigger className={theme.MenubarMenuTrigger}>Edit</Menu.Trigger>
           </Menu.Root>
         </Menubar>
       </div>
-      <div className={styles.Stack}>
-        <span className={styles.Output}>loopFocus=false</span>
-        <Menubar className={styles.Menubar} loopFocus={false} data-testid="no-loop-bar">
+      <div className="MenubarDemoStack">
+        <span className="MenubarDemoOutput">loopFocus=false</span>
+        <Menubar className={theme.MenubarRoot} loopFocus={false} data-testid="no-loop-bar">
           <Menu.Root>
-            <Menu.Trigger className={styles.MenuTrigger}>File</Menu.Trigger>
+            <Menu.Trigger className={theme.MenubarMenuTrigger}>File</Menu.Trigger>
           </Menu.Root>
           <Menu.Root>
-            <Menu.Trigger className={styles.MenuTrigger}>Edit</Menu.Trigger>
+            <Menu.Trigger className={theme.MenubarMenuTrigger}>Edit</Menu.Trigger>
           </Menu.Root>
         </Menubar>
       </div>
@@ -325,28 +326,28 @@ export const LoopFocusToggle: Story = {
 
 function SubmenuWithinMenubarExample() {
   return (
-    <Menubar className={styles.Menubar}>
+    <Menubar className={theme.MenubarRoot}>
       <Menu.Root>
-        <Menu.Trigger className={styles.MenuTrigger}>File</Menu.Trigger>
+        <Menu.Trigger className={theme.MenubarMenuTrigger}>File</Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-            <Menu.Popup className={styles.MenuPopup}>
-              <Menu.Item className={styles.MenuItem}>New</Menu.Item>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+            <Menu.Popup className={theme.MenubarMenuPopup}>
+              <Menu.Item className={theme.MenubarMenuItem}>New</Menu.Item>
               <Menu.SubmenuRoot>
-                <Menu.SubmenuTrigger className={styles.SubmenuTrigger}>
+                <Menu.SubmenuTrigger className={theme.MenubarSubmenuTrigger}>
                   Export
                   <CaretRightIcon />
                 </Menu.SubmenuTrigger>
                 <Menu.Portal>
                   <Menu.Positioner
-                    className={styles.MenuPositioner}
+                    className={theme.MenuPositioner}
                     alignOffset={-4}
                     sideOffset={-4}
                   >
-                    <Menu.Popup className={styles.MenuPopup}>
-                      <Menu.Item className={styles.MenuItem}>PDF</Menu.Item>
-                      <Menu.Item className={styles.MenuItem}>PNG</Menu.Item>
-                      <Menu.Item className={styles.MenuItem}>SVG</Menu.Item>
+                    <Menu.Popup className={theme.MenubarMenuPopup}>
+                      <Menu.Item className={theme.MenubarMenuItem}>PDF</Menu.Item>
+                      <Menu.Item className={theme.MenubarMenuItem}>PNG</Menu.Item>
+                      <Menu.Item className={theme.MenubarMenuItem}>SVG</Menu.Item>
                     </Menu.Popup>
                   </Menu.Positioner>
                 </Menu.Portal>
@@ -356,11 +357,11 @@ function SubmenuWithinMenubarExample() {
         </Menu.Portal>
       </Menu.Root>
       <Menu.Root>
-        <Menu.Trigger className={styles.MenuTrigger}>Edit</Menu.Trigger>
+        <Menu.Trigger className={theme.MenubarMenuTrigger}>Edit</Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-            <Menu.Popup className={styles.MenuPopup}>
-              <Menu.Item className={styles.MenuItem}>Cut</Menu.Item>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+            <Menu.Popup className={theme.MenubarMenuPopup}>
+              <Menu.Item className={theme.MenubarMenuItem}>Cut</Menu.Item>
             </Menu.Popup>
           </Menu.Positioner>
         </Menu.Portal>
@@ -405,30 +406,30 @@ function CheckboxAndRadioItemsInMenubarExample() {
   const [showRulers, setShowRulers] = React.useState(false);
   const [zoom, setZoom] = React.useState('100');
   return (
-    <Menubar className={styles.Menubar}>
+    <Menubar className={theme.MenubarRoot}>
       <Menu.Root>
-        <Menu.Trigger className={styles.MenuTrigger}>View</Menu.Trigger>
+        <Menu.Trigger className={theme.MenubarMenuTrigger}>View</Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-            <Menu.Popup className={styles.MenuPopup}>
+          <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+            <Menu.Popup className={theme.MenubarMenuPopup}>
               <Menu.CheckboxItem
                 checked={showRulers}
                 onCheckedChange={setShowRulers}
-                className={styles.CheckboxItem}
+                className={theme.MenuCheckboxItem}
               >
-                <Menu.CheckboxItemIndicator className={styles.CheckboxItemIndicator}>
+                <Menu.CheckboxItemIndicator className={theme.MenuCheckboxItemIndicator}>
                   <CheckIcon />
                 </Menu.CheckboxItemIndicator>
-                <span className={styles.CheckboxItemText}>Show Rulers</span>
+                <span className={theme.MenuCheckboxItemText}>Show Rulers</span>
               </Menu.CheckboxItem>
-              <Menu.Separator className={styles.MenuSeparator} />
+              <Menu.Separator className={theme.MenuSeparator} />
               <Menu.RadioGroup value={zoom} onValueChange={setZoom}>
                 {['50', '100', '150'].map((level) => (
-                  <Menu.RadioItem key={level} className={styles.RadioItem} value={level}>
-                    <Menu.RadioItemIndicator className={styles.RadioItemIndicator}>
+                  <Menu.RadioItem key={level} className={theme.MenuRadioItem} value={level}>
+                    <Menu.RadioItemIndicator className={theme.MenuRadioItemIndicator}>
                       <CheckIcon />
                     </Menu.RadioItemIndicator>
-                    <span className={styles.RadioItemText}>{level}%</span>
+                    <span className={theme.MenuRadioItemText}>{level}%</span>
                   </Menu.RadioItem>
                 ))}
               </Menu.RadioGroup>
@@ -476,8 +477,8 @@ export const CheckboxAndRadioItemsInMenubar: Story = {
 function HoverSwitchAfterFirstClickExample() {
   const [log, setLog] = React.useState<string[]>([]);
   return (
-    <div className={styles.Stack}>
-      <Menubar className={styles.Menubar}>
+    <div className="MenubarDemoStack">
+      <Menubar className={theme.MenubarRoot}>
         <Menu.Root
           onOpenChange={(open, eventDetails) => {
             if (open) {
@@ -488,11 +489,11 @@ function HoverSwitchAfterFirstClickExample() {
             }
           }}
         >
-          <Menu.Trigger className={styles.MenuTrigger}>File</Menu.Trigger>
+          <Menu.Trigger className={theme.MenubarMenuTrigger}>File</Menu.Trigger>
           <Menu.Portal>
-            <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-              <Menu.Popup className={styles.MenuPopup}>
-                <Menu.Item className={styles.MenuItem}>New</Menu.Item>
+            <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+              <Menu.Popup className={theme.MenubarMenuPopup}>
+                <Menu.Item className={theme.MenubarMenuItem}>New</Menu.Item>
               </Menu.Popup>
             </Menu.Positioner>
           </Menu.Portal>
@@ -507,17 +508,17 @@ function HoverSwitchAfterFirstClickExample() {
             }
           }}
         >
-          <Menu.Trigger className={styles.MenuTrigger}>Edit</Menu.Trigger>
+          <Menu.Trigger className={theme.MenubarMenuTrigger}>Edit</Menu.Trigger>
           <Menu.Portal>
-            <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-              <Menu.Popup className={styles.MenuPopup}>
-                <Menu.Item className={styles.MenuItem}>Cut</Menu.Item>
+            <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+              <Menu.Popup className={theme.MenubarMenuPopup}>
+                <Menu.Item className={theme.MenubarMenuItem}>Cut</Menu.Item>
               </Menu.Popup>
             </Menu.Positioner>
           </Menu.Portal>
         </Menu.Root>
       </Menubar>
-      <output className={styles.Output}>
+      <output className="MenubarDemoOutput">
         {log.length > 0 ? log.join(', ') : 'no popup opened yet'}
       </output>
     </div>
@@ -590,26 +591,28 @@ export const HomeAndEndNavigation: Story = {
 
 function ToolbarContrastSideBySideExample() {
   return (
-    <div className={styles.Row}>
-      <div className={styles.Stack}>
-        <span className={styles.Output}>Menubar — persistent, always-visible menu triggers</span>
-        <Menubar className={styles.Menubar}>
+    <div className="MenubarDemoRow">
+      <div className="MenubarDemoStack">
+        <span className="MenubarDemoOutput">
+          Menubar — persistent, always-visible menu triggers
+        </span>
+        <Menubar className={theme.MenubarRoot}>
           <Menu.Root>
-            <Menu.Trigger className={styles.MenuTrigger}>File</Menu.Trigger>
+            <Menu.Trigger className={theme.MenubarMenuTrigger}>File</Menu.Trigger>
             <Menu.Portal>
-              <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-                <Menu.Popup className={styles.MenuPopup}>
-                  <Menu.Item className={styles.MenuItem}>New</Menu.Item>
+              <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+                <Menu.Popup className={theme.MenubarMenuPopup}>
+                  <Menu.Item className={theme.MenubarMenuItem}>New</Menu.Item>
                 </Menu.Popup>
               </Menu.Positioner>
             </Menu.Portal>
           </Menu.Root>
           <Menu.Root>
-            <Menu.Trigger className={styles.MenuTrigger}>Edit</Menu.Trigger>
+            <Menu.Trigger className={theme.MenubarMenuTrigger}>Edit</Menu.Trigger>
             <Menu.Portal>
-              <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-                <Menu.Popup className={styles.MenuPopup}>
-                  <Menu.Item className={styles.MenuItem}>Cut</Menu.Item>
+              <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+                <Menu.Popup className={theme.MenubarMenuPopup}>
+                  <Menu.Item className={theme.MenubarMenuItem}>Cut</Menu.Item>
                 </Menu.Popup>
               </Menu.Positioner>
             </Menu.Portal>
@@ -617,20 +620,20 @@ function ToolbarContrastSideBySideExample() {
         </Menubar>
       </div>
 
-      <div className={styles.Stack}>
-        <span className={styles.Output}>Toolbar — ordinary buttons, one embeds a Menu</span>
-        <Toolbar.Root aria-label="Document actions" className={styles.ToolbarRoot}>
-          <Toolbar.Button className={styles.ToolbarButton}>Bold</Toolbar.Button>
-          <Toolbar.Button className={styles.ToolbarButton}>Italic</Toolbar.Button>
+      <div className="MenubarDemoStack">
+        <span className="MenubarDemoOutput">Toolbar — ordinary buttons, one embeds a Menu</span>
+        <Toolbar.Root aria-label="Document actions" className={theme.ToolbarRoot}>
+          <Toolbar.Button className={theme.ToolbarButton}>Bold</Toolbar.Button>
+          <Toolbar.Button className={theme.ToolbarButton}>Italic</Toolbar.Button>
           <Menu.Root>
-            <Toolbar.Button render={<Menu.Trigger />} className={styles.ToolbarButton}>
+            <Toolbar.Button render={<Menu.Trigger />} className={theme.ToolbarButton}>
               More actions
             </Toolbar.Button>
             <Menu.Portal>
-              <Menu.Positioner className={styles.MenuPositioner} sideOffset={4}>
-                <Menu.Popup className={styles.MenuPopup}>
-                  <Menu.Item className={styles.MenuItem}>Duplicate</Menu.Item>
-                  <Menu.Item className={styles.MenuItem}>Delete</Menu.Item>
+              <Menu.Positioner className={theme.MenuPositioner} sideOffset={4}>
+                <Menu.Popup className={theme.MenubarMenuPopup}>
+                  <Menu.Item className={theme.MenubarMenuItem}>Duplicate</Menu.Item>
+                  <Menu.Item className={theme.MenubarMenuItem}>Delete</Menu.Item>
                 </Menu.Popup>
               </Menu.Positioner>
             </Menu.Portal>
@@ -670,8 +673,8 @@ export const ToolbarContrastSideBySide: Story = {
 
 function RTLGapHonestyNoteExample() {
   return (
-    <div className={styles.Stack}>
-      <p className={styles.Output}>
+    <div className="MenubarDemoStack">
+      <p className="MenubarDemoOutput">
         Honest gap: `Menubar.test.tsx` (1,343 lines) has no `dir=&quot;rtl&quot;` coverage for
         horizontal-orientation arrow-key direction. Treat RTL correctness here as an unverified
         unknown, not a guarantee inherited automatically from `DirectionProvider`/Composite

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import { Meter } from '@base-ui/react/meter';
-import styles from './meter.module.css';
+import theme from '@droppy/theme';
+import './meter.demo.css';
 
 /**
  * Stories follow research/c-components/meter (Tier 3): the kept hero demo,
@@ -26,11 +27,11 @@ type Story = StoryObj<typeof meta>;
 /** The docs hero demo: a "Storage Used" measurement. Root exposes `role="meter"` with the full `aria-value*` contract — and unlike Progress, there is no indeterminate mode: `value` is always a required number. */
 export const Hero: Story = {
   render: () => (
-    <Meter.Root className={styles.Meter} value={24}>
-      <Meter.Label className={styles.Label}>Storage Used</Meter.Label>
-      <Meter.Value className={styles.Value} />
-      <Meter.Track className={styles.Track}>
-        <Meter.Indicator className={styles.Indicator} />
+    <Meter.Root className={theme.MeterRoot} value={24}>
+      <Meter.Label className={theme.MeterLabel}>Storage Used</Meter.Label>
+      <Meter.Value className={theme.MeterValue} />
+      <Meter.Track className={theme.MeterTrack}>
+        <Meter.Indicator className={theme.MeterIndicator} />
       </Meter.Track>
     </Meter.Root>
   ),
@@ -45,11 +46,11 @@ export const Hero: Story = {
 /** `min`/`max` define arbitrary bounds — the default text stays the position within the range (6 of 0–8 hours reads as 75%), so text and fill agree for any bounds. */
 export const BoundedRange: Story = {
   render: () => (
-    <Meter.Root className={styles.Meter} value={6} min={0} max={8} locale="en-US">
-      <Meter.Label className={styles.Label}>Battery life</Meter.Label>
-      <Meter.Value className={styles.Value} />
-      <Meter.Track className={styles.Track}>
-        <Meter.Indicator className={styles.Indicator} />
+    <Meter.Root className={theme.MeterRoot} value={6} min={0} max={8} locale="en-US">
+      <Meter.Label className={theme.MeterLabel}>Battery life</Meter.Label>
+      <Meter.Value className={theme.MeterValue} />
+      <Meter.Track className={theme.MeterTrack}>
+        <Meter.Indicator className={theme.MeterIndicator} />
       </Meter.Track>
     </Meter.Root>
   ),
@@ -65,7 +66,7 @@ export const BoundedRange: Story = {
 export const FormattedValue: Story = {
   render: () => (
     <Meter.Root
-      className={styles.Meter}
+      className={theme.MeterRoot}
       value={6.5}
       min={0}
       max={16}
@@ -73,10 +74,10 @@ export const FormattedValue: Story = {
       format={{ style: 'unit', unit: 'gigabyte' }}
       getAriaValueText={(formattedValue) => `${formattedValue} of 16 gigabytes used`}
     >
-      <Meter.Label className={styles.Label}>Memory used</Meter.Label>
-      <Meter.Value className={styles.Value} />
-      <Meter.Track className={styles.Track}>
-        <Meter.Indicator className={styles.Indicator} />
+      <Meter.Label className={theme.MeterLabel}>Memory used</Meter.Label>
+      <Meter.Value className={theme.MeterValue} />
+      <Meter.Track className={theme.MeterTrack}>
+        <Meter.Indicator className={theme.MeterIndicator} />
       </Meter.Track>
     </Meter.Root>
   ),
@@ -88,17 +89,20 @@ export const FormattedValue: Story = {
 };
 
 function TieredMeter({ label, value }: { label: string; value: number }) {
-  let indicatorClass = styles.Indicator;
+  // MeterIndicatorLow/MeterIndicatorHigh are tier overlays, not standalone
+  // replacements — combine with the base MeterIndicator class (see
+  // @droppy/theme's styles.css comment on these two keys).
+  let indicatorClass: string = theme.MeterIndicator;
   if (value >= 90) {
-    indicatorClass = styles.IndicatorHigh;
+    indicatorClass = `${theme.MeterIndicator} ${theme.MeterIndicatorHigh}`;
   } else if (value < 50) {
-    indicatorClass = styles.IndicatorLow;
+    indicatorClass = `${theme.MeterIndicator} ${theme.MeterIndicatorLow}`;
   }
   return (
-    <Meter.Root className={styles.Meter} value={value}>
-      <Meter.Label className={styles.Label}>{label}</Meter.Label>
-      <Meter.Value className={styles.Value} />
-      <Meter.Track className={styles.Track}>
+    <Meter.Root className={theme.MeterRoot} value={value}>
+      <Meter.Label className={theme.MeterLabel}>{label}</Meter.Label>
+      <Meter.Value className={theme.MeterValue} />
+      <Meter.Track className={theme.MeterTrack}>
         <Meter.Indicator className={indicatorClass} />
       </Meter.Track>
     </Meter.Root>
@@ -108,7 +112,7 @@ function TieredMeter({ label, value }: { label: string; value: number }) {
 /** Meter ships **no** data attributes (low/high segment styling was designed then dropped — open #1434), so tier colors must be computed by the consumer from `value`/`min`/`max`, as here. */
 export const ValueTierStyling: Story = {
   render: () => (
-    <div className={styles.Stack}>
+    <div className="Stack">
       <TieredMeter label="Disk A" value={30} />
       <TieredMeter label="Disk B" value={72} />
       <TieredMeter label="Disk C" value={95} />
@@ -125,26 +129,26 @@ export const ValueTierStyling: Story = {
  */
 export const ClampedOutOfRangeValues: Story = {
   render: () => (
-    <div className={styles.Stack}>
-      <Meter.Root className={styles.Meter} value={150} locale="en-US">
-        <Meter.Label className={styles.Label}>Above max (value=150)</Meter.Label>
-        <Meter.Value className={styles.Value} />
-        <Meter.Track className={styles.Track}>
-          <Meter.Indicator className={styles.Indicator} data-testid="indicator-above" />
+    <div className="Stack">
+      <Meter.Root className={theme.MeterRoot} value={150} locale="en-US">
+        <Meter.Label className={theme.MeterLabel}>Above max (value=150)</Meter.Label>
+        <Meter.Value className={theme.MeterValue} />
+        <Meter.Track className={theme.MeterTrack}>
+          <Meter.Indicator className={theme.MeterIndicator} data-testid="indicator-above" />
         </Meter.Track>
       </Meter.Root>
-      <Meter.Root className={styles.Meter} value={-10} locale="en-US">
-        <Meter.Label className={styles.Label}>Below min (value=-10)</Meter.Label>
-        <Meter.Value className={styles.Value} />
-        <Meter.Track className={styles.Track}>
-          <Meter.Indicator className={styles.Indicator} data-testid="indicator-below" />
+      <Meter.Root className={theme.MeterRoot} value={-10} locale="en-US">
+        <Meter.Label className={theme.MeterLabel}>Below min (value=-10)</Meter.Label>
+        <Meter.Value className={theme.MeterValue} />
+        <Meter.Track className={theme.MeterTrack}>
+          <Meter.Indicator className={theme.MeterIndicator} data-testid="indicator-below" />
         </Meter.Track>
       </Meter.Root>
-      <Meter.Root className={styles.Meter} value={Number.NaN} locale="en-US">
-        <Meter.Label className={styles.Label}>NaN value</Meter.Label>
-        <Meter.Value className={styles.Value} />
-        <Meter.Track className={styles.Track}>
-          <Meter.Indicator className={styles.Indicator} data-testid="indicator-nan" />
+      <Meter.Root className={theme.MeterRoot} value={Number.NaN} locale="en-US">
+        <Meter.Label className={theme.MeterLabel}>NaN value</Meter.Label>
+        <Meter.Value className={theme.MeterValue} />
+        <Meter.Track className={theme.MeterTrack}>
+          <Meter.Indicator className={theme.MeterIndicator} data-testid="indicator-nan" />
         </Meter.Track>
       </Meter.Root>
     </div>
@@ -182,29 +186,29 @@ export const ClampedOutOfRangeValues: Story = {
  */
 export const LocaleVariants: Story = {
   render: () => (
-    <div className={styles.Stack}>
+    <div className="Stack">
       <Meter.Root
-        className={styles.Meter}
+        className={theme.MeterRoot}
         value={30}
         format={{ style: 'currency', currency: 'EUR' }}
         locale="en-US"
       >
-        <Meter.Label className={styles.Label}>Budget (en-US)</Meter.Label>
-        <Meter.Value className={styles.Value} />
-        <Meter.Track className={styles.Track}>
-          <Meter.Indicator className={styles.Indicator} />
+        <Meter.Label className={theme.MeterLabel}>Budget (en-US)</Meter.Label>
+        <Meter.Value className={theme.MeterValue} />
+        <Meter.Track className={theme.MeterTrack}>
+          <Meter.Indicator className={theme.MeterIndicator} />
         </Meter.Track>
       </Meter.Root>
       <Meter.Root
-        className={styles.Meter}
+        className={theme.MeterRoot}
         value={30}
         format={{ style: 'currency', currency: 'EUR' }}
         locale="de-DE"
       >
-        <Meter.Label className={styles.Label}>Budget (de-DE)</Meter.Label>
-        <Meter.Value className={styles.Value} />
-        <Meter.Track className={styles.Track}>
-          <Meter.Indicator className={styles.Indicator} />
+        <Meter.Label className={theme.MeterLabel}>Budget (de-DE)</Meter.Label>
+        <Meter.Value className={theme.MeterValue} />
+        <Meter.Track className={theme.MeterTrack}>
+          <Meter.Indicator className={theme.MeterIndicator} />
         </Meter.Track>
       </Meter.Root>
     </div>
