@@ -1,10 +1,11 @@
 /*
- * @base-ui/mealdrop — single stylesheet.
- * 1) Mealdrop design tokens (generated from the DS theme; light + dark via
+ * @droppy/theme — single stylesheet.
+ * 1) Droppy design tokens (generated from the DS theme; light + dark via
  *    html[data-theme] with a system-preference fallback, Montserrat/Hind).
- * 2) Component chrome for the md-* classes the package's wrappers attach,
- *    adapted from the DS's themed Storybook modules. Consumers import this
- *    file once; components need no further styling.
+ * 2) Component chrome for the md-* classes bound at call sites via the
+ *    `theme` object this package also exports (see index.ts), adapted from
+ *    the DS's themed Storybook modules. Consumers import this file once;
+ *    class names stay `md-*` (unchanged) so DOM-side metrics keep working.
  * Brand rules preserved: single two-layer focus ring, radius ladder
  * (control 4 / card 8 / sheet 16 / pill 32), 150-300ms ease-in motion,
  * body-face regular-weight buttons.

@@ -1,13 +1,13 @@
 {
-  "name": "@base-ui/mealdrop",
+  "name": "@droppy/theme",
   "version": "0.1.0",
   "author": "MUI Team",
-  "description": "Mealdrop theme for @base-ui/react: a stylesheet of design tokens and md-* classes to apply at your own call sites.",
+  "description": "Droppy theme for @base-ui/react: a stylesheet plus a class-name lookup object, bound at each call site.",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mui/base-ui.git",
-    "directory": "packages/mealdrop"
+    "directory": "packages/droppy-theme"
   },
   "scripts": {
     "prebuild": "rimraf --glob build \"*.tsbuildinfo\"",

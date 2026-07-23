@@ -395,7 +395,7 @@ importers:
         specifier: 4.4.3
         version: 4.4.3
 
-  packages/mealdrop:
+  packages/droppy-theme:
     dependencies:
       '@babel/runtime':
         specifier: ^7.29.2
