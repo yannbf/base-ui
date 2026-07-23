@@ -3596,7 +3596,7 @@ html[data-theme='dark'] .DialogBackdrop {
 }
 
 /* ========================= NavigationMenu =========================
-   Positioner/Popup consume --positioner-*/--popup-* — the signature
+   Positioner/Popup consume --positioner-* and --popup-* vars — the signature
    viewport-morph plumbing the popup needs to travel and resize between
    triggers (#2269); kept as mechanical chrome, not a redesign. */
 
