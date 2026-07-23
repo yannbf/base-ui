@@ -21,10 +21,11 @@ import theme from '@droppy/theme';
 ```
 
 Dark mode: set `data-theme="dark"` on `<html>` (falls back to the system preference when
-unset). `theme` has one entry per `md-*` class in `styles.css` — `theme.Button`,
-`theme.FieldRoot`, `theme.DialogPopup`, `theme.DrawerPopup`, `theme.TooltipPopup`, and so on;
-see `src/styles.css` for the full list. Named constants (`buttonClass`, `dialogPopupClass`, …)
-are also exported for convenience — same strings, just not namespaced under `theme`.
+unset). `theme` has one entry per plain PascalCase class in `styles.css`, named
+`{Component}{Part}` after the Base UI part it themes — `theme.Button`, `theme.FieldRoot`,
+`theme.DialogPopup`, `theme.AccordionTrigger`, `theme.SwitchThumb`, and so on; see
+`src/index.ts` for the full list (mirrors `src/styles.css` 1:1) and Storybook for what each
+part looks like — what you see there is what you get from this package.
 
 ## Why no component layer (yet)
 

@@ -1,11 +1,12 @@
 /**
- * @droppy/theme — theme-only package, milestone 1.
+ * @droppy/theme — theme-only package.
  *
  * This package ships a single stylesheet (`@droppy/theme/styles.css`) with
- * the Droppy design tokens and `md-*` component classes, plus this lookup
- * object mapping Base UI part names to those class names. There are no
- * component wrappers: import `@base-ui/react` parts directly and bind the
- * class at each call site —
+ * the Droppy design tokens and plain PascalCase component classes (one per
+ * Base UI part, named `{Component}{Part}`), plus this lookup object mapping
+ * Base UI part names to those class names. There are no component wrappers:
+ * import `@base-ui/react` parts directly and bind the class at each call
+ * site —
  *
  *   import { Button } from '@base-ui/react/button';
  *   import theme from '@droppy/theme';
@@ -18,47 +19,75 @@
  */
 
 const theme = {
-  Button: 'md-Button',
+  Button: 'Button',
 
-  FieldRoot: 'md-FieldRoot',
-  FieldLabel: 'md-FieldLabel',
-  FieldDescription: 'md-FieldDescription',
-  FieldError: 'md-FieldError',
+  FieldRoot: 'FieldRoot',
+  FieldLabel: 'FieldLabel',
+  FieldDescription: 'FieldDescription',
+  FieldError: 'FieldError',
 
-  Input: 'md-Input',
+  Input: 'Input',
 
-  DialogBackdrop: 'md-DialogBackdrop',
-  DialogPopup: 'md-DialogPopup',
-  DialogTitle: 'md-DialogTitle',
-  DialogDescription: 'md-DialogDescription',
+  DialogBackdrop: 'DialogBackdrop',
+  DialogPopup: 'DialogPopup',
+  DialogTitle: 'DialogTitle',
+  DialogDescription: 'DialogDescription',
 
-  DrawerBackdrop: 'md-DrawerBackdrop',
-  DrawerPopup: 'md-DrawerPopup',
-  DrawerTitle: 'md-DrawerTitle',
+  DrawerBackdrop: 'DrawerBackdrop',
+  DrawerPopup: 'DrawerPopup',
+  DrawerTitle: 'DrawerTitle',
 
-  TooltipPopup: 'md-TooltipPopup',
+  TooltipPopup: 'TooltipPopup',
+
+  AccordionRoot: 'AccordionRoot',
+  AccordionItem: 'AccordionItem',
+  AccordionHeader: 'AccordionHeader',
+  AccordionTrigger: 'AccordionTrigger',
+  AccordionIcon: 'AccordionIcon',
+  AccordionPanel: 'AccordionPanel',
+  AccordionContent: 'AccordionContent',
+
+  AvatarRoot: 'AvatarRoot',
+  AvatarImage: 'AvatarImage',
+  AvatarFallback: 'AvatarFallback',
+
+  CheckboxLabel: 'CheckboxLabel',
+  CheckboxRoot: 'CheckboxRoot',
+  CheckboxIndicator: 'CheckboxIndicator',
+
+  CheckboxGroupRoot: 'CheckboxGroupRoot',
+  CheckboxGroupItem: 'CheckboxGroupItem',
+
+  FieldsetRoot: 'FieldsetRoot',
+  FieldsetLegend: 'FieldsetLegend',
+
+  RadioGroupRoot: 'RadioGroupRoot',
+  RadioGroupItem: 'RadioGroupItem',
+  RadioRoot: 'RadioRoot',
+  RadioIndicator: 'RadioIndicator',
+
+  SwitchLabel: 'SwitchLabel',
+  SwitchRoot: 'SwitchRoot',
+  SwitchThumb: 'SwitchThumb',
+
+  ToggleRoot: 'ToggleRoot',
+
+  ToggleGroupRoot: 'ToggleGroupRoot',
+  ToggleGroupItem: 'ToggleGroupItem',
+
+  MeterRoot: 'MeterRoot',
+  MeterLabel: 'MeterLabel',
+  MeterValue: 'MeterValue',
+  MeterTrack: 'MeterTrack',
+  MeterIndicator: 'MeterIndicator',
+  MeterIndicatorLow: 'MeterIndicatorLow',
+  MeterIndicatorHigh: 'MeterIndicatorHigh',
+
+  ProgressRoot: 'ProgressRoot',
+  ProgressLabel: 'ProgressLabel',
+  ProgressValue: 'ProgressValue',
+  ProgressTrack: 'ProgressTrack',
+  ProgressIndicator: 'ProgressIndicator',
 } as const;
 
 export default theme;
-
-// Named constants, kept for convenience (docs, tests, avoiding typos) —
-// mirror the same class names as `theme`.
-export const buttonClass = theme.Button;
-
-export const fieldRootClass = theme.FieldRoot;
-export const fieldLabelClass = theme.FieldLabel;
-export const fieldDescriptionClass = theme.FieldDescription;
-export const fieldErrorClass = theme.FieldError;
-
-export const inputClass = theme.Input;
-
-export const dialogBackdropClass = theme.DialogBackdrop;
-export const dialogPopupClass = theme.DialogPopup;
-export const dialogTitleClass = theme.DialogTitle;
-export const dialogDescriptionClass = theme.DialogDescription;
-
-export const drawerBackdropClass = theme.DrawerBackdrop;
-export const drawerPopupClass = theme.DrawerPopup;
-export const drawerTitleClass = theme.DrawerTitle;
-
-export const tooltipPopupClass = theme.TooltipPopup;
