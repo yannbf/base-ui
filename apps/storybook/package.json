@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "prestorybook": "pnpm -w --filter @droppy/theme build",
     "storybook": "storybook dev -p 6006",
+    "prebuild-storybook": "pnpm -w --filter @droppy/theme build",
     "build-storybook": "storybook build",
     "chromatic": "chromatic --exit-zero-on-changes"
   },
