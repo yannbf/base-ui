@@ -66,6 +66,7 @@ function MinusIcon(props: React.ComponentProps<'svg'>) {
 
 /** The docs hero demo: a scrubbable label, a `Group` of Decrement/Input/Increment. Recreates `demos/hero`. */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => {
     return (
       <NumberField.Root id="number-field-hero" defaultValue={100} className={theme.NumberFieldRoot}>
@@ -95,6 +96,7 @@ export const Hero: Story = {
 
 /** Arrow keys step the focused Input directly — no need to reach for the stepper buttons. Home/End jump straight to `min`/`max` (only when those props are set); PageUp/PageDown are deliberately native, per the brief's honest read of the source (no ARIA spinbutton pattern is implemented here). */
 export const KeyboardStepping: Story = {
+  tags: ['tests'],
   render: () => (
     <NumberField.Root
       id="number-field-keyboard-stepping"
@@ -149,6 +151,7 @@ export const KeyboardStepping: Story = {
  * above), never a required one.
  */
 export const ScrubArea: Story = {
+  tags: ['highlight'],
   render: () => (
     <NumberField.Root
       id="number-field-scrub-area"
@@ -198,6 +201,7 @@ export const ScrubArea: Story = {
 
 /** `min`/`max`/`step` bound the value: typed out-of-range input clamps on blur, and the stepper buttons disable at the boundary. */
 export const MinMaxStep: Story = {
+  tags: ['highlight'],
   render: () => (
     <NumberField.Root
       id="number-field-min-max-step"
@@ -281,6 +285,7 @@ function FormExample() {
  * own `Field`/`Form` validation is meant to be authoritative instead.
  */
 export const FormIntegration: Story = {
+  tags: ['api-ref'],
   render: () => <FormExample />,
   play: async ({ canvas, userEvent }) => {
     const increment = canvas.getByRole('button', { name: 'Increase' });
@@ -329,6 +334,7 @@ function PressAndHoldExample() {
  * boundary is reached (the button becomes `aria-disabled`), well before release.
  */
 export const PressAndHoldStepping: Story = {
+  tags: ['highlight'],
   render: () => <PressAndHoldExample />,
   play: async ({ canvas }) => {
     const input = canvas.getByRole('textbox');
@@ -353,6 +359,7 @@ export const PressAndHoldStepping: Story = {
  * moves. Contrasted with a sibling field that steps by the exact amount with no snapping.
  */
 export const SnapOnStep: Story = {
+  tags: ['api-ref'],
   render: () => (
     <div className="NumberFieldDemoRow">
       <NumberField.Root
@@ -416,6 +423,7 @@ export const SnapOnStep: Story = {
  * *visible* typed text only resyncs to the clamped display on blur — not on every keystroke.
  */
 export const AllowOutOfRange: Story = {
+  tags: ['api-ref'],
   render: () => (
     <div className="NumberFieldDemoRow">
       <NumberField.Root
@@ -484,6 +492,7 @@ const eurDeFormat: Intl.NumberFormatOptions = { style: 'currency', currency: 'EU
  * Storybook coverage rather than a port of existing docs content.
  */
 export const LocaleAndCurrencyFormat: Story = {
+  tags: ['api-ref'],
   render: () => (
     <div className="NumberFieldDemoRow">
       <NumberField.Root
@@ -530,6 +539,7 @@ export const LocaleAndCurrencyFormat: Story = {
  * browser zoom (verified from source, not re-demonstrated here since it's a non-event).
  */
 export const WheelScrub: Story = {
+  tags: ['highlight'],
   render: () => (
     <NumberField.Root
       id="number-field-wheel-scrub"
@@ -606,6 +616,7 @@ function ValueChangeVsCommittedExample() {
  * `onValueCommitted` once; a stepper click fires both exactly once, together.
  */
 export const ValueChangeVsCommitted: Story = {
+  tags: ['highlight'],
   render: () => <ValueChangeVsCommittedExample />,
   play: async ({ canvas, userEvent }) => {
     const input = canvas.getByRole('textbox');
@@ -631,6 +642,7 @@ export const ValueChangeVsCommitted: Story = {
  * `NumberFieldRootContext`, plus `aria-invalid` on the Input.
  */
 export const FieldValidation: Story = {
+  tags: ['highlight'],
   render: () => (
     <Field.Root
       name="price"
@@ -682,6 +694,7 @@ export const FieldValidation: Story = {
  * disables wheel/scrub interactions.
  */
 export const DisabledAndReadOnly: Story = {
+  tags: ['api-ref'],
   render: () => (
     <div className="NumberFieldDemoRow">
       <NumberField.Root

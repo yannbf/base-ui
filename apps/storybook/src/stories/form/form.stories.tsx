@@ -94,6 +94,7 @@ function HeroExample() {
  * Editing the field clears the server error optimistically.
  */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => <HeroExample />,
   play: async ({ canvas, userEvent }) => {
     const input = canvas.getByLabelText('Homepage');
@@ -162,6 +163,7 @@ function SubmitGateExample() {
  * (errors clear live after the first attempt), `onFormSubmit` receives the values.
  */
 export const SubmitFlowWithErrors: Story = {
+  tags: ['highlight'],
   render: () => <SubmitGateExample />,
   play: async ({ canvas, userEvent }) => {
     const email = canvas.getByLabelText('Email');
@@ -232,6 +234,7 @@ function ServerErrorsExample() {
  * anymore (#3136) — and the app can re-set the prop at any time.
  */
 export const ServerErrorsProp: Story = {
+  tags: ['highlight'],
   render: () => <ServerErrorsExample />,
   play: async ({ canvas, userEvent }) => {
     // An externally supplied error renders immediately through Field.Error.
@@ -309,6 +312,7 @@ function ServerFunctionExample() {
  * auto-clear on change (#3136). After submission lands, Form focuses the invalid field.
  */
 export const ServerFunctionAction: Story = {
+  tags: ['highlight', 'base'],
   render: () => <ServerFunctionExample />,
   play: async ({ canvas, userEvent }) => {
     const input = canvas.getByLabelText('Username');
@@ -395,6 +399,7 @@ function SchemaMappingExample() {
  * clears only that field's error.
  */
 export const ZodSchemaMapping: Story = {
+  tags: ['highlight', 'base'],
   render: () => <SchemaMappingExample />,
   play: async ({ canvas, userEvent }) => {
     await userEvent.click(canvas.getByRole('button', { name: 'Submit' }));
@@ -458,6 +463,7 @@ function PayloadExample() {
  * contributes its raw numeric value, not the formatted display string (#1957).
  */
 export const OnFormSubmitPayload: Story = {
+  tags: ['api-ref'],
   render: () => <PayloadExample />,
   play: async ({ canvas, userEvent }) => {
     const quantity = canvas.getByLabelText('Quantity');
@@ -516,6 +522,7 @@ function ValidationModeExample() {
  * `onChange`; City overrides with `onBlur`.
  */
 export const ValidationModeCascade: Story = {
+  tags: ['api-ref'],
   render: () => <ValidationModeExample />,
   play: async ({ canvas, userEvent }) => {
     const nickname = canvas.getByLabelText('Nickname');
@@ -590,6 +597,7 @@ function ImperativeValidationExample() {
  * validates a single field; no argument validates all of them.
  */
 export const ImperativeValidation: Story = {
+  tags: ['highlight'],
   render: () => <ImperativeValidationExample />,
   play: async ({ canvas, userEvent }) => {
     await userEvent.click(canvas.getByRole('button', { name: 'Validate email' }));
@@ -611,6 +619,7 @@ export const ImperativeValidation: Story = {
  * add `noValidate` yourself — the #3552 trap. Submit each form to compare.
  */
 export const NoValidateBoundary: Story = {
+  tags: ['highlight'],
   render: () => (
     <div className="FormDemoRow">
       <Form aria-label="Base UI form" className={theme.FormRoot}>
@@ -859,6 +868,7 @@ function ReactHookFormStyleExample() {
  * `dirty`) and `Field.Error match={Boolean(error)}` renders the library's message.
  */
 export const ReactHookFormIntegration: Story = {
+  tags: ['highlight'],
   render: () => <ReactHookFormStyleExample />,
   play: async ({ canvas, userEvent }) => {
     const submit = canvas.getByRole('button', { name: 'Launch server' });
@@ -903,7 +913,7 @@ export const ReactHookFormIntegration: Story = {
  * research/d-real-world-usage/form/ranked.json #1).
  */
 export const RealWorldMultiControlQuoteForm: Story = {
-  tags: ['recreation'],
+  tags: ['recreation', 'examples'],
   render: () => <MultiControlQuoteFormExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -935,7 +945,7 @@ export const RealWorldMultiControlQuoteForm: Story = {
  * (MIT, code-ok, research/d-real-world-usage/form/ranked.json #3).
  */
 export const RealWorldZeroJSFieldsetForm: Story = {
-  tags: ['recreation'],
+  tags: ['recreation', 'examples'],
   render: () => <ZeroJSFieldsetFormExample />,
   play: async ({ canvas, userEvent }) => {
     await expect(canvas.getByRole('group', { name: 'Contact information' })).toBeVisible();

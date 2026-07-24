@@ -22,6 +22,7 @@ type Story = StoryObj<typeof meta>;
 
 /** The docs hero demo: label-wrapped switch, on by default. Use as the starting point for any boolean setting with immediate effect. */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => (
     <label className={theme.SwitchLabel}>
       <Switch.Root defaultChecked className={theme.SwitchRoot}>
@@ -55,6 +56,7 @@ function ControlledExample() {
 
 /** Use `checked` + `onCheckedChange` when external state must drive or observe the switch. */
 export const Controlled: Story = {
+  tags: ['highlight'],
   render: () => <ControlledExample />,
   play: async ({ canvas, userEvent }) => {
     await userEvent.click(canvas.getByRole('switch', { name: 'Airplane mode' }));
@@ -64,6 +66,7 @@ export const Controlled: Story = {
 
 /** Use the Field parts when you need a managed label, description, or validation wiring. */
 export const WithFieldLabel: Story = {
+  tags: ['highlight'],
   render: () => (
     <Field.Root>
       <Field.Label className={theme.SwitchLabel}>
@@ -78,6 +81,7 @@ export const WithFieldLabel: Story = {
 
 /** Use `render` + `nativeButton` to render an actual `<button>` element (default is a `<span>`). */
 export const NativeButton: Story = {
+  tags: ['api-ref'],
   render: () => (
     <label className={theme.SwitchLabel}>
       <Switch.Root nativeButton render={<button type="button" />} className={theme.SwitchRoot}>
@@ -90,6 +94,7 @@ export const NativeButton: Story = {
 
 /** `disabled` switches expose `data-disabled` on every part for styling. */
 export const Disabled: Story = {
+  tags: ['api-ref'],
   render: () => (
     <div className={theme.FormRoot}>
       <label className={theme.SwitchLabel}>
@@ -137,6 +142,7 @@ function FormExample() {
 
 /** The switch participates in native forms through a hidden input; `name` keys the submitted value. */
 export const FormIntegration: Story = {
+  tags: ['api-ref'],
   render: () => <FormExample />,
   play: async ({ canvas, userEvent }) => {
     await userEvent.click(canvas.getByRole('switch', { name: 'Subscribe to the newsletter' }));
@@ -151,6 +157,7 @@ export const FormIntegration: Story = {
  * theme stylesheet, proving `@droppy/theme` and shared preview styles actually load.
  */
 export const CssCheck: Story = {
+  tags: ['highlight'],
   render: () => (
     <Switch.Root defaultChecked className={theme.SwitchRoot} aria-label="CSS check switch">
       <Switch.Thumb className={theme.SwitchThumb} />

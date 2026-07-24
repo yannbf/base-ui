@@ -45,6 +45,7 @@ function CaretRightIcon(props: React.ComponentProps<'svg'>) {
 
 /** The docs hero demo: a single Trigger+Panel pair, closed by default. */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => (
     <Collapsible.Root className={theme.CollapsibleRoot}>
       <Collapsible.Trigger className={theme.CollapsibleTrigger}>
@@ -84,6 +85,7 @@ export const Hero: Story = {
  * the panel, or for driving a JS animation library across closes.
  */
 export const KeepMounted: Story = {
+  tags: ['api-ref'],
   render: () => (
     <Collapsible.Root className={theme.CollapsibleRoot} defaultOpen={false}>
       <Collapsible.Trigger className={theme.CollapsibleTrigger}>
@@ -113,6 +115,7 @@ export const KeepMounted: Story = {
  * the same way a real find-in-page hit would.
  */
 export const HiddenUntilFound: Story = {
+  tags: ['api-ref'],
   render: () => (
     <Collapsible.Root className={theme.CollapsibleRoot} defaultOpen={false}>
       <Collapsible.Trigger className={theme.CollapsibleTrigger}>
@@ -189,6 +192,7 @@ function ControlledCollapsibleDemo() {
  * isn't the Trigger driving the change.
  */
 export const Controlled: Story = {
+  tags: ['highlight'],
   render: () => <ControlledCollapsibleDemo />,
   play: async ({ canvas, userEvent }) => {
     const externalButton = canvas.getByRole('button', { name: 'Toggle externally' });
@@ -220,6 +224,7 @@ export const Controlled: Story = {
  * asserting the CSS recipe is present in the stylesheet.
  */
 export const AnimatedHeight: Story = {
+  tags: ['animation'],
   render: () => (
     <Collapsible.Root className={theme.CollapsibleRoot}>
       <Collapsible.Trigger className={theme.CollapsibleTrigger}>
@@ -266,6 +271,7 @@ export const AnimatedHeight: Story = {
  * (`focusableWhenDisabled`) instead of being removed from the tab order.
  */
 export const Disabled: Story = {
+  tags: ['api-ref'],
   render: () => {
     function DisabledDemo() {
       const onOpenChange = () => {
@@ -310,6 +316,7 @@ export const Disabled: Story = {
  * the inner one, and vice versa.
  */
 export const Nested: Story = {
+  tags: ['highlight'],
   render: () => (
     <Collapsible.Root className={theme.CollapsibleRoot}>
       <Collapsible.Trigger className={theme.CollapsibleTrigger}>
@@ -353,6 +360,7 @@ export const Nested: Story = {
 
 /** A single Collapsible composed inside a settings-card layout, showing it works normally embedded in ordinary surrounding markup rather than as a standalone widget. */
 export const WithinCard: Story = {
+  tags: ['highlight'],
   render: () => (
     <div className="Card">
       <div className="CardHeader">Security</div>

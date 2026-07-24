@@ -75,6 +75,7 @@ function TabsDemo({
 
 /** The docs hero demo: 3 tabs with an animated Indicator tracking the active tab. */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => <TabsDemo />,
   play: async ({ canvas, userEvent }) => {
     const tab1 = canvas.getByRole('tab', { name: 'Overview' });
@@ -97,6 +98,7 @@ export const Hero: Story = {
  * (click, or Enter/Space).
  */
 export const KeyboardFocusDoesNotActivate: Story = {
+  tags: ['tests'],
   render: () => <TabsDemo />,
   play: async ({ canvas, userEvent }) => {
     const tab1 = canvas.getByRole('tab', { name: 'Overview' });
@@ -128,6 +130,7 @@ export const KeyboardFocusDoesNotActivate: Story = {
  * behavior #3176 turned off by default.
  */
 export const ActivateOnFocus: Story = {
+  tags: ['api-ref'],
   render: () => <TabsDemo activateOnFocus />,
   play: async ({ canvas, userEvent }) => {
     const tab1 = canvas.getByRole('tab', { name: 'Overview' });
@@ -150,6 +153,7 @@ export const ActivateOnFocus: Story = {
  * emits `aria-orientation="vertical"` on the tablist.
  */
 export const VerticalOrientation: Story = {
+  tags: ['api-ref'],
   render: () => <TabsDemo orientation="vertical" />,
   play: async ({ canvas, userEvent }) => {
     const tablist = canvas.getByRole('tablist');
@@ -176,6 +180,7 @@ export const VerticalOrientation: Story = {
  * just that the recipe is present in the stylesheet.
  */
 export const AnimatedIndicatorUnderline: Story = {
+  tags: ['animation'],
   render: () => <TabsDemo />,
   play: async ({ canvasElement, canvas, userEvent }) => {
     const indicator = canvasElement.querySelector('[data-testid="indicator"]') as HTMLElement;
@@ -206,6 +211,7 @@ export const AnimatedIndicatorUnderline: Story = {
  * activates it.
  */
 export const DisabledTabs: Story = {
+  tags: ['api-ref'],
   render: () => (
     <Tabs.Root className={theme.TabsRoot}>
       <Tabs.List className={theme.TabsList}>
@@ -321,6 +327,7 @@ function ControlledTabsDemo() {
  * though focus never enters the tablist.
  */
 export const ControlledValue: Story = {
+  tags: ['highlight'],
   render: () => <ControlledTabsDemo />,
   play: async ({ canvas, userEvent }) => {
     const projectsButton = canvas.getByRole('button', { name: 'Show projects' });
@@ -344,6 +351,7 @@ export const ControlledValue: Story = {
  * no built-in "scroll buttons" affordance, this is a plain CSS technique.
  */
 export const ManyTabsOverflow: Story = {
+  tags: ['highlight'],
   render: () => (
     <Tabs.Root className={`${theme.TabsRoot} TabsDemoOverflowRoot`} defaultValue="tab-1">
       <Tabs.List className={`${theme.TabsList} TabsDemoOverflowList`}>
@@ -416,6 +424,7 @@ function GearIcon(props: React.ComponentProps<'svg'>) {
  * ordinary children alongside the label text.
  */
 export const TabsWithIcons: Story = {
+  tags: ['highlight'],
   render: () => (
     <Tabs.Root className={theme.TabsRoot} defaultValue="alerts">
       <Tabs.List className={theme.TabsList}>
@@ -454,6 +463,7 @@ export const TabsWithIcons: Story = {
  * vice versa.
  */
 export const NestedContent: Story = {
+  tags: ['highlight'],
   render: () => (
     <Tabs.Root className={theme.TabsRoot} defaultValue="overview">
       <Tabs.List className={theme.TabsList}>

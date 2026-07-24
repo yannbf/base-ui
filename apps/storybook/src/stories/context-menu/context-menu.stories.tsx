@@ -72,6 +72,7 @@ function HeroExample() {
  * anchor, not a DOM ref) and suppresses the native OS context menu.
  */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => <HeroExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -139,6 +140,7 @@ function NestedSubmenuExample() {
  * the Root/Trigger pointer-anchor mechanics.
  */
 export const NestedSubmenu: Story = {
+  tags: ['highlight', 'base'],
   render: () => <NestedSubmenuExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -219,6 +221,7 @@ function CheckboxAndRadioItemsExample() {
  * closing each time.
  */
 export const CheckboxAndRadioItems: Story = {
+  tags: ['highlight'],
   render: () => <CheckboxAndRadioItemsExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -284,6 +287,7 @@ function CustomAnchorOverrideExample() {
  * coordinates.
  */
 export const CustomAnchorOverride: Story = {
+  tags: ['highlight'],
   render: () => <CustomAnchorOverrideExample />,
   play: async ({ canvas, canvasElement }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -338,6 +342,7 @@ function DisabledTriggerExample() {
  * suite (`ContextMenuTrigger.test.tsx`).
  */
 export const DisabledTrigger: Story = {
+  tags: ['api-ref'],
   render: () => <DisabledTriggerExample />,
   play: async ({ canvas, canvasElement }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -384,6 +389,7 @@ function LongPressDescriptionExample() {
  * native text-selection callout from competing with the custom menu.
  */
 export const LongPressDescription: Story = {
+  tags: ['highlight'],
   render: () => <LongPressDescriptionExample />,
 };
 
@@ -427,6 +433,7 @@ function GroupLabelsExample() {
  * unchanged by context-menu parentage.
  */
 export const GroupLabels: Story = {
+  tags: ['highlight'],
   render: () => <GroupLabelsExample />,
   play: async ({ canvas, canvasElement }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -474,6 +481,7 @@ function LinkItemsExample() {
  * defaults to `false` on link items.
  */
 export const LinkItems: Story = {
+  tags: ['highlight'],
   render: () => <LinkItemsExample />,
   play: async ({ canvas, canvasElement }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -535,6 +543,7 @@ function MixedMenuPartsCompositionExample() {
  * same interchangeability scenario the in-repo experiments exercise.
  */
 export const MixedMenuPartsComposition: Story = {
+  tags: ['highlight', 'base'],
   render: () => <MixedMenuPartsCompositionExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -588,6 +597,7 @@ function CloseOnClickConfigurationExample() {
  * since `Item` is a direct re-export.
  */
 export const CloseOnClickConfiguration: Story = {
+  tags: ['highlight'],
   render: () => <CloseOnClickConfigurationExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);

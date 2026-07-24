@@ -25,6 +25,7 @@ type Story = StoryObj<typeof meta>;
 
 /** Field-integrated composition (the reason Input exists, brief §2): nested in `Field.Root`, `Input` "just works" with zero wiring props — labeling and the full validity/interaction state machine come for free the moment it's inside a Field tree. */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => (
     <Field.Root className={theme.FieldRoot}>
       <Field.Label className={theme.FieldLabel}>Name</Field.Label>
@@ -43,6 +44,7 @@ export const Hero: Story = {
 
 /** Every attribute in `InputDataAttributes.ts` populates on the `<input>` itself once nested in `Field.Root` — an empty required field turns invalid on blur, then valid once filled (brief §1, §8, verbatim restatement of Field's contract). */
 export const ValidationStates: Story = {
+  tags: ['highlight'],
   render: () => (
     <Field.Root name="email" validationMode="onBlur" className={theme.FieldRoot}>
       <Field.Label className={theme.FieldLabel}>Work email</Field.Label>
@@ -99,6 +101,7 @@ function FormExample() {
 
 /** `Input` submits through the same hidden-input/native-form contract as `Field.Control` — no code of its own, entirely inherited (brief §6). */
 export const FormIntegration: Story = {
+  tags: ['highlight'],
   render: () => <FormExample />,
   play: async ({ canvas, userEvent }) => {
     await userEvent.type(canvas.getByLabelText('Display name'), 'Ada Lovelace');
@@ -116,6 +119,7 @@ export const FormIntegration: Story = {
  * Field validity state machine to drive them).
  */
 export const StandaloneNoField: Story = {
+  tags: ['highlight'],
   render: () => (
     <label className={theme.FieldRoot}>
       <span className={theme.FieldLabel}>Search</span>
@@ -143,6 +147,7 @@ export const StandaloneNoField: Story = {
  * `DisabledCascade` story).
  */
 export const DisabledFromFieldset: Story = {
+  tags: ['highlight'],
   render: () => (
     <Fieldset.Root disabled className={theme.FieldRoot}>
       <Fieldset.Legend className={theme.FieldLabel}>Account details</Fieldset.Legend>

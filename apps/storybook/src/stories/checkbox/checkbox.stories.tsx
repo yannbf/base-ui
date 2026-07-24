@@ -64,6 +64,7 @@ type Story = StoryObj<typeof meta>;
 
 /** The docs hero demo: an enclosing label, checked by default. */
 export const Basic: Story = {
+  tags: ['highlight', 'base'],
   render: () => (
     <label className={theme.CheckboxLabel}>
       <Checkbox.Root defaultChecked className={theme.CheckboxRoot}>
@@ -84,6 +85,7 @@ export const Basic: Story = {
 
 /** Clicking the label (or the checkbox itself) toggles `aria-checked`. */
 export const ToggleWithClick: Story = {
+  tags: ['highlight'],
   render: () => (
     <label className={theme.CheckboxLabel}>
       <Checkbox.Root className={theme.CheckboxRoot}>
@@ -108,6 +110,7 @@ export const ToggleWithClick: Story = {
 
 /** `indeterminate` sets `aria-checked="mixed"` independently of `checked` — it is not overridden or auto-cleared by clicking. */
 export const Indeterminate: Story = {
+  tags: ['api-ref'],
   render: () => (
     <label className={theme.CheckboxLabel}>
       <Checkbox.Root indeterminate className={theme.CheckboxRoot}>
@@ -157,6 +160,7 @@ function FormExample() {
 
 /** With `uncheckedValue` set, an unchecked checkbox submits that explicit sentinel rather than being absent from `FormData` (#3406's opt-in escape hatch). */
 export const FormWithUncheckedValue: Story = {
+  tags: ['api-ref'],
   render: () => <FormExample />,
   play: async ({ canvas, userEvent }) => {
     await userEvent.click(canvas.getByRole('button', { name: 'Save' }));
@@ -194,6 +198,7 @@ function ControlledCheckedExample() {
 
 /** External `checked`/`onCheckedChange` state drives the checkbox; clicking the label still round-trips through the same handler, so both interaction sources stay in sync. */
 export const ControlledChecked: Story = {
+  tags: ['highlight'],
   render: () => <ControlledCheckedExample />,
   play: async ({ canvas, userEvent }) => {
     const checkbox = canvas.getByRole('checkbox', { name: 'Accept terms and conditions' });
@@ -233,6 +238,7 @@ function InFieldWithValidationExample() {
 
 /** Wrapped in `Field.Root required`, submitting while unchecked shows `valueMissing`; checking the box clears the error — the same Field validation flow used across Radio/Checkbox Group. */
 export const InFieldWithValidation: Story = {
+  tags: ['highlight'],
   render: () => <InFieldWithValidationExample />,
   play: async ({ canvas, userEvent }) => {
     await userEvent.click(canvas.getByRole('button', { name: 'Save' }));
@@ -258,6 +264,7 @@ export const InFieldWithValidation: Story = {
  * narrow preview showing only that the prop lives on `Checkbox.Root`.
  */
 export const ParentCheckboxPreview: Story = {
+  tags: ['api-ref'],
   render: () => (
     <CheckboxGroup
       aria-label="Fruits"
@@ -309,6 +316,7 @@ export const ParentCheckboxPreview: Story = {
 
 /** Recreates the docs "Rendering as a native button" pattern: `nativeButton` + `render={<button/>}` paired with a sibling `<label htmlFor>` (rather than an enclosing label, which would be invalid HTML around a real `<button>`). */
 export const NativeButtonSiblingLabel: Story = {
+  tags: ['highlight'],
   render: () => (
     <div className={theme.CheckboxLabel}>
       <Checkbox.Root
@@ -335,6 +343,7 @@ export const NativeButtonSiblingLabel: Story = {
 
 /** `readOnly` blocks every toggle path (click, Space) while a sibling `disabled` checkbox is shown for comparison — both stay visibly ticked/unticked but neither can change state. */
 export const ReadOnlyBlocksToggle: Story = {
+  tags: ['api-ref'],
   render: () => (
     <div className={theme.FormRoot}>
       <label className={theme.CheckboxLabel}>

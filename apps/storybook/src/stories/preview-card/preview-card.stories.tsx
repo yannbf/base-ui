@@ -30,6 +30,7 @@ type Story = StoryObj<typeof meta>;
 
 /** The docs hero demo: a link inline in a sentence previews its Wikipedia destination on hover/focus — image + bolded term + one-paragraph summary. Use as the starting point for any rich, hoverable link preview. */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => (
     <PreviewCard.Root>
       <p className="PreviewCardParagraph">
@@ -69,6 +70,7 @@ export const Hero: Story = {
 
 /** Focus opens the preview card too, with the same 600ms delay as hover (`useFocus(..., { delay })` is wired unconditionally — brief.md §6). This is the one non-mouse modality Preview Card still supports; touch and screen readers never trigger it (see the MDX page). */
 export const KeyboardFocusOpen: Story = {
+  tags: ['tests'],
   render: () => (
     <PreviewCard.Root>
       <p className="PreviewCardParagraph">
@@ -121,6 +123,7 @@ const arrowSides = ['top', 'right', 'bottom', 'left'] as const;
 
 /** All positioning lives on the Positioner: `side`, `align`, `sideOffset`. `PreviewCard.Arrow`'s `data-side` attribute drives the rotation so one CSS-only arrow serves all four placements — the same contract as Tooltip and Popover. */
 export const PositioningWithArrow: Story = {
+  tags: ['highlight'],
   render: () => (
     <div className="PreviewCardContainer">
       {arrowSides.map((side) => (
@@ -194,6 +197,7 @@ function ControlledOpenExample() {
 
 /** External `open`/`onOpenChange` state drives the card exactly like an uncontrolled Root's internal state would, plus `eventDetails.reason` reports which interaction caused each transition — `trigger-focus` on open here, `escape-key` on close. */
 export const ControlledOpen: Story = {
+  tags: ['highlight'],
   render: () => <ControlledOpenExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -216,6 +220,7 @@ export const ControlledOpen: Story = {
 
 /** `PreviewCard.Trigger`'s own `delay`/`closeDelay` props (default `600`/`300`ms) override the timing per trigger — since focus obeys the same delay as hover (unlike Tooltip), this can be pinned reliably via focus: the `delay={0}` trigger opens near-instantly, the default-delay trigger opens only after the full ~600ms wait. */
 export const DelayTuning: Story = {
+  tags: ['api-ref'],
   render: () => (
     <div className="PreviewCardContainer">
       <PreviewCard.Root>
@@ -287,6 +292,7 @@ export const DelayTuning: Story = {
  * a link, you should not use PreviewCard."
  */
 export const TooltipVsPreviewCardDistinction: Story = {
+  tags: ['highlight'],
   render: () => (
     <p className="PreviewCardParagraph">
       Click{' '}
@@ -353,6 +359,7 @@ const detachedHandle = PreviewCard.createHandle();
 
 /** `PreviewCard.createHandle()` connects a `Trigger` rendered anywhere in the tree to a `Root`/`Popup` declared elsewhere — no DOM parent/child relationship required, mirroring Tooltip's detached-trigger pattern. */
 export const DetachedTriggerWithHandle: Story = {
+  tags: ['highlight', 'base'],
   render: () => (
     <div className="PreviewCardStack">
       <p className="PreviewCardParagraph">
@@ -405,6 +412,156 @@ export const DetachedTriggerWithHandle: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Close' }));
     await waitFor(() =>
       expect(body.queryByText('Declared elsewhere in the tree')).not.toBeInTheDocument(),
+    );
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* Detached triggers: controlled (docs demo)                            */
+/* ------------------------------------------------------------------ */
+
+const controlledPreviewHandle = PreviewCard.createHandle();
+
+function DetachedTriggersControlledExample() {
+  const [open, setOpen] = React.useState(false);
+  const [triggerId, setTriggerId] = React.useState<string | null>(null);
+
+  return (
+    <div className="PreviewCardStack">
+      <p className="PreviewCardParagraph">
+        Read about{' '}
+        <PreviewCard.Trigger
+          handle={controlledPreviewHandle}
+          id="controlled-typography"
+          className={theme.PreviewCardTrigger}
+          href="https://en.wikipedia.org/wiki/Typography"
+        >
+          typography
+        </PreviewCard.Trigger>{' '}
+        or{' '}
+        <PreviewCard.Trigger
+          handle={controlledPreviewHandle}
+          id="controlled-design"
+          className={theme.PreviewCardTrigger}
+          href="https://en.wikipedia.org/wiki/Design"
+        >
+          design
+        </PreviewCard.Trigger>
+        .
+      </p>
+      <button
+        type="button"
+        className="PreviewCardPlainButton"
+        onClick={() => {
+          setTriggerId('controlled-design');
+          setOpen(true);
+        }}
+      >
+        Open programmatically
+      </button>
+
+      <PreviewCard.Root
+        handle={controlledPreviewHandle}
+        open={open}
+        onOpenChange={(isOpen, eventDetails) => {
+          setOpen(isOpen);
+          setTriggerId(eventDetails.trigger?.id ?? null);
+        }}
+        triggerId={triggerId}
+      >
+        <PreviewCard.Portal>
+          <PreviewCard.Positioner className={theme.PreviewCardPositioner} sideOffset={8}>
+            <PreviewCard.Popup className={theme.PreviewCardPopup}>
+              <PreviewCard.Arrow className={theme.PreviewCardArrow} />
+              <div className={theme.PreviewCardPopupContent}>
+                <p className={theme.PreviewCardSummary}>Controlled preview card</p>
+              </div>
+            </PreviewCard.Popup>
+          </PreviewCard.Positioner>
+        </PreviewCard.Portal>
+      </PreviewCard.Root>
+    </div>
+  );
+}
+
+/**
+ * `open`/`onOpenChange` plus `triggerId` put one shared card under app control
+ * across several link triggers, so it can be opened programmatically against a
+ * chosen link rather than only by hover.
+ */
+export const DetachedTriggersControlled: Story = {
+  tags: ['highlight', 'base'],
+  render: () => <DetachedTriggersControlledExample />,
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: 'Open programmatically' }));
+    await waitFor(() => expect(body.getByText('Controlled preview card')).toBeVisible());
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* Detached triggers: full payload (docs demo)                          */
+/* ------------------------------------------------------------------ */
+
+const payloadPreviewHandle = PreviewCard.createHandle<React.ReactNode>();
+
+const PREVIEW_LINKS: Array<[string, string, string]> = [
+  ['typography', 'Typography', 'The art of arranging type for legibility and style.'],
+  ['design', 'Design', 'Planning the form and function of an object or system.'],
+];
+
+/**
+ * A typed `createHandle<Payload>()` gives each link its own `payload`, so one
+ * Root and one Popup serve every trigger and the card content is read from the
+ * render-prop argument.
+ */
+export const DetachedTriggersFull: Story = {
+  tags: ['highlight', 'base'],
+  render: () => (
+    <div className="PreviewCardStack">
+      <p className="PreviewCardParagraph">
+        {PREVIEW_LINKS.map(([id, label, summary], index) => (
+          <React.Fragment key={id}>
+            {index > 0 && ' and '}
+            <PreviewCard.Trigger
+              handle={payloadPreviewHandle}
+              id={id}
+              className={theme.PreviewCardTrigger}
+              href={`https://en.wikipedia.org/wiki/${label}`}
+              payload={summary}
+            >
+              {label}
+            </PreviewCard.Trigger>
+          </React.Fragment>
+        ))}
+        .
+      </p>
+
+      <PreviewCard.Root handle={payloadPreviewHandle}>
+        {({ payload }) => (
+          <PreviewCard.Portal>
+            <PreviewCard.Positioner className={theme.PreviewCardPositioner} sideOffset={8}>
+              <PreviewCard.Popup className={theme.PreviewCardPopup}>
+                <PreviewCard.Arrow className={theme.PreviewCardArrow} />
+                <div className={theme.PreviewCardPopupContent}>
+                  <p className={theme.PreviewCardSummary}>{payload}</p>
+                </div>
+              </PreviewCard.Popup>
+            </PreviewCard.Positioner>
+          </PreviewCard.Portal>
+        )}
+      </PreviewCard.Root>
+    </div>
+  ),
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.hover(canvas.getByRole('link', { name: 'Design' }));
+    await waitFor(
+      () =>
+        expect(
+          body.getByText('Planning the form and function of an object or system.'),
+        ).toBeVisible(),
+      { timeout: 3000 },
     );
   },
 };

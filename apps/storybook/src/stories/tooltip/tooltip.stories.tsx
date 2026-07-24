@@ -31,6 +31,7 @@ type Story = StoryObj<typeof meta>;
 
 /** The docs hero demo: a toolbar of icon-only buttons, each labeled by a tooltip, all sharing a `Tooltip.Provider` for delay-grouping. Use as the starting point for labeling any control whose own action is unrelated to the tooltip's content. */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => (
     <Tooltip.Provider>
       <div className="TooltipPanel">
@@ -82,6 +83,7 @@ export const Hero: Story = {
 
 /** Focus is the primary, reliable interaction path — it has no delay to race against (`useFocus` is independent of the hover rest-timer, brief.md §6). Tab to the trigger and the tooltip appears immediately; tab away and it closes. */
 export const KeyboardFocusOpen: Story = {
+  tags: ['tests'],
   render: () => (
     <div className="TooltipRow">
       <button type="button" className={theme.Button}>
@@ -127,6 +129,7 @@ export const KeyboardFocusOpen: Story = {
 
 /** `Tooltip.Provider` groups sibling tooltips under one shared delay: the first hover/focus pays the full `600ms` open delay, but hopping to an adjacent trigger within the `timeout` window (default `400ms`) opens instantly (brief.md §6). This is the mechanism most distinctive to Tooltip among the overlay-cluster popups — Preview Card has no equivalent Provider. */
 export const ProviderDelayGrouping: Story = {
+  tags: ['highlight'],
   render: () => (
     <Tooltip.Provider timeout={400}>
       <div className="TooltipPanel">
@@ -182,6 +185,7 @@ const arrowSides = ['top', 'right', 'bottom', 'left'] as const;
 
 /** All positioning lives on the Positioner: `side`, `align`, `sideOffset`. `Tooltip.Arrow`'s `data-side` attribute drives the rotation so one CSS-only arrow serves all four placements. */
 export const PositioningAndArrow: Story = {
+  tags: ['highlight'],
   render: () => (
     <div className="TooltipRow">
       {arrowSides.map((side) => (
@@ -205,6 +209,7 @@ const alignments = ['start', 'center', 'end'] as const;
 
 /** A fuller positioning matrix: every `side` × `align` combination, each rendered open so `data-side`/`data-align`/`data-uncentered` can be spot-checked visually against `Tooltip.Arrow`'s rotation and offset. */
 export const PositioningMatrix: Story = {
+  tags: ['highlight'],
   render: () => (
     <div className="TooltipGrid">
       {arrowSides.map((side) =>
@@ -258,6 +263,7 @@ function ControlledOpenExample() {
 
 /** External `open`/`onOpenChange` state drives the tooltip exactly like an uncontrolled Root's internal state would, plus `eventDetails.reason` reports which interaction caused each transition — `trigger-focus` on open here, `escape-key` on close. */
 export const ControlledOpen: Story = {
+  tags: ['highlight'],
   render: () => <ControlledOpenExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -284,6 +290,7 @@ export const ControlledOpen: Story = {
  * hover, the right one waits the full default delay.
  */
 export const DelayCustomization: Story = {
+  tags: ['api-ref'],
   render: () => (
     <div className="TooltipRow">
       <Tooltip.Root>
@@ -318,6 +325,7 @@ export const DelayCustomization: Story = {
 
 /** `Tooltip.Root disabled` suppresses opening entirely, on every interaction path — unlike `Tooltip.Trigger disabled`, which only stops that one trigger from opening its tooltip while leaving the DOM element itself interactive. */
 export const DisabledTrigger: Story = {
+  tags: ['api-ref'],
   render: () => (
     <div className="TooltipRow">
       <Tooltip.Root>
@@ -361,6 +369,7 @@ const detachedHandle = Tooltip.createHandle();
 
 /** `Tooltip.createHandle()` connects a `Trigger` rendered anywhere in the tree to a `Root`/`Popup` declared elsewhere — no parent/child DOM relationship is required. Here, external buttons call `handle.open(id)`/`handle.close()` imperatively, and the physically-separate trigger's own focus/hover still works too. */
 export const DetachedTriggerHandle: Story = {
+  tags: ['highlight', 'base'],
   render: () => (
     <div>
       <div className="TooltipRow">
@@ -406,5 +415,135 @@ export const DetachedTriggerHandle: Story = {
     const trigger = canvas.getByRole('button', { name: 'Detached trigger' });
     trigger.focus();
     await waitFor(() => expect(body.getByText('Declared elsewhere in the tree')).toBeVisible());
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* Detached triggers: controlled (docs demo)                            */
+/* ------------------------------------------------------------------ */
+
+const controlledTooltip = Tooltip.createHandle();
+
+function DetachedTriggersControlledExample() {
+  const [open, setOpen] = React.useState(false);
+  const [triggerId, setTriggerId] = React.useState<string | null>(null);
+
+  return (
+    <Tooltip.Provider>
+      <div className="TooltipRow">
+        {['trigger-1', 'trigger-2', 'trigger-3'].map((id, index) => (
+          <Tooltip.Trigger
+            key={id}
+            className={theme.Button}
+            handle={controlledTooltip}
+            id={id}
+            aria-label={`Trigger ${index + 1}`}
+          >
+            {index + 1}
+          </Tooltip.Trigger>
+        ))}
+        <button
+          type="button"
+          className={theme.Button}
+          onClick={() => {
+            setTriggerId('trigger-2');
+            setOpen(true);
+          }}
+        >
+          Open programmatically
+        </button>
+      </div>
+
+      <Tooltip.Root
+        handle={controlledTooltip}
+        open={open}
+        onOpenChange={(isOpen, eventDetails) => {
+          setOpen(isOpen);
+          setTriggerId(eventDetails.trigger?.id ?? null);
+        }}
+        triggerId={triggerId}
+      >
+        <Tooltip.Portal>
+          <Tooltip.Positioner sideOffset={8}>
+            <Tooltip.Popup className={theme.TooltipPopup}>
+              <Tooltip.Arrow className={theme.TooltipArrow} />
+              Controlled tooltip
+            </Tooltip.Popup>
+          </Tooltip.Positioner>
+        </Tooltip.Portal>
+      </Tooltip.Root>
+    </Tooltip.Provider>
+  );
+}
+
+/**
+ * `open`/`onOpenChange` plus `triggerId` drive one shared popup across several
+ * detached triggers. `eventDetails.trigger` reports which trigger caused each
+ * change, so the popup can be opened programmatically against a chosen trigger.
+ */
+export const DetachedTriggersControlled: Story = {
+  tags: ['highlight', 'base'],
+  render: () => <DetachedTriggersControlledExample />,
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: 'Open programmatically' }));
+    await waitFor(() => expect(body.getByText('Controlled tooltip')).toBeVisible());
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* Detached triggers: full payload (docs demo)                          */
+/* ------------------------------------------------------------------ */
+
+const payloadTooltip = Tooltip.createHandle<React.ReactNode>();
+
+const PAYLOAD_TRIGGERS: Array<[string, string]> = [
+  ['Audio', 'Listen to audio preview'],
+  ['Timer', 'Set a timer'],
+  ['Delete', 'Delete: This action cannot be undone'],
+];
+
+/**
+ * A typed `createHandle<Payload>()` lets each detached trigger carry its own
+ * `payload`, so one Root and one Popup serve every trigger and the content is
+ * read from the render-prop argument.
+ */
+export const DetachedTriggersFull: Story = {
+  tags: ['highlight', 'base'],
+  render: () => (
+    <Tooltip.Provider>
+      <div className="TooltipRow">
+        {PAYLOAD_TRIGGERS.map(([label, payload]) => (
+          <Tooltip.Trigger
+            key={label}
+            className={theme.Button}
+            handle={payloadTooltip}
+            payload={payload}
+          >
+            {label}
+          </Tooltip.Trigger>
+        ))}
+      </div>
+
+      <Tooltip.Root handle={payloadTooltip}>
+        {({ payload }) => (
+          <Tooltip.Portal>
+            <Tooltip.Positioner sideOffset={8}>
+              <Tooltip.Popup className={theme.TooltipPopup}>
+                <Tooltip.Arrow className={theme.TooltipArrow} />
+                {payload}
+              </Tooltip.Popup>
+            </Tooltip.Positioner>
+          </Tooltip.Portal>
+        )}
+      </Tooltip.Root>
+    </Tooltip.Provider>
+  ),
+  play: async ({ canvas, canvasElement }) => {
+    const body = within(canvasElement.ownerDocument.body);
+    // Focus opens with no delay, unlike the hover rest-timer. The popup shows
+    // the payload of whichever trigger opened it.
+    canvas.getByRole('button', { name: 'Timer' }).focus();
+    await waitFor(() => expect(body.getByText('Set a timer')).toBeVisible());
   },
 };

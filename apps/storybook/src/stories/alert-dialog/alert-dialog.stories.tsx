@@ -81,6 +81,7 @@ function HeroExample() {
  * wired automatically from Title/Description.
  */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => <HeroExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -150,6 +151,7 @@ function NoOutsidePressExample() {
  * `disablePointerDismissal` check).
  */
 export const NoOutsidePressDismissal: Story = {
+  tags: ['highlight'],
   render: () => <NoOutsidePressExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -232,6 +234,7 @@ function FormWithConfirmationExample() {
  * composed in userland, AlertDialog has no built-in equivalent.
  */
 export const FormWithConfirmation: Story = {
+  tags: ['highlight'],
   render: () => <FormWithConfirmationExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -339,6 +342,7 @@ function NestedCloseConfirmationExample() {
  * though it's a different component type.
  */
 export const NestedCloseConfirmation: Story = {
+  tags: ['highlight'],
   render: () => <NestedCloseConfirmationExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -406,6 +410,7 @@ function ControlledModeExample() {
  * `Close` still participates in `onOpenChange` like normal.
  */
 export const ControlledMode: Story = {
+  tags: ['highlight'],
   render: () => <ControlledModeExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -475,6 +480,7 @@ function TriggerFromMenuExample() {
  * AlertDialog opens.
  */
 export const TriggerFromMenu: Story = {
+  tags: ['highlight'],
   render: () => <TriggerFromMenuExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -529,6 +535,7 @@ function ExitAnimationExample() {
  * firing `onOpenChangeComplete(false)`) once it ends.
  */
 export const ExitAnimation: Story = {
+  tags: ['animation'],
   render: () => <ExitAnimationExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -603,6 +610,7 @@ function CustomRenderCompositionExample() {
  * dismissal — is preserved unchanged.
  */
 export const CustomRenderComposition: Story = {
+  tags: ['highlight'],
   render: () => <CustomRenderCompositionExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -655,6 +663,7 @@ function EscFocusReturnExample() {
  * dialog, the same `FloatingFocusManager` behavior Dialog relies on.
  */
 export const EscFocusReturn: Story = {
+  tags: ['tests'],
   render: () => <EscFocusReturnExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -730,6 +739,7 @@ function HandleWithPayloadExample() {
  * which row is being confirmed from the active trigger's payload.
  */
 export const HandleWithPayload: Story = {
+  tags: ['api-ref'],
   render: () => <HandleWithPayloadExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -766,3 +776,142 @@ function TrashIcon(props: React.ComponentProps<'svg'>) {
     </svg>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* Detached triggers: simple (docs demo)                                */
+/* ------------------------------------------------------------------ */
+
+const simpleAlertHandle = AlertDialog.createHandle();
+
+/**
+ * A `handle` connects a Trigger to a Root declared elsewhere in the tree, so the
+ * confirmation markup lives in one place while the button that opens it can sit
+ * anywhere.
+ */
+export const DetachedTriggersSimple: Story = {
+  tags: ['highlight', 'base'],
+  render: () => (
+    <div className="AlertDialogStack">
+      <AlertDialog.Trigger className={theme.Button} handle={simpleAlertHandle}>
+        Discard draft
+      </AlertDialog.Trigger>
+
+      <AlertDialog.Root handle={simpleAlertHandle}>
+        <AlertDialog.Portal>
+          <AlertDialog.Backdrop className={theme.DialogBackdrop} />
+          <AlertDialog.Viewport>
+            <AlertDialog.Popup className={theme.DialogPopup}>
+              <AlertDialog.Title className={theme.DialogTitle}>Discard draft?</AlertDialog.Title>
+              <AlertDialog.Description className={theme.DialogDescription}>
+                Your changes will be lost.
+              </AlertDialog.Description>
+              <div className={theme.DialogActions}>
+                <AlertDialog.Close className={theme.Button}>Cancel</AlertDialog.Close>
+                <AlertDialog.Close className={theme.Button}>Discard</AlertDialog.Close>
+              </div>
+            </AlertDialog.Popup>
+          </AlertDialog.Viewport>
+        </AlertDialog.Portal>
+      </AlertDialog.Root>
+    </div>
+  ),
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: 'Discard draft' }));
+
+    const dialog = await body.findByRole('alertdialog');
+    await waitFor(() => expect(dialog).toBeVisible());
+
+    await userEvent.click(body.getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(body.queryByRole('alertdialog')).not.toBeInTheDocument());
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* Detached triggers: controlled + payload (docs demo)                  */
+/* ------------------------------------------------------------------ */
+
+interface AlertPayload {
+  message: string;
+}
+
+const controlledAlertHandle = AlertDialog.createHandle<AlertPayload>();
+
+const ALERT_TRIGGERS: Array<[string, string, string]> = [
+  ['alert-1', 'Discard draft', 'Discard draft?'],
+  ['alert-2', 'Delete project', 'Delete project?'],
+  ['alert-3', 'Sign out', 'Sign out?'],
+];
+
+function DetachedTriggersControlledExample() {
+  const [open, setOpen] = React.useState(false);
+  const [triggerId, setTriggerId] = React.useState<string | null>(null);
+
+  return (
+    <div className="AlertDialogStack">
+      <div className="AlertDialogRow">
+        {ALERT_TRIGGERS.map(([id, label, message]) => (
+          <AlertDialog.Trigger
+            key={id}
+            id={id}
+            className={theme.Button}
+            handle={controlledAlertHandle}
+            payload={{ message }}
+          >
+            {label}
+          </AlertDialog.Trigger>
+        ))}
+      </div>
+
+      <AlertDialog.Root
+        handle={controlledAlertHandle}
+        open={open}
+        onOpenChange={(isOpen, eventDetails) => {
+          setOpen(isOpen);
+          setTriggerId(eventDetails.trigger?.id ?? null);
+        }}
+        triggerId={triggerId}
+      >
+        {({ payload }) => (
+          <AlertDialog.Portal>
+            <AlertDialog.Backdrop className={theme.DialogBackdrop} />
+            <AlertDialog.Viewport>
+              <AlertDialog.Popup className={theme.DialogPopup}>
+                <AlertDialog.Title className={theme.DialogTitle}>
+                  {payload?.message ?? 'Are you sure?'}
+                </AlertDialog.Title>
+                <AlertDialog.Description className={theme.DialogDescription}>
+                  This action cannot be undone.
+                </AlertDialog.Description>
+                <div className={theme.DialogActions}>
+                  <AlertDialog.Close className={theme.Button}>Cancel</AlertDialog.Close>
+                  <AlertDialog.Close className={theme.Button}>Confirm</AlertDialog.Close>
+                </div>
+              </AlertDialog.Popup>
+            </AlertDialog.Viewport>
+          </AlertDialog.Portal>
+        )}
+      </AlertDialog.Root>
+    </div>
+  );
+}
+
+/**
+ * One confirmation instance reused across a list of destructive actions: each
+ * detached trigger supplies its own typed `payload`, and `open`/`triggerId`
+ * keep the dialog under app control.
+ */
+export const DetachedTriggersControlled: Story = {
+  tags: ['highlight', 'base'],
+  render: () => <DetachedTriggersControlledExample />,
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: 'Delete project' }));
+
+    // The popup renders the payload of the trigger that opened it.
+    await waitFor(() => expect(body.getByText('Delete project?')).toBeVisible());
+
+    await userEvent.click(body.getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(body.queryByRole('alertdialog')).not.toBeInTheDocument());
+  },
+};

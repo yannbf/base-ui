@@ -44,6 +44,7 @@ type Story = StoryObj<typeof meta>;
 
 /** The docs hero demo: label, control, error, and description — all id/aria wiring is automatic. */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => (
     <Field.Root className={theme.FieldRoot}>
       <Field.Label className={theme.FieldLabel}>Name</Field.Label>
@@ -62,6 +63,7 @@ export const Hero: Story = {
 
 /** All render-bearing parts in one field, plus the `Field.Validity` render prop. The play function asserts the a11y wiring: label association, `aria-describedby` joining Description (always) and Error (only while rendered), and the tri-state `aria-invalid`. */
 export const AnatomyAllParts: Story = {
+  tags: ['highlight'],
   render: () => (
     <Field.Root name="username" validationMode="onChange" className={theme.FieldRoot}>
       <Field.Label className={theme.FieldLabel}>Username</Field.Label>
@@ -102,6 +104,7 @@ export const AnatomyAllParts: Story = {
 
 /** The forms-handbook labeling strategies side by side: an explicit `Field.Label`, an implicit label enclosing a Checkbox, and the `aria-label` fallback when no visible label exists. */
 export const HandbookLabeling: Story = {
+  tags: ['highlight'],
   render: () => (
     <div className="FieldDemoRow">
       <Field.Root className={theme.FieldRoot}>
@@ -145,6 +148,7 @@ export const HandbookLabeling: Story = {
 
 /** Group anatomy from the forms handbook (#2810): `Fieldset.Legend` labels the group, and each option gets its own `Field.Item` with a per-option label and description. */
 export const GroupWithFieldItem: Story = {
+  tags: ['highlight'],
   render: () => (
     <Field.Root name="storage" className={theme.FieldRoot}>
       <Fieldset.Root className={theme.FieldsetRoot} render={<RadioGroup defaultValue="ssd" />}>
@@ -223,6 +227,7 @@ function OnSubmitModeExample() {
 
 /** The default mode (`onSubmit`, #3013): nothing is flagged while the user types, clears, or blurs — errors only appear on the first submit attempt, after which the field re-validates live. Requires a surrounding `Form` (or an explicit mode) — a standalone field never submits, so `validate` never runs. */
 export const ValidationModeOnSubmit: Story = {
+  tags: ['api-ref'],
   render: () => <OnSubmitModeExample />,
   play: async ({ canvas, userEvent }) => {
     const input = canvas.getByLabelText('Full name');
@@ -251,6 +256,7 @@ export const ValidationModeOnSubmit: Story = {
 
 /** `validationMode="onBlur"`: typing an invalid value shows nothing until focus leaves the control — the middle ground between submit-gated and live validation. Works standalone, without a `Form`. */
 export const ValidationModeOnBlur: Story = {
+  tags: ['api-ref'],
   render: () => (
     <Field.Root validationMode="onBlur" className={theme.FieldRoot}>
       <Field.Label className={theme.FieldLabel}>Work email</Field.Label>
@@ -283,6 +289,7 @@ export const ValidationModeOnBlur: Story = {
 
 /** `validationMode="onChange"`: every keystroke validates — here a custom `validate` enforces a minimum length (mirroring the native `minLength` constraint, which also carries a `tooShort` key for `Field.Error match`) — errors appear and disappear mid-typing. Reserve it for instant-feedback inputs; the maintainers argue submit-gated validation is the less noisy default (#2142). */
 export const ValidationModeOnChange: Story = {
+  tags: ['api-ref'],
   render: () => (
     <Field.Root
       validationMode="onChange"
@@ -324,6 +331,7 @@ export const ValidationModeOnChange: Story = {
 
 /** A custom `validate` function: return the error message (or an array of messages) to fail, `null` to pass. A children-less `Field.Error` renders the returned message automatically. Custom validation only runs after native constraints pass (#1926). */
 export const CustomValidateFunction: Story = {
+  tags: ['highlight'],
   render: () => (
     <Field.Root
       validationMode="onChange"
@@ -384,6 +392,7 @@ function CrossFieldValidationExample() {
 
 /** `validate` receives all named form values as its second argument (#1941), enabling cross-field rules like confirm-password. An invalid field blocks `Form` submission and receives focus. */
 export const CrossFieldValidation: Story = {
+  tags: ['highlight'],
   render: () => <CrossFieldValidationExample />,
   play: async ({ canvas, userEvent }) => {
     await userEvent.type(canvas.getByLabelText('Password'), 'hunter2');
@@ -433,6 +442,7 @@ function AsyncValidationExample() {
 
 /** Async `validate` with `validationDebounceTime`: a burst of keystrokes coalesces into a single (fake) availability check, and stale in-flight results are discarded. Note: async validation cannot block form submission — gate on the server for that. */
 export const AsyncValidationDebounced: Story = {
+  tags: ['highlight'],
   render: () => <AsyncValidationExample />,
   play: async ({ canvas, userEvent }) => {
     const input = canvas.getByLabelText('Username');
@@ -458,6 +468,7 @@ export const AsyncValidationDebounced: Story = {
 
 /** `Input` extends `Field.Control`, so it participates in labeling and validation with zero wiring — clicking the label focuses it, and the description joins its `aria-describedby`. */
 export const WrapsInput: Story = {
+  tags: ['highlight'],
   render: () => (
     <Field.Root className={theme.FieldRoot}>
       <Field.Label className={theme.FieldLabel}>API key</Field.Label>
@@ -535,6 +546,7 @@ function WrapsSelectExample() {
 
 /** Any Base UI control registers with the surrounding field automatically — here a Select. Because the trigger is a `<button>`, the label uses `nativeLabel={false}` with a `<div>` so clicks and `:hover` don't leak into it (#3723); the field links it via `aria-labelledby` instead. */
 export const WrapsSelect: Story = {
+  tags: ['highlight'],
   render: () => <WrapsSelectExample />,
   play: async ({ canvas, canvasElement, userEvent }) => {
     const body = within(canvasElement.ownerDocument.body);
@@ -588,6 +600,7 @@ function WrapsCheckboxExample() {
 
 /** A checkbox wrapped implicitly by `Field.Label` (#2036): the enclosing label names it, `required` feeds `valueMissing`, and checking it clears the error after a failed submit. */
 export const WrapsCheckbox: Story = {
+  tags: ['highlight'],
   render: () => <WrapsCheckboxExample />,
   play: async ({ canvas, userEvent }) => {
     const checkbox = canvas.getByRole('checkbox', { name: 'Accept the terms' });
@@ -606,6 +619,7 @@ export const WrapsCheckbox: Story = {
 
 /** The sanctioned custom-control path (#1996): `Field.Control render={<textarea />}`. The state machine still runs — typing sets `data-dirty`/`data-filled`, blurring sets `data-touched`. With the default `onSubmit` mode and no surrounding `Form`, validity stays pristine: neither `data-valid` nor `data-invalid` is present. */
 export const WrapsCustomTextarea: Story = {
+  tags: ['highlight'],
   render: () => (
     <Field.Root className={theme.FieldRoot}>
       <Field.Label className={theme.FieldLabel}>Feedback</Field.Label>
@@ -643,6 +657,7 @@ export const WrapsCustomTextarea: Story = {
 
 /** Every interaction state is a data-attribute on every part — the badges below light up purely via CSS on `Field.Root`'s attributes. The play function drives the whole machine: pristine (neither `data-valid` nor `data-invalid`), focused, dirty + filled, invalid after clearing, valid after retyping, touched after blur. */
 export const StateAttributesStyling: Story = {
+  tags: ['highlight'],
   render: () => (
     <Field.Root
       name="displayName"
@@ -730,6 +745,7 @@ function ServerErrorExample() {
 
 /** Server-side errors: pass `errors` (keyed by field `name`) to `Form` after submission — the matching field turns invalid and a children-less `Field.Error` renders the message. The entry auto-clears as soon as the user edits the field (#3136 removed `onClearErrors`). */
 export const ServerErrorDisplay: Story = {
+  tags: ['highlight'],
   render: () => <ServerErrorExample />,
   play: async ({ canvas, userEvent }) => {
     const input = canvas.getByLabelText('Email');
@@ -780,6 +796,7 @@ function ControlledFieldExample() {
 
 /** The form-library adapter surface (#2950): `invalid`, `touched`, and `dirty` become controlled props (mirroring React Hook Form / TanStack Form state), and `Field.Error match={boolean}` delegates error visibility. App-set invalidity survives `disabled` — only `aria-invalid` is withheld from disabled controls (#5116). */
 export const ExternalLibraryControlled: Story = {
+  tags: ['highlight'],
   render: () => <ControlledFieldExample />,
   play: async ({ canvas, userEvent }) => {
     const input = canvas.getByLabelText('Handle');
@@ -804,6 +821,7 @@ export const ExternalLibraryControlled: Story = {
 
 /** `Field.Error` supports the standard transition-status attributes (`data-starting-style`/`data-ending-style`, #3939) and keeps the last rendered message during the exit transition, so text doesn't vanish mid-fade. */
 export const ErrorTransitionAnimation: Story = {
+  tags: ['animation'],
   render: () => (
     <Field.Root validationMode="onChange" className={theme.FieldRoot}>
       <Field.Label className={theme.FieldLabel}>Project name</Field.Label>
@@ -842,7 +860,7 @@ export const ErrorTransitionAnimation: Story = {
  * research/d-real-world-usage/field/ranked.json #1).
  */
 export const RealWorldFlatPropWrapper: Story = {
-  tags: ['recreation'],
+  tags: ['recreation', 'examples'],
   render: () => <FlatPropFieldExample />,
   play: async ({ canvas, userEvent }) => {
     const fullName = canvas.getByLabelText('Full name');
@@ -871,7 +889,7 @@ export const RealWorldFlatPropWrapper: Story = {
  * code-ok, research/d-real-world-usage/field/ranked.json #6).
  */
 export const RealWorldGridLayout: Story = {
-  tags: ['recreation'],
+  tags: ['recreation', 'examples'],
   render: () => <GridLayoutFieldExample />,
   play: async ({ canvas, userEvent }) => {
     const input = canvas.getByLabelText('Search the docs');

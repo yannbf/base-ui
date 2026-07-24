@@ -58,6 +58,7 @@ type Story = StoryObj<typeof meta>;
 
 /** The docs hero demo: a standalone favorite/star-style toggle with an icon that swaps on press. */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => (
     <Toggle
       aria-label="Favorite"
@@ -82,6 +83,7 @@ export const Hero: Story = {
 
 /** Uncontrolled: `defaultPressed` seeds the initial state; clicking flips `aria-pressed` and `data-pressed`. */
 export const UncontrolledPressed: Story = {
+  tags: ['highlight'],
   render: () => (
     <div className="ToggleDemoRow">
       <Toggle aria-label="Bold" defaultPressed={false} className={theme.ToggleRoot}>
@@ -129,6 +131,7 @@ function ControlledPressedExample() {
  * `onPressedChange` is wired here).
  */
 export const ControlledPressed: Story = {
+  tags: ['highlight'],
   render: () => <ControlledPressedExample />,
   play: async ({ canvas, userEvent }) => {
     const checkbox = canvas.getByRole('checkbox');
@@ -147,6 +150,7 @@ export const ControlledPressed: Story = {
  * `onPressedChange` never fires, matching `Toggle.test.tsx` "prop: disabled".
  */
 export const Disabled: Story = {
+  tags: ['api-ref'],
   render: () => {
     function DisabledExample() {
       const [pressedCount, setPressedCount] = React.useState(0);
@@ -200,6 +204,7 @@ function CancelPressChangeExample() {
  * canceled".
  */
 export const CancelPressChange: Story = {
+  tags: ['highlight'],
   render: () => <CancelPressChangeExample />,
   play: async ({ canvas, userEvent }) => {
     const toggle = canvas.getByRole('button', { name: 'Locked toggle' });
@@ -252,6 +257,7 @@ function InsideToggleGroupExample() {
  * covers the same visual archetype with a play function.)
  */
 export const InsideToggleGroup: Story = {
+  tags: ['highlight'],
   render: () => <InsideToggleGroupExample />,
   play: async ({ canvas, userEvent }) => {
     const bold = canvas.getByRole('button', { name: 'Bold (vetoes the group)' });

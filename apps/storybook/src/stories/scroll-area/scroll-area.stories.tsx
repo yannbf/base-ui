@@ -50,6 +50,7 @@ const paragraphs = [
 
 /** The docs hero demo: a fixed-height panel of long text content with a single vertical scrollbar whose opacity is gated on `[data-hovering]`/`[data-scrolling]`. `Corner` is composed per the canonical anatomy, but only renders once both axes overflow simultaneously — here it stays absent. */
 export const Hero: Story = {
+  tags: ['showcase', 'base'],
   render: () => (
     <ScrollArea.Root className={theme.ScrollAreaRoot}>
       <ScrollArea.Viewport className={theme.ScrollAreaViewport}>
@@ -78,6 +79,7 @@ export const Hero: Story = {
 
 /** A single horizontal `Scrollbar` over a wide row of cards. `orientation="horizontal"` is the only way to get a horizontal scrollbar — there is no `orientation="both"`; render two `Scrollbar` elements for that (see `BothAxesWithCorner`). */
 export const HorizontalOnly: Story = {
+  tags: ['api-ref'],
   render: () => (
     <ScrollArea.Root className={theme.ScrollAreaRoot}>
       <ScrollArea.Viewport className={theme.ScrollAreaViewport}>
@@ -105,6 +107,7 @@ export const HorizontalOnly: Story = {
 
 /** Recreation of the docs "both" demo: a 100-item grid overflows on both axes, so a vertical and a horizontal `Scrollbar` are both rendered, plus `ScrollArea.Corner` — which only renders once both axes overflow simultaneously (`hiddenState.corner`), preventing the two scrollbar tracks from intersecting. */
 export const BothAxesWithCorner: Story = {
+  tags: ['highlight', 'base'],
   render: () => (
     <ScrollArea.Root className="ScrollAreaSquare">
       <ScrollArea.Viewport className={theme.ScrollAreaViewport}>
@@ -186,6 +189,7 @@ function OverflowDataAttributeExample() {
 
 /** `data-overflow-y-start`/`-y-end` (and their `x` counterparts) appear on the Viewport only once the user has scrolled far enough away from that specific edge (gated by `overflowEdgeThreshold`, default `0`). These — plus the matching `--scroll-area-overflow-{x,y}-{start,end}` CSS vars — are the primary styling surface for gradient scroll-fade masks; they are honest, programmatically-derived measurements, not decorative-only attributes. */
 export const OverflowEdgeStyling: Story = {
+  tags: ['highlight'],
   render: () => <OverflowDataAttributeExample />,
   play: async ({ canvasElement }) => {
     const viewport = canvasElement.querySelector(
@@ -216,6 +220,7 @@ export const OverflowEdgeStyling: Story = {
  * always-visible variant (`opacity: 1` unconditionally) side by side.
  */
 export const AlwaysVisibleScrollbars: Story = {
+  tags: ['highlight'],
   render: () => (
     <div className="Legend2Up">
       <div>
@@ -278,6 +283,7 @@ export const AlwaysVisibleScrollbars: Story = {
  * `[data-scrolling]` on the horizontal Scrollbar.
  */
 export const OnScrollVisibility: Story = {
+  tags: ['highlight'],
   render: () => (
     <ScrollArea.Root className="ScrollAreaSquare">
       <ScrollArea.Viewport className={theme.ScrollAreaViewport} data-testid="onscroll-viewport">
@@ -336,6 +342,7 @@ export const OnScrollVisibility: Story = {
 
 /** Recreation of the docs "scroll fade" demo: a `mask-image` gradient on the Viewport, sized from `--scroll-area-overflow-y-start`/`-end` (with the documented `, 40px` SSR fallback for the `-end` var, which is absent until the first measurement effect runs). */
 export const GradientScrollFade: Story = {
+  tags: ['highlight', 'base'],
   render: () => (
     <ScrollArea.Root className={theme.ScrollAreaRoot}>
       <ScrollArea.Viewport className={theme.ScrollAreaViewportFade} data-testid="fade-viewport">
@@ -380,6 +387,7 @@ export const GradientScrollFade: Story = {
  * mechanism per popup.
  */
 export const InsideAPopup: Story = {
+  tags: ['highlight'],
   render: () => (
     <Menu.Root>
       <Menu.Trigger className={theme.MenuTrigger}>Choose an item</Menu.Trigger>
@@ -429,6 +437,7 @@ export const InsideAPopup: Story = {
  * `ScrollAreaThumb.test.tsx`'s own RTL-parametrized drag tests.
  */
 export const RTL: Story = {
+  tags: ['api-ref'],
   render: () => (
     <div dir="rtl">
       <DirectionProvider direction="rtl">
