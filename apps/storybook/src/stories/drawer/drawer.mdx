@@ -263,12 +263,14 @@ See "The swipe styling contract" above for the full CSS-variable table (the gest
 - Don't style the nested-drawer stack with Dialog's counters — Drawer uses its own (`--nested-drawers`, not `--nested-dialogs`); dialogs opened inside a drawer deliberately don't join that count ([#4493](https://github.com/mui/base-ui/pull/4493)).
 - Don't carry over vaul interop hacks (`pointer-events` workarounds on `<body>`) — the native Drawer doesn't need them.
 
+{/* BEGIN: brand */}
 ## Brand guidelines
 
 **Do**
 
 - Float it: overlay shadow plus the sheet radius rung (16px). (BR-06, BR-11)
 - Run the slide transition 150–300ms ease-in via the motion tokens. (BR-12)
+{/* END: brand */}
 
 ## In the wild
 

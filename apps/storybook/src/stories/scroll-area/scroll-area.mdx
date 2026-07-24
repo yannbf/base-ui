@@ -168,11 +168,13 @@ Pattern: none — there is no dedicated WAI-ARIA APG pattern for "custom scrollb
 - Don't expect `Select.ScrollUpArrow`/`ScrollDownArrow` to combine with `ScrollArea.*` inside the same popup — they don't share any composition point; pick one scroll mechanism per popup.
 - Don't reach for Scroll Area to virtualize a huge list — it decorates a real, fully-rendered overflowing container, it does not manage which items exist in the DOM.
 
+{/* BEGIN: brand */}
 ## Brand guidelines
 
 **Do**
 
 - Keep scrollbar chrome neutral — thumbs and tracks never take accent color. (BR-01)
+{/* END: brand */}
 
 ## In the wild
 

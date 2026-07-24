@@ -94,6 +94,7 @@ Identical to `Field.Control`'s (brief §8) — no CSS variables of Input's own:
 - Don't expect data attributes (`data-touched`/`data-dirty`/etc.) to appear on a standalone `<Input />` — they only populate inside `Field.Root`.
 - Don't reach for a `render`-based tag swap on `Input` — no precedent exists for it; use `Field.Control render={<textarea />}` instead, the maintainer-confirmed custom-control path.
 
+{/* BEGIN: brand */}
 ## Brand guidelines
 
 **Do**
@@ -103,6 +104,7 @@ Identical to `Field.Control`'s (brief §8) — no CSS variables of Input's own:
 **Don't**
 
 - Don't mark the valid state green — green is never ink; valid stays neutral. (BR-02)
+{/* END: brand */}
 
 ## In the wild
 

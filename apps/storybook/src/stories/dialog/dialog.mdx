@@ -261,6 +261,7 @@ CSS transitions hook onto `[data-starting-style]`/`[data-ending-style]` on Popup
 - Don't expect an initially open dialog to server-render — portal content mounts client-side ([#3326](https://github.com/mui/base-ui/issues/3326), open).
 - Don't rely on `onClick` isolation across the portal — React portals propagate events through the React tree, so clicks inside the popup reach wrapper handlers; stop propagation on the popup if needed ([#2312](https://github.com/mui/base-ui/issues/2312)).
 
+{/* BEGIN: brand */}
 ## Brand guidelines
 
 **Do**
@@ -268,6 +269,7 @@ CSS transitions hook onto `[data-starting-style]`/`[data-ending-style]` on Popup
 - Float it: overlay shadow plus the sheet radius rung (16px). (BR-06, BR-11)
 - Set the title in the display face and size it — same ink as body text. (BR-07)
 - Run open/close transitions 150–300ms ease-in via the motion tokens. (BR-12)
+{/* END: brand */}
 
 ## In the wild
 

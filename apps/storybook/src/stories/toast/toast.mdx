@@ -249,6 +249,7 @@ There is no arrow-key navigation between toasts — tab-based only, no roving fo
 - Don't recreate toast objects on every render if you need stable stacking — the store keys metadata by id, but object-identity churn caused regressions historically ([#3922](https://github.com/mui/base-ui/pull/3922)).
 - Don't add a `focus` option or otherwise move focus to a newly opened toast — rejected by design; use AlertDialog when the user must respond ([#4533](https://github.com/mui/base-ui/pull/4533)).
 
+{/* BEGIN: brand */}
 ## Brand guidelines
 
 **Do**
@@ -259,6 +260,7 @@ There is no arrow-key navigation between toasts — tab-based only, no roving fo
 **Don't**
 
 - Don't color success/info/warning states — status stays neutral pending status tokens. (DS-03)
+{/* END: brand */}
 
 ## In the wild
 
