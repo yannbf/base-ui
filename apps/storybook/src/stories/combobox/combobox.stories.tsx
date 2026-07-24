@@ -1074,9 +1074,16 @@ export const InlineInsideDialog: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Pick a fruit' }));
     const reopenedDialog = await body.findByRole('dialog');
     await expect(within(reopenedDialog).getByRole('combobox')).toHaveValue('');
-    await expect(
-      await within(reopenedDialog).findByRole('option', { name: 'Apple' }),
-    ).toBeVisible();
+    // The reopened Dialog.Popup mounts with the theme's enter transition
+    // (data-starting-style opacity 0 -> 1); findByRole resolves on the very
+    // next DOM mutation, often before that transition has advanced at all,
+    // so wait for the popup (and its descendants) to actually be visible
+    // rather than asserting immediately.
+    await waitFor(async () => {
+      expect(
+        await within(reopenedDialog).findByRole('option', { name: 'Apple' }),
+      ).toBeVisible();
+    });
   },
 };
 

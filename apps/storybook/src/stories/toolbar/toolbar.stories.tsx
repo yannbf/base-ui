@@ -124,7 +124,14 @@ export const ToolbarButtonAsMenuTrigger: Story = {
 
     await userEvent.click(trigger);
     const menu = await body.findByRole('menu');
-    await expect(menu).toBeVisible();
+    // The theme's Menu.Popup mounts with an enter transition
+    // (data-starting-style opacity 0 -> 1); findByRole resolves on the next
+    // DOM mutation, often before that transition has advanced at all, so
+    // wait for the popup to actually be visible rather than asserting
+    // immediately.
+    await waitFor(() => {
+      expect(menu).toBeVisible();
+    });
     await waitFor(async () => {
       await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     });
